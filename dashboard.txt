@@ -1,0 +1,343 @@
+# Personal OS - Dashboard Specification V1
+
+## Core Philosophy
+
+The Dashboard is not an analytics page.
+
+The Dashboard is a command center.
+
+When opening the app, the first thing visible should be:
+
+"What should I do next?"
+
+Analytics come later.
+
+---
+
+# Dashboard Layout
+
+1. Today's Queue
+2. Current Focus
+3. Quick Stats
+4. Recent Activity
+5. Analytics
+
+---
+
+# Section 1 - Today's Queue
+
+This is the primary section.
+
+It appears at the very top.
+
+All actionable checklist items from across the system are collected here.
+
+Sources:
+
+* Skills
+* Projects
+* Goals
+* Workouts
+* Health Tasks
+
+---
+
+## Queue Item Structure
+
+Title
+
+Source
+
+Optional Time
+
+Status
+
+---
+
+Example
+
+09:00
+□ Learn Playwright Selectors
+Skill: Playwright
+
+10:30
+□ Build Login Automation
+Project: Automation Dashboard
+
+18:00
+□ Push Workout
+Fitness
+
+20:30
+□ Hit Protein Goal
+Health
+
+---
+
+# Queue Sorting Rules
+
+Priority 1
+
+Scheduled Tasks
+
+Sorted by time ascending.
+
+Example
+
+09:00
+
+10:30
+
+18:00
+
+20:30
+
+---
+
+Priority 2
+
+Unscheduled Tasks
+
+Sorted alphabetically.
+
+Example
+
+□ Build Dashboard
+
+□ Learn Authentication
+
+□ Learn FastAPI
+
+□ Write Project Notes
+
+---
+
+Priority 3
+
+Everything Else
+
+Remaining checklist items.
+
+---
+
+# Scheduling
+
+Any checklist item may optionally contain:
+
+Scheduled Time
+
+Example
+
+□ Learn Playwright
+Time:
+09:00
+
+---
+
+Items without time remain unscheduled.
+
+---
+
+# Completion Behavior
+
+When completed:
+
+Item moves to:
+
+Completed Today
+
+at the bottom.
+
+---
+
+Example
+
+Completed Today
+
+✓ Learn Playwright Selectors
+
+✓ Push Workout
+
+✓ Log Weight
+
+---
+
+# Section 2 - Current Focus
+
+Shows active priorities.
+
+---
+
+## Current Skill
+
+Playwright
+
+Progress:
+45%
+
+Checklist:
+9/20
+
+---
+
+## Current Project
+
+Automation Dashboard
+
+Progress:
+62%
+
+Checklist:
+16/26
+
+---
+
+## Current Goal
+
+Become Automation Freelancer
+
+Progress:
+40%
+
+---
+
+# Section 3 - Quick Stats
+
+Simple metrics.
+
+---
+
+Health
+
+Calories:
+1850 / 2200
+
+Protein:
+120 / 150g
+
+---
+
+Fitness
+
+Workout Streak:
+7 Days
+
+---
+
+Learning
+
+Hours This Week:
+12.5
+
+---
+
+Projects
+
+Active:
+2
+
+Completed:
+5
+
+---
+
+# Section 4 - Recent Activity
+
+Most recent actions.
+
+Example
+
+Completed:
+Push Workout
+
+2 hours ago
+
+---
+
+Completed:
+Playwright Selectors
+
+3 hours ago
+
+---
+
+Added:
+New Project
+
+Yesterday
+
+---
+
+# Section 5 - Analytics
+
+Lower on page.
+
+Only visible after scrolling.
+
+---
+
+Charts
+
+Weight Trend
+
+Workout Consistency
+
+Learning Hours
+
+Project Completion
+
+Skill Progress
+
+---
+
+# Queue Generation Logic
+
+Generate Today's Queue from:
+
+Active Skills
+
+Active Projects
+
+Active Goals
+
+Today's Workout
+
+Health Tasks
+
+---
+
+Display Order
+
+1. Scheduled Checklist Items
+
+   * Time ascending
+
+2. Unscheduled Checklist Items
+
+   * Alphabetical order
+
+3. Remaining Tasks
+
+4. Completed Today
+
+---
+
+# Future Enhancement
+
+Daily Planning Mode
+
+At the beginning of the day:
+
+Select tasks from:
+
+Skills
+
+Projects
+
+Goals
+
+and add them to Today's Queue.
+
+This prevents overwhelming task lists.
+
+Not required for V1.

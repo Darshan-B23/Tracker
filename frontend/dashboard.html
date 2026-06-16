@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Personal OS</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Custom Brutalist Styling - Concrete + Pigment System */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@400;700;800&display=swap');
+
+    :root {
+      --bg-base: #ffffff;
+      --text-main: #31353c;
+      /* Concrete Black */
+      --border-light: #e8eceb;
+      /* Concrete White */
+      --shadow-color: #31353c;
+
+      /* Pigments */
+      --pigment-yellow: #c8a97e;
+      --pigment-red: #c26e60;
+      --pigment-purple: #8d7a8b;
+      --pigment-blue: #6e8ca0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      overflow-x: hidden;
+    }
+
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Static Brutal Block (No hover pop out for standard data) */
+    .brutal-block {
+      border: 2px solid var(--text-main);
+      background-color: var(--bg-base);
+    }
+
+    /* Interactive Brutal Block (Lifts on hover) */
+    .brutal-interactive {
+      border: 2px solid var(--text-main);
+      background-color: var(--bg-base);
+      transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .brutal-interactive:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 4px 4px 0px 0px var(--shadow-color);
+    }
+  </style>
+</head>
+
+<body class="selection:bg-[#e8eceb] p-4 sm:p-8 md:p-12 lg:p-16 flex justify-center">
+
+  <div class="w-full max-w-6xl relative">
+
+    <!-- System Coordinates / Metadata -->
+    <div class="flex justify-between items-start mb-8 text-[10px] font-mono uppercase tracking-widest text-[#9ca3af] relative z-50">
+      <div class="flex flex-col gap-1">
+        <span>SYS.DASHBOARD // OS</span>
+        <span id="current-date-display">--.--.--</span>
+      </div>
+      <!-- Navigation Dropdown -->
+      <div class="relative group">
+        <button class="p-2 flex items-center justify-center text-[#31353c] hover:bg-[#31353c] hover:text-white transition-colors border-2 border-[#31353c] bg-white cursor-pointer" aria-label="Menu">
+          <i data-lucide="menu" class="w-4 h-4"></i>
+        </button>
+        
+        <!-- Dropdown Content -->
+        <div class="absolute right-0 mt-2 w-48 bg-white border-2 border-[#31353c] shadow-[4px_4px_0px_0px_#31353c] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col">
+          <a href="/dashboard.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#6e8ca0] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
+          </a>
+          <a href="/goals.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#8d7a8b] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="target" class="w-4 h-4"></i> Goals
+          </a>
+          <a href="/projects.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c26e60] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="folder" class="w-4 h-4"></i> Projects
+          </a>
+          <a href="/skills.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c8a97e] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="brain" class="w-4 h-4"></i> Skills
+          </a>
+          <a href="/health.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c8a97e] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="activity" class="w-4 h-4"></i> Health
+          </a>
+          <a href="/fitness.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#6e8ca0] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="dumbbell" class="w-4 h-4"></i> Fitness
+          </a>
+          <a href="/analytics.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="bar-chart-2" class="w-4 h-4"></i> Analytics
+          </a>
+          <a href="/settings.html" class="px-4 py-3 text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="settings" class="w-4 h-4"></i> Settings
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="w-full">
+
+      <!-- 1. Today's Queue (Dominant) -->
+      <section class="mb-20">
+        <header class="mb-8 border-b-4 border-[#31353c] pb-4 flex justify-between items-end">
+          <h1 class="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-none">
+            Today's Queue
+          </h1>
+          <div
+            class="hidden md:flex items-center gap-2 text-[#9ca3af] font-mono text-[10px] uppercase tracking-widest mb-1">
+            <i data-lucide="list-todo" class="w-4 h-4"></i>
+            Active Roster
+          </div>
+        </header>
+
+        <div id="queue-container" class="flex flex-col">
+          <div
+            class="flex items-center gap-3 text-[#9ca3af] font-mono text-sm uppercase tracking-widest animate-pulse py-8">
+            <i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i>
+            Compiling Queue...
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Current Focus -->
+      <section class="mb-20">
+        <header class="mb-8 flex items-center gap-3">
+          <div class="w-3 h-3 bg-[#31353c]"></div>
+          <h2 class="text-2xl font-bold tracking-tighter uppercase">Current Focus</h2>
+        </header>
+
+        <div id="focus-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="p-6 border-2 border-[#e8eceb] text-[#9ca3af] font-mono text-xs uppercase tracking-widest">
+            Awaiting Telemetry...
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Recent Activity & Analytics Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8">
+
+        <!-- Recent Activity -->
+        <section class="lg:col-span-1">
+          <header class="mb-6 flex items-center gap-3">
+            <div class="w-3 h-3 bg-[#e8eceb] border border-[#31353c]"></div>
+            <h2 class="text-xl font-bold tracking-tighter uppercase">Recent Activity</h2>
+          </header>
+
+          <div class="flex flex-col border-t-2 border-[#31353c]">
+            <div
+              class="py-4 border-b-2 border-dashed border-[#e8eceb] flex flex-col gap-1 hover:bg-[#f9fafb] transition-colors px-2 -mx-2">
+              <span class="font-bold text-sm text-[#31353c]">Logged 45 min Learning Session</span>
+              <span class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] flex items-center gap-2">
+                <i data-lucide="clock" class="w-3 h-3"></i> Just now
+              </span>
+            </div>
+            <div
+              class="py-4 border-b-2 border-dashed border-[#e8eceb] flex flex-col gap-1 hover:bg-[#f9fafb] transition-colors px-2 -mx-2">
+              <span class="font-bold text-sm text-[#31353c]">Completed Task: Setup Auth</span>
+              <span class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] flex items-center gap-2">
+                <i data-lucide="clock" class="w-3 h-3"></i> 2 hours ago
+              </span>
+            </div>
+            <div
+              class="py-4 border-b-2 border-dashed border-[#e8eceb] flex flex-col gap-1 hover:bg-[#f9fafb] transition-colors px-2 -mx-2">
+              <span class="font-bold text-sm text-[#31353c]">System Reboot Sequence</span>
+              <span class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] flex items-center gap-2">
+                <i data-lucide="clock" class="w-3 h-3"></i> 14 hours ago
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Analytics -->
+        <section class="lg:col-span-2">
+          <header class="mb-6 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-3 h-3 bg-[#9ca3af]"></div>
+              <h2 class="text-xl font-bold tracking-tighter uppercase">Daily Analytics</h2>
+            </div>
+            <a href="/analytics"
+              class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] hover:text-[#31353c] flex items-center gap-1 transition-colors">
+              Full Report <i data-lucide="arrow-right" class="w-3 h-3"></i>
+            </a>
+          </header>
+
+          <div id="stats-container" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <!-- Populated by JS -->
+          </div>
+        </section>
+
+      </div>
+
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+  <script>
+    // Initialize Date & Icons
+    document.getElementById('current-date-display').textContent = new Date().toLocaleDateString('en-GB').replace(/\//g, '.');
+    lucide.createIcons();
+
+    document.addEventListener('DOMContentLoaded', loadDashboardData);
+
+    async function loadDashboardData() {
+      try {
+        const [queueRes, focusRes, statsRes] = await Promise.all([
+          fetch('http://localhost:3000/api/dashboard/queue'),
+          fetch('http://localhost:3000/api/dashboard/focus'),
+          fetch('http://localhost:3000/api/dashboard/stats')
+        ]);
+
+        if (queueRes.ok) renderQueue(await queueRes.json());
+        if (focusRes.ok) renderFocus(await focusRes.json());
+        if (statsRes.ok) renderStats(await statsRes.json());
+      } catch (e) {
+        console.error("Failed to load dashboard data via API. Showing fallback error state.", e);
+        showErrorStates();
+      }
+    }
+
+    function showErrorStates() {
+      const errorHtml = `
+        <div class="p-6 border-2 border-[var(--pigment-red)] bg-[#fdf5f4] text-[var(--pigment-red)] font-mono text-xs uppercase tracking-widest">
+          ERR: Connection to localhost:3000 refused.
+        </div>
+      `;
+      document.getElementById('queue-container').innerHTML = errorHtml;
+      document.getElementById('focus-container').innerHTML = errorHtml;
+      document.getElementById('stats-container').innerHTML = errorHtml;
+    }
+
+    // --- RENDER 1: QUEUE ---
+    function generateCheckboxHtml(item, isCompleted = false) {
+      return `
+        <label class="group flex items-start gap-4 p-4 border-2 border-transparent hover:border-[#e8eceb] cursor-pointer transition-colors bg-white">
+          <div class="relative flex items-center justify-center mt-1">
+            <input
+              type="checkbox"
+              class="peer sr-only"
+              ${isCompleted ? 'checked' : ''}
+              onchange="handleCheckboxChange(${item.id}, this.checked)"
+            />
+            <div class="w-6 h-6 border-2 flex items-center justify-center transition-colors duration-200 ${isCompleted ? 'bg-[#31353c] border-[#31353c]' : 'border-[#31353c] bg-transparent group-hover:bg-[#f9fafb]'
+        }">
+              <i data-lucide="check" class="w-4 h-4 text-white transition-opacity ${isCompleted ? 'opacity-100' : 'opacity-0'}"></i>
+            </div>
+          </div>
+          <div class="flex flex-col flex-1">
+            ${item.scheduled_time && !isCompleted ? `<span class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] mb-1">${item.scheduled_time}</span>` : ''}
+            <span class="text-xl md:text-2xl font-bold tracking-tight transition-all duration-200 ${isCompleted ? 'text-[#9ca3af] line-through' : 'text-[#31353c]'
+        }">
+              ${item.title}
+            </span>
+            ${item.source_type ? `<span class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] mt-2 flex items-center gap-1">> SRC: ${item.source_type}</span>` : ''}
+          </div>
+        </label>
+      `;
+    }
+
+    function renderQueue(queue) {
+      const container = document.getElementById('queue-container');
+      let html = '';
+
+      if (!queue.scheduled?.length && !queue.unscheduled?.length) {
+        html += `
+          <div class="py-12 border-2 border-dashed border-[#e8eceb] flex flex-col items-center justify-center text-[#9ca3af]">
+            <i data-lucide="check-circle-2" class="w-8 h-8 mb-4 opacity-50"></i>
+            <p class="font-mono text-xs uppercase tracking-widest">Queue is clear.</p>
+          </div>
+        `;
+      } else {
+        const allItems = [...(queue.scheduled || []), ...(queue.unscheduled || [])];
+        html += `<div class="flex flex-col gap-1 border-l-2 border-[#31353c] pl-4">`;
+        allItems.forEach(item => {
+          html += generateCheckboxHtml(item);
+        });
+        html += `</div>`;
+      }
+
+      if (queue.completedToday?.length > 0) {
+        html += `
+          <div class="mt-12">
+            <h2 class="font-mono text-xs uppercase tracking-widest text-[#9ca3af] mb-4 flex items-center gap-2">
+              <i data-lucide="archive" class="w-4 h-4"></i> Completed Archive
+            </h2>
+            <div class="flex flex-col gap-1 border-l-2 border-[#e8eceb] pl-4 opacity-70">
+              ${queue.completedToday.map(item => generateCheckboxHtml(item, true)).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+      lucide.createIcons(); // Re-init icons for newly added HTML
+    }
+
+    // --- RENDER 2: FOCUS ---
+    function generateProgressBar(progress, hexColor) {
+      return `
+        <div class="w-full h-2 border-2 border-[#31353c] bg-white mt-4 overflow-hidden">
+          <div class="h-full transition-all duration-500" style="width: ${Math.min(100, Math.max(0, progress))}%; background-color: ${hexColor}"></div>
+        </div>
+      `;
+    }
+
+    function renderFocus(focus) {
+      const container = document.getElementById('focus-container');
+      let html = '';
+
+      if (focus.skill) {
+        html += `
+          <div class="brutal-interactive p-6 flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center gap-2 mb-4 font-mono text-[10px] uppercase tracking-widest text-[#9ca3af]">
+                <div class="w-2 h-2 bg-[var(--pigment-yellow)]"></div>
+                Learning
+              </div>
+              <p class="text-xl font-bold tracking-tight mb-4 group-hover:text-[var(--pigment-yellow)] transition-colors">${focus.skill.name}</p>
+            </div>
+            <div>
+              <div class="flex justify-between font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold">
+                <span>${focus.skill.progress}%</span>
+                <span>${focus.skill.completed}/${focus.skill.total}</span>
+              </div>
+              ${generateProgressBar(focus.skill.progress, 'var(--pigment-yellow)')}
+            </div>
+          </div>
+        `;
+      }
+
+      if (focus.project) {
+        html += `
+          <div class="brutal-interactive p-6 flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center gap-2 mb-4 font-mono text-[10px] uppercase tracking-widest text-[#9ca3af]">
+                <div class="w-2 h-2 bg-[var(--pigment-red)]"></div>
+                Building
+              </div>
+              <p class="text-xl font-bold tracking-tight mb-4 group-hover:text-[var(--pigment-red)] transition-colors">${focus.project.name}</p>
+            </div>
+            <div>
+              <div class="flex justify-between font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold">
+                <span>${focus.project.progress}%</span>
+                <span>${focus.project.completed}/${focus.project.total}</span>
+              </div>
+              ${generateProgressBar(focus.project.progress, 'var(--pigment-red)')}
+            </div>
+          </div>
+        `;
+      }
+
+      if (focus.goal) {
+        html += `
+          <div class="brutal-interactive p-6 cursor-pointer group flex flex-col justify-between" onclick="window.location.href='/goals.html?id=${focus.goal.id}'">
+            <div>
+              <div class="flex justify-between items-start mb-4">
+                <div class="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-[#9ca3af]">
+                  <div class="w-2 h-2 bg-[var(--pigment-purple)]"></div>
+                  Top Goal
+                </div>
+                <span class="px-2 py-1 text-[9px] font-bold uppercase tracking-widest bg-[#31353c] text-white">${focus.goal.priority}</span>
+              </div>
+              <h3 class="text-xl font-bold tracking-tight mb-2 group-hover:text-[var(--pigment-purple)] transition-colors">${focus.goal.title}</h3>
+              <p class="text-[#9ca3af] text-sm mb-6 truncate">${focus.goal.description || ''}</p>
+            </div>
+            <div>
+              <div class="flex justify-between font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold">
+                <span>${focus.goal.progress}%</span>
+                <span>${focus.goal.completed}/${focus.goal.total}</span>
+              </div>
+              ${generateProgressBar(focus.goal.progress, 'var(--pigment-purple)')}
+            </div>
+          </div>
+        `;
+      } else {
+        html += `
+          <div class="brutal-block p-6 flex flex-col justify-center items-center text-[#9ca3af] border-dashed">
+             <i data-lucide="target" class="w-6 h-6 mb-2 opacity-50"></i>
+             <p class="font-mono text-[10px] uppercase tracking-widest">No Active Goals</p>
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+      lucide.createIcons();
+    }
+
+    // --- RENDER 3: STATS ---
+    function renderStatBlock(label, value, suffix = '', accentColor = '#e8eceb') {
+      return `
+        <div class="brutal-block p-4 flex flex-col justify-between min-h-[120px] relative overflow-hidden bg-white">
+          <div class="absolute -right-4 -top-4 w-12 h-12 opacity-20 rounded-full" style="background-color: ${accentColor}"></div>
+          <h3 class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af]">${label}</h3>
+          <div class="flex items-baseline gap-1 z-10">
+            <span class="text-3xl font-black tracking-tighter text-[#31353c]">${value || 0}</span>
+            ${suffix ? `<span class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] font-bold">${suffix}</span>` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderStats(stats) {
+      const container = document.getElementById('stats-container');
+      let html = '';
+
+      if (stats.health) {
+        html += renderStatBlock('Calories', `${stats.health.calories.current}`, `/${stats.health.calories.target}`, 'var(--pigment-yellow)');
+        html += renderStatBlock('Protein', `${stats.health.protein.current}`, `/${stats.health.protein.target}G`, 'var(--pigment-yellow)');
+      }
+
+      if (stats.projects) {
+        html += renderStatBlock('Actv. Proj', stats.projects.active, '', 'var(--pigment-red)');
+        html += renderStatBlock('Done Proj', stats.projects.completed, '', 'var(--pigment-red)');
+      }
+
+      if (stats.fitness) {
+        html += renderStatBlock('Workout', stats.fitness.workout_today, '', 'var(--pigment-blue)');
+        html += renderStatBlock('Streak', stats.fitness.streak, 'DAYS', 'var(--pigment-blue)');
+      }
+
+      container.innerHTML = html;
+    }
+
+    async function handleCheckboxChange(id, checked) {
+      try {
+        await fetch(`http://localhost:3000/api/dashboard/checklists/items/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ completed: checked })
+        });
+        loadDashboardData(); // Reload UI to move completed items
+      } catch (e) {
+        console.error(`Failed to toggle item ${id}`, e);
+        // Optional: Implement a fallback UI reversion if fetch fails here
+      }
+    }
+  </script>
+</body>
+
+</html>

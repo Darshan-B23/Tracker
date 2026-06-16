@@ -1,0 +1,568 @@
+# Personal OS - Health & Nutrition System Specification V1
+
+## Purpose
+
+The Health System exists to track:
+
+* Nutrition
+* Body composition
+* Weight trends
+* Health habits
+* Long-term physical progress
+
+This is NOT:
+
+* A calorie calculator
+* A diet planner
+* A meal delivery system
+* A medical platform
+
+The focus is:
+
+* What am I eating?
+* Am I hitting my nutrition goals?
+* Is my body moving in the right direction?
+* Am I staying consistent?
+
+---
+
+# System Structure
+
+Health
+│
+├── Daily Nutrition Logs
+├── Recipe Library
+├── Body Metrics
+├── Health Goals
+└── Health Analytics
+
+---
+
+# Daily Nutrition Logs
+
+Purpose:
+
+Track daily nutrition intake.
+
+---
+
+## Fields
+
+Date
+
+Calories
+
+Protein
+
+Carbs
+
+Fat
+
+Fiber
+
+Water
+
+Notes
+
+Created At
+
+Updated At
+
+---
+
+## Date Behavior
+
+Date defaults to current day.
+
+Created At generated automatically.
+
+Updated At generated automatically.
+
+No manual timestamp management.
+
+---
+
+## Daily Notes
+
+Optional notes field.
+
+Examples:
+
+"Felt low energy"
+
+"Ate outside"
+
+"High protein day"
+
+"Skipped breakfast"
+
+---
+
+# Nutrition Targets
+
+User can define personal targets.
+
+Examples:
+
+Calories:
+2200
+
+Protein:
+150g
+
+Water:
+3L
+
+Fiber:
+30g
+
+---
+
+# Progress Tracking
+
+System automatically calculates:
+
+Calories Consumed / Target
+
+Protein Consumed / Target
+
+Water Consumed / Target
+
+Fiber Consumed / Target
+
+---
+
+Example
+
+Protein
+
+120g / 150g
+
+80%
+
+---
+
+# Recipe Library
+
+Purpose:
+
+Store reusable meals and recipes.
+
+---
+
+## Fields
+
+Recipe Name
+
+Description
+
+Ingredients
+
+Instructions
+
+Calories
+
+Protein
+
+Carbs
+
+Fat
+
+Fiber
+
+Tags
+
+Created At
+
+Updated At
+
+---
+
+## Example
+
+High Protein Paneer Bowl
+
+Calories:
+650
+
+Protein:
+45g
+
+Carbs:
+50g
+
+Fat:
+20g
+
+Fiber:
+8g
+
+---
+
+# Recipe Tags
+
+Breakfast
+
+Lunch
+
+Dinner
+
+Snack
+
+High Protein
+
+Vegetarian
+
+Cutting
+
+Bulking
+
+Quick Meal
+
+Meal Prep
+
+Custom Tags
+
+---
+
+# Quick Add From Recipe
+
+User should be able to:
+
+Select Recipe
+
+↓
+
+Add Nutrition Values To Today's Log
+
+Automatically
+
+This avoids entering nutrition repeatedly.
+
+---
+
+# Body Metrics
+
+Purpose:
+
+Track physical measurements.
+
+---
+
+## Fields
+
+Date
+
+Weight
+
+Body Fat %
+
+Waist
+
+Chest
+
+Arms
+
+Thighs
+
+Neck
+
+Notes
+
+Created At
+
+Updated At
+
+---
+
+## Optional Measurements
+
+User may choose which measurements to track.
+
+No mandatory fields except date.
+
+---
+
+# Weight Tracking
+
+Primary metric.
+
+---
+
+Example
+
+14 Jun
+
+84.7 kg
+
+21 Jun
+
+84.0 kg
+
+28 Jun
+
+83.2 kg
+
+---
+
+# Health Goals
+
+Purpose:
+
+Track long-term health objectives.
+
+---
+
+## Examples
+
+Lose 10kg
+
+Reach 15% Body Fat
+
+Gain 5kg Muscle
+
+Maintain Weight
+
+Drink 3L Water Daily
+
+Hit Protein Goal For 30 Days
+
+---
+
+## Fields
+
+Goal Name
+
+Goal Type
+
+Target Value
+
+Current Value
+
+Progress
+
+Created At
+
+Completed At
+
+Status
+
+---
+
+## Goal Status
+
+Active
+
+Completed
+
+Paused
+
+Cancelled
+
+---
+
+# Health Dashboard
+
+Display
+
+Today's Calories
+
+Today's Protein
+
+Today's Water
+
+Current Weight
+
+Body Fat %
+
+Current Goal
+
+Nutrition Target Completion
+
+---
+
+# Analytics
+
+## Nutrition Analytics
+
+Calories Over Time
+
+Protein Over Time
+
+Carbs Over Time
+
+Fat Over Time
+
+Fiber Over Time
+
+Water Over Time
+
+---
+
+## Body Analytics
+
+Weight Trend
+
+Body Fat Trend
+
+Waist Trend
+
+Measurement Trends
+
+---
+
+## Consistency Metrics
+
+Nutrition Logs This Week
+
+Nutrition Logs This Month
+
+Protein Goal Success %
+
+Water Goal Success %
+
+Nutrition Consistency %
+
+---
+
+## Goal Analytics
+
+Goals Active
+
+Goals Completed
+
+Average Goal Completion Time
+
+Current Progress
+
+---
+
+# Dashboard Cards
+
+Example
+
+Today's Nutrition
+
+Calories:
+1950 / 2200
+
+Protein:
+145 / 150g
+
+Water:
+2.5 / 3L
+
+---
+
+Body Metrics
+
+Weight:
+84.7 kg
+
+Body Fat:
+28%
+
+Trend:
+↓ 1.3 kg This Month
+
+---
+
+# Automation Rules
+
+When Nutrition Log Created
+
+Created At = Current Date
+
+---
+
+When Nutrition Log Updated
+
+Updated At = Current Date
+
+---
+
+When Body Metric Added
+
+Analytics Recalculate
+
+Trend Charts Update
+
+---
+
+When Goal Completed
+
+Completed At = Current Date
+
+Status = Completed
+
+---
+
+# Future Features (Not V1)
+
+Meal Planner
+
+Shopping Lists
+
+Macro Recommendations
+
+Barcode Scanner
+
+Food Database APIs
+
+Supplement Tracking
+
+Medical Records
+
+Blood Test Tracking
+
+Sleep Tracking
+
+Wearable Integration
+
+Calorie Burn Estimates
+
+AI Nutrition Advice
+
+---
+
+# Version 1 Scope
+
+Must Include
+
+Daily Nutrition Logs
+
+Nutrition Targets
+
+Recipe Library
+
+Quick Add From Recipe
+
+Body Metrics
+
+Health Goals
+
+Nutrition Analytics
+
+Weight Analytics
+
+Dashboard Integration
+
+Automatic Dates
+
+---
+
+Do Not Include
+
+Medical Features
+
+Food APIs
+
+Meal Planning
+
+Supplement Tracking
+
+Wearable Devices
+
+AI Recommendations
+
+The Health System should remain focused on tracking nutrition and body progress with minimal effort and clear long-term visibility.

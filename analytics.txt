@@ -1,0 +1,900 @@
+# Personal OS - Analytics System Specification V1
+
+## Purpose
+
+The Analytics System transforms raw tracking data into useful insights.
+
+The purpose is not to create dozens of charts.
+
+The purpose is to answer:
+
+* Am I improving?
+* Am I consistent?
+* Where is my time going?
+* What am I completing?
+* What am I neglecting?
+
+Analytics should focus on trends, consistency, and progress.
+
+---
+
+# Analytics Structure
+
+Analytics
+│
+├── Overview
+├── Skills
+├── Projects
+├── Fitness
+├── Health
+├── Goals
+└── Productivity
+
+---
+
+# Analytics Principles
+
+1. Trends over snapshots
+2. Consistency over perfection
+3. Long-term visibility
+4. Minimal chart clutter
+5. Actionable insights
+
+---
+
+# Overview Analytics
+
+Purpose:
+
+Provide a high-level view of life progress.
+
+---
+
+## Metrics
+
+Active Skills
+
+Active Projects
+
+Active Goals
+
+Current Workout Streak
+
+Current Learning Streak
+
+Nutrition Consistency
+
+---
+
+## Charts
+
+Skill Progress Trend
+
+Project Progress Trend
+
+Weight Trend
+
+Workout Consistency Trend
+
+Learning Hours Trend
+
+---
+
+## Summary Cards
+
+This Week
+
+This Month
+
+This Year
+
+All Time
+
+---
+
+# Skills Analytics
+
+Purpose:
+
+Understand learning progress.
+
+---
+
+## Metrics
+
+Active Skills
+
+Completed Skills
+
+Dropped Skills
+
+Paused Skills
+
+Wishlist Count
+
+---
+
+## Learning Metrics
+
+Total Learning Hours
+
+Weekly Learning Hours
+
+Monthly Learning Hours
+
+Average Learning Session
+
+Longest Learning Session
+
+---
+
+## Skill Completion Metrics
+
+Skills Started
+
+Skills Completed
+
+Completion Rate
+
+Average Completion Time
+
+---
+
+## Skill Progress
+
+Progress By Skill
+
+Most Active Skill
+
+Least Active Skill
+
+---
+
+## Charts
+
+Learning Hours Per Week
+
+Learning Hours Per Month
+
+Skill Progress Comparison
+
+Skills Completed Over Time
+
+Skill Category Distribution
+
+---
+
+# Projects Analytics
+
+Purpose:
+
+Understand building and execution habits.
+
+---
+
+## Metrics
+
+Active Projects
+
+Completed Projects
+
+Cancelled Projects
+
+Archived Projects
+
+Portfolio Projects
+
+---
+
+## Completion Metrics
+
+Project Completion Rate
+
+Average Completion Time
+
+Projects Started
+
+Projects Completed
+
+---
+
+## Project Activity
+
+Most Active Project
+
+Longest Project
+
+Fastest Completed Project
+
+---
+
+## Charts
+
+Projects Completed Per Month
+
+Project Progress Trend
+
+Project Category Distribution
+
+Completion Rate Trend
+
+---
+
+# Fitness Analytics
+
+Purpose:
+
+Track training consistency and performance.
+
+---
+
+## Metrics
+
+Workout Streak
+
+Longest Streak
+
+Workouts This Week
+
+Workouts This Month
+
+Workouts This Year
+
+---
+
+## Training Metrics
+
+Total Workouts
+
+Average Workout Duration
+
+Training Hours
+
+Training Days Per Week
+
+---
+
+## Strength Metrics
+
+Personal Records
+
+Strength Improvements
+
+Exercise Progress
+
+---
+
+## Charts
+
+Workout Consistency Trend
+
+Training Hours Trend
+
+Workout Frequency
+
+Strength Progress Trends
+
+---
+
+# Health Analytics
+
+Purpose:
+
+Track physical progress and nutrition.
+
+---
+
+## Metrics
+
+Current Weight
+
+Weight Change
+
+Current Body Fat
+
+Body Fat Change
+
+Nutrition Consistency
+
+Protein Goal Success
+
+Water Goal Success
+
+---
+
+## Nutrition Metrics
+
+Average Calories
+
+Average Protein
+
+Average Carbs
+
+Average Fat
+
+Average Fiber
+
+Average Water Intake
+
+---
+
+## Charts
+
+Weight Trend
+
+Body Fat Trend
+
+Calories Over Time
+
+Protein Over Time
+
+Water Intake Trend
+
+Nutrition Adherence Trend
+
+---
+
+# Goal Analytics
+
+Purpose:
+
+Measure progress toward long-term objectives.
+
+---
+
+## Metrics
+
+Active Goals
+
+Completed Goals
+
+Cancelled Goals
+
+Goal Completion Rate
+
+Average Goal Duration
+
+---
+
+## Goal Progress
+
+Progress By Goal
+
+Goals Near Completion
+
+Goals Behind Schedule
+
+---
+
+## Charts
+
+Goal Progress Trend
+
+Goal Category Distribution
+
+Goals Completed Over Time
+
+Goal Completion Rate
+
+---
+
+# Productivity Analytics
+
+Purpose:
+
+Measure execution and consistency.
+
+---
+
+## Metrics
+
+Tasks Completed Today
+
+Tasks Completed This Week
+
+Tasks Completed This Month
+
+Checklist Completion Rate
+
+Average Daily Completions
+
+---
+
+## Completion Metrics
+
+Skill Tasks Completed
+
+Project Tasks Completed
+
+Goal Tasks Completed
+
+Fitness Tasks Completed
+
+Health Tasks Completed
+
+---
+
+## Charts
+
+Daily Completion Trend
+
+Weekly Completion Trend
+
+Monthly Completion Trend
+
+Task Category Distribution
+
+---
+
+# Streak System
+
+Track streaks across the application.
+
+---
+
+## Learning Streak
+
+Days with Learning Sessions
+
+---
+
+## Workout Streak
+
+Days with Completed Workouts
+
+---
+
+## Nutrition Streak
+
+Days with Nutrition Logs
+
+---
+
+## Goal Progress Streak
+
+Days with Goal Activity
+
+---
+
+## Project Activity Streak
+
+Days with Project Activity
+
+---
+
+# Time Range Filters
+
+Every analytics section should support:
+
+Last 7 Days
+
+Last 30 Days
+
+Last 90 Days
+
+This Year
+
+All Time
+
+Custom Range
+
+---
+
+# Dashboard Analytics
+
+Dashboard should display only the most important metrics.
+
+---
+
+Top Metrics
+
+Current Skill
+
+Current Project
+
+Workout Streak
+
+Learning Hours This Week
+
+Weight Trend
+
+Active Goals
+
+---
+
+Dashboard should not display every chart.
+
+Detailed analytics belong inside Analytics pages.
+
+---
+
+# Insight Engine
+
+Generate simple insights.
+
+Examples:
+
+"You studied 35% more this week."
+
+"Workout consistency increased by 12%."
+
+"Protein target achieved 6 days in a row."
+
+"No project activity for 8 days."
+
+"FastAPI is your most active skill."
+
+---
+
+Insights should be factual.
+
+No motivational messages.
+
+No AI coaching.
+
+---
+
+# Visualizations
+
+Preferred Charts
+
+Line Charts
+
+Bar Charts
+
+Progress Bars
+
+Distribution Charts
+
+---
+
+Avoid
+
+Pie Chart Overload
+
+Complex Dashboards
+
+Heatmaps
+
+3D Charts
+
+Decorative Visualizations
+
+---
+
+# Performance Rules
+
+Analytics should be generated from existing data.
+
+No duplicate analytics tables.
+
+Use computed values whenever possible.
+
+Cache expensive calculations.
+
+---
+
+# Version 1 Scope
+
+Must Include
+
+Overview Analytics
+
+Skill Analytics
+
+Project Analytics
+
+Fitness Analytics
+
+Health Analytics
+
+Goal Analytics
+
+Productivity Analytics
+
+Streak System
+
+Time Filters
+
+Basic Insights
+
+---
+
+Do Not Include
+
+AI Predictions
+
+Forecasting
+
+Machine Learning Models
+
+Productivity Scores
+
+Social Comparisons
+
+Leaderboards
+
+External Data Sources
+
+The Analytics System should provide clear visibility into progress and consistency without becoming a business intelligence dashboard.
+
+# Life Areas
+
+## Purpose
+
+Life Areas are the highest-level categorization system in Personal OS.
+
+Every major object can belong to a Life Area.
+
+This allows the system to understand where time, effort, and progress are being invested.
+
+Life Areas are used throughout:
+
+* Skills
+* Projects
+* Goals
+* Learning Sessions
+* Health Goals
+* Fitness Goals
+
+and especially within Analytics.
+
+---
+
+## Default Life Areas
+
+Career
+
+Learning
+
+Health
+
+Fitness
+
+Finance
+
+Personal
+
+Relationships
+
+Creative
+
+Custom
+
+---
+
+## Life Area Field
+
+The following entities must include:
+
+Life Area
+
+### Skills
+
+Example
+
+Playwright
+→ Career
+
+Docker
+→ Career
+
+Guitar
+→ Creative
+
+---
+
+### Projects
+
+Example
+
+Automation Dashboard
+→ Career
+
+Portfolio Website
+→ Career
+
+Personal Blog
+→ Creative
+
+---
+
+### Goals
+
+Example
+
+Become Automation Freelancer
+→ Career
+
+Reach 15% Body Fat
+→ Health
+
+Bench 100kg
+→ Fitness
+
+---
+
+### Learning Sessions
+
+Learning Sessions inherit the Life Area of their Skill.
+
+Example
+
+Playwright Session
+→ Career
+
+Guitar Session
+→ Creative
+
+---
+
+# Life Area Analytics
+
+## Purpose
+
+Provide a high-level overview of how attention and effort are distributed across life.
+
+---
+
+## Metrics Per Life Area
+
+Active Goals
+
+Active Skills
+
+Active Projects
+
+Completed Goals
+
+Completed Projects
+
+Learning Hours
+
+Checklist Completion
+
+Consistency
+
+Activity Count
+
+---
+
+## Example
+
+Career
+
+Active Skills:
+4
+
+Active Projects:
+3
+
+Learning Hours:
+42
+
+Completion Rate:
+78%
+
+---
+
+Health
+
+Weight Trend:
+-4.2kg
+
+Nutrition Consistency:
+85%
+
+Goal Progress:
+62%
+
+---
+
+# Time Distribution
+
+Track effort allocation across Life Areas.
+
+Questions Answered:
+
+Where did my time go this month?
+
+Which area received the most attention?
+
+Which area is being neglected?
+
+Which area is progressing fastest?
+
+---
+
+# Life Area Status
+
+Every Life Area should have an automatically generated status.
+
+Healthy
+
+Active
+
+Neglected
+
+Inactive
+
+---
+
+Status should be calculated using:
+
+Recent Activity
+
+Task Completion
+
+Progress Updates
+
+Learning Sessions
+
+Goal Activity
+
+Project Activity
+
+---
+
+# Life Area Dashboard Widget
+
+Display all Life Areas with:
+
+Progress
+
+Recent Activity
+
+Status
+
+Current Goals
+
+Current Projects
+
+Current Skills
+
+---
+
+Example
+
+Career
+
+Status:
+Healthy
+
+Progress:
+78%
+
+---
+
+Health
+
+Status:
+Active
+
+Progress:
+64%
+
+---
+
+Fitness
+
+Status:
+Neglected
+
+Progress:
+31%
+
+---
+
+# Analytics Charts
+
+Include:
+
+Life Area Progress
+
+Life Area Time Distribution
+
+Life Area Activity Distribution
+
+Life Area Completion Rates
+
+Life Area Trends Over Time

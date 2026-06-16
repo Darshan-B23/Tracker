@@ -1,0 +1,491 @@
+# Personal OS - Project System Specification V1
+
+## Purpose
+
+The Project System tracks all personal, academic, and professional projects.
+
+Projects are the practical output of skills.
+
+Skills answer:
+
+"What am I learning?"
+
+Projects answer:
+
+"What am I building?"
+
+---
+
+# Project Lifecycle
+
+Idea
+→ Planned
+→ Building
+→ Testing
+→ Completed
+
+Optional States:
+
+Archived
+
+Cancelled
+
+---
+
+# Project Fields
+
+## Basic Information
+
+Project Name
+
+Description
+
+Status
+
+Priority
+
+Progress (automatic)
+
+---
+
+## Dates
+
+Created At
+
+Started At
+
+Completed At
+
+Updated At
+
+All dates should be automatically managed by the system.
+
+No manual date entry.
+
+---
+
+## Scheduling
+
+Schedule Type
+
+Options:
+
+Flexible
+
+Deadline
+
+---
+
+### Flexible
+
+No target date.
+
+Tracks:
+
+* Days Active
+* Progress
+* Last Activity
+
+---
+
+### Deadline
+
+Requires:
+
+Target Date
+
+System calculates:
+
+* Days Remaining
+* Expected Progress
+* On Track
+* Behind Schedule
+
+---
+
+## Metadata
+
+Github Repository
+
+Live Demo URL
+
+Category
+
+Tags
+
+Related Skills
+
+---
+
+### Categories
+
+Automation
+
+Web Development
+
+Mobile
+
+AI
+
+Machine Learning
+
+DevOps
+
+Tools
+
+Games
+
+College
+
+Personal
+
+Other
+
+---
+
+# Project Checklists
+
+Projects use checklist-driven progress.
+
+Progress should never be manually entered.
+
+---
+
+## Example
+
+Automation Dashboard
+
+Planning
+
+✓ Define Features
+
+✓ Define Database
+
+Building
+
+✓ Backend Setup
+
+✓ Frontend Setup
+
+□ Dashboard UI
+
+□ Charts
+
+□ Authentication
+
+Testing
+
+□ Bug Fixes
+
+□ Final Testing
+
+Deployment
+
+□ Deploy
+
+---
+
+## Progress Formula
+
+Completed Tasks ÷ Total Tasks
+
+Example:
+
+8 completed
+
+10 total
+
+Progress = 80%
+
+---
+
+# Milestones
+
+Projects can contain milestones.
+
+Example:
+
+Lead Scraper
+
+Milestone 1
+
+✓ Scrape Data
+
+Milestone 2
+
+□ Export CSV
+
+Milestone 3
+
+□ Web Dashboard
+
+Milestone 4
+
+□ Deployment
+
+Milestones help break large projects into manageable chunks.
+
+---
+
+# Project Notes
+
+Each project should contain a notes section.
+
+Used for:
+
+* Ideas
+* Research
+* Bugs
+* Decisions
+* Future Improvements
+
+Notes should support markdown.
+
+---
+
+# Project Timeline
+
+Automatically generated.
+
+Example:
+
+14 Jun 2026
+Project Created
+
+18 Jun 2026
+Moved to Building
+
+22 Jun 2026
+Milestone 1 Completed
+
+30 Jun 2026
+Project Completed
+
+Generated from project events.
+
+No manual timeline entry.
+
+---
+
+# Related Skills
+
+Projects can be linked to Skills.
+
+Example:
+
+Project:
+Automation Dashboard
+
+Related Skills:
+
+Playwright
+
+FastAPI
+
+React
+
+SQLite
+
+---
+
+Benefits:
+
+Skill pages can display:
+
+Projects Built Using This Skill
+
+Project pages can display:
+
+Skills Used In This Project
+
+---
+
+# Portfolio Flag
+
+Projects should have:
+
+Portfolio Project = True/False
+
+If enabled:
+
+Project appears in Portfolio section.
+
+Example:
+
+✓ Automation Dashboard
+
+✓ Lead Scraper
+
+✓ AI Posture Analyzer
+
+---
+
+# Difficulty
+
+Optional Field
+
+Beginner
+
+Intermediate
+
+Advanced
+
+Expert
+
+Used for analytics only.
+
+---
+
+# Project Analytics
+
+## Overview
+
+Active Projects
+
+Completed Projects
+
+Cancelled Projects
+
+Portfolio Projects
+
+---
+
+## Performance Metrics
+
+Average Completion Time
+
+Completion Rate
+
+Projects Started Per Month
+
+Projects Completed Per Month
+
+---
+
+## Skill Usage Analytics
+
+Most Used Skill
+
+Most Used Category
+
+Skills Used Across Projects
+
+---
+
+## Progress Charts
+
+Project Progress Over Time
+
+Projects Completed Per Month
+
+Category Distribution
+
+Completion Rate
+
+---
+
+# Project Dashboard Card
+
+Example
+
+Automation Dashboard
+
+Status:
+Building
+
+Progress:
+68%
+
+Started:
+14 Jun 2026
+
+Schedule:
+Deadline
+
+Target:
+20 Aug 2026
+
+Checklist:
+17 / 25 Tasks
+
+Skills:
+React
+FastAPI
+SQLite
+
+Last Updated:
+Today
+
+---
+
+# Automation Rules
+
+When created:
+
+Created At = Current Date
+
+When status becomes Building:
+
+Started At = Current Date
+
+When status becomes Completed:
+
+Completed At = Current Date
+
+Progress = 100%
+
+When modified:
+
+Updated At = Current Date
+
+When all checklist items complete:
+
+Suggest completion
+
+Do not automatically mark completed.
+
+User decides.
+
+---
+
+# Version 1 Scope
+
+Must Include
+
+Project Database
+
+Status Management
+
+Automatic Dates
+
+Checklist Progress
+
+Milestones
+
+Notes
+
+Skill Relationships
+
+Analytics
+
+Portfolio Flag
+
+Timeline
+
+Do Not Include
+
+Kanban Boards
+
+Gantt Charts
+
+Team Features
+
+Comments
+
+Task Assignments
+
+Multi-user Support
+
+Project Templates Marketplace
+
+Complex Dependencies

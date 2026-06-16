@@ -1,0 +1,512 @@
+# Personal OS - Workout & Fitness System Specification V1
+
+## Purpose
+
+The Fitness System exists to track:
+
+* Workout consistency
+* Workout completion
+* Training history
+* Physical progress
+
+This is NOT a bodybuilding app.
+
+This is NOT a workout planner marketplace.
+
+This is NOT a calorie calculator.
+
+The focus is:
+
+* Did I train?
+* What did I train?
+* Am I consistent?
+* Am I progressing?
+
+---
+
+# System Structure
+
+Fitness
+│
+├── Workout Templates
+├── Workout Logs
+├── Strength Progress
+└── Fitness Analytics
+
+---
+
+# Workout Templates
+
+Purpose:
+
+Store reusable weekly workout schedules.
+
+Examples:
+
+Push Pull Legs
+
+Upper Lower
+
+Full Body
+
+Home Workout
+
+---
+
+## Template Fields
+
+Name
+
+Description
+
+Created At
+
+Updated At
+
+---
+
+## Weekly Schedule
+
+Monday
+
+Tuesday
+
+Wednesday
+
+Thursday
+
+Friday
+
+Saturday
+
+Sunday
+
+---
+
+Example
+
+Push Pull Legs
+
+Monday:
+Push
+
+Tuesday:
+Pull
+
+Wednesday:
+Legs
+
+Thursday:
+Rest
+
+Friday:
+Push
+
+Saturday:
+Pull
+
+Sunday:
+Rest
+
+---
+
+# Workout Logs
+
+Purpose:
+
+Record actual training sessions.
+
+---
+
+## Fields
+
+Workout Name
+
+Date
+
+Completed
+
+Duration
+
+Notes
+
+Created At
+
+Updated At
+
+---
+
+## Date Handling
+
+Date defaults to today.
+
+Created At automatically generated.
+
+Updated At automatically generated.
+
+No manual date tracking required.
+
+---
+
+## Completion
+
+Workout completion is Boolean.
+
+Options:
+
+Completed
+
+Missed
+
+Rest Day
+
+---
+
+Example
+
+14 Jun 2026
+
+Push Day
+
+Completed ✓
+
+Duration:
+75 minutes
+
+---
+
+# Workout Checklist
+
+Each workout can optionally contain a checklist.
+
+Purpose:
+
+Track completion of exercises.
+
+---
+
+Example
+
+Push Day
+
+✓ Bench Press
+
+✓ Incline Dumbbell Press
+
+✓ Shoulder Press
+
+□ Lateral Raises
+
+□ Tricep Pushdowns
+
+---
+
+Progress
+
+3 / 5
+
+60%
+
+Automatically calculated.
+
+---
+
+# Strength Tracking
+
+Purpose:
+
+Track progress on important lifts.
+
+---
+
+## Fields
+
+Exercise
+
+Weight
+
+Reps
+
+Sets
+
+Date
+
+Notes
+
+---
+
+Example
+
+Bench Press
+
+80 kg
+
+8 reps
+
+3 sets
+
+14 Jun 2026
+
+---
+
+# Favorite Exercises
+
+User can mark exercises as favorites.
+
+Examples:
+
+Bench Press
+
+Squat
+
+Deadlift
+
+Overhead Press
+
+Pull Ups
+
+---
+
+# Personal Records
+
+Automatically calculated.
+
+---
+
+Examples
+
+Bench Press
+
+Best Weight:
+100 kg
+
+Best Volume:
+2400 kg
+
+Best Reps:
+15
+
+---
+
+# Fitness Analytics
+
+## Consistency Metrics
+
+Workouts This Week
+
+Workouts This Month
+
+Completion %
+
+Current Streak
+
+Longest Streak
+
+---
+
+## Training Volume
+
+Training Sessions Per Week
+
+Training Sessions Per Month
+
+Average Workout Duration
+
+Total Training Hours
+
+---
+
+## Strength Metrics
+
+Bench Trend
+
+Squat Trend
+
+Deadlift Trend
+
+Custom Exercise Trends
+
+---
+
+## Dashboard Metrics
+
+Display:
+
+Workout Status Today
+
+Current Streak
+
+This Week Completion %
+
+This Month Completion %
+
+Last Workout Date
+
+Total Workouts This Year
+
+---
+
+# Workout Categories
+
+Push
+
+Pull
+
+Legs
+
+Upper
+
+Lower
+
+Full Body
+
+Cardio
+
+Mobility
+
+Sports
+
+Custom
+
+---
+
+# Fitness Goals
+
+Optional
+
+Examples:
+
+Train 4 Days Per Week
+
+Bench 100kg
+
+Lose 10kg
+
+Complete 100 Workouts
+
+---
+
+## Goal Fields
+
+Goal Name
+
+Target Value
+
+Current Value
+
+Progress
+
+Created At
+
+Completed At
+
+---
+
+Progress should update automatically where possible.
+
+---
+
+# Workout Dashboard Card
+
+Example
+
+Push Day
+
+Status:
+Completed
+
+Date:
+14 Jun 2026
+
+Duration:
+75 min
+
+Checklist:
+5 / 5
+
+---
+
+Weekly Summary
+
+Completed:
+4 / 5
+
+Completion:
+80%
+
+Current Streak:
+6 Days
+
+---
+
+# Automation Rules
+
+When workout created:
+
+Created At = Current Date
+
+When edited:
+
+Updated At = Current Date
+
+When workout completed:
+
+Completion status updated
+
+Analytics recalculated
+
+When strength entry added:
+
+Personal records recalculated
+
+Trend charts updated
+
+---
+
+# Version 1 Scope
+
+Must Include
+
+Workout Templates
+
+Workout Logs
+
+Workout Checklists
+
+Strength Tracking
+
+Personal Records
+
+Consistency Analytics
+
+Workout Categories
+
+Fitness Dashboard
+
+Automatic Dates
+
+---
+
+Do Not Include
+
+Exercise Video Library
+
+Workout Marketplace
+
+Social Features
+
+Trainer Accounts
+
+Calories Burned Estimates
+
+AI Workout Recommendations
+
+Wearable Device Integration
+
+Gym Check-In Features
+
+Complex Exercise Databases
+
+Subscription Features
+
+The fitness system should remain simple, fast, and focused on consistency and progress rather than becoming a full fitness platform.

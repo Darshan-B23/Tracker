@@ -1,0 +1,998 @@
+# Personal OS - Database Schema Specification V1
+
+## Purpose
+
+This schema defines all core entities and relationships required for Personal OS.
+
+The schema should prioritize:
+
+* Simplicity
+* Extensibility
+* Automatic date tracking
+* Relationship support
+* Analytics generation
+
+---
+
+# Core Tables
+
+users_settings
+
+life_areas
+
+skills
+
+projects
+
+goals
+
+learning_sessions
+
+nutrition_logs
+
+body_metrics
+
+recipes
+
+workout_templates
+
+workout_logs
+
+strength_logs
+
+checklists
+
+checklist_items
+
+notifications
+
+activity_logs
+
+---
+
+# Life Areas
+
+Table:
+life_areas
+
+Fields
+
+id
+
+name
+
+description
+
+created_at
+
+updated_at
+
+---
+
+Example
+
+Career
+
+Health
+
+Fitness
+
+Learning
+
+Creative
+
+Personal
+
+Finance
+
+Relationships
+
+Custom
+
+---
+
+# Skills
+
+Table:
+skills
+
+Fields
+
+id
+
+name
+
+description
+
+category
+
+status
+
+priority
+
+schedule_type
+
+target_date
+
+life_area_id
+
+progress
+
+created_at
+
+started_at
+
+completed_at
+
+updated_at
+
+why_learning
+
+notes
+
+---
+
+Status
+
+Wishlist
+
+Planned
+
+Active
+
+Paused
+
+Completed
+
+Dropped
+
+---
+
+Schedule Type
+
+Flexible
+
+Deadline
+
+---
+
+# Learning Sessions
+
+Table:
+learning_sessions
+
+Fields
+
+id
+
+skill_id
+
+duration_minutes
+
+session_date
+
+notes
+
+created_at
+
+updated_at
+
+---
+
+# Projects
+
+Table:
+projects
+
+Fields
+
+id
+
+name
+
+description
+
+category
+
+status
+
+priority
+
+schedule_type
+
+target_date
+
+life_area_id
+
+progress
+
+github_url
+
+demo_url
+
+portfolio_project
+
+difficulty
+
+notes
+
+created_at
+
+started_at
+
+completed_at
+
+updated_at
+
+---
+
+Status
+
+Idea
+
+Planned
+
+Building
+
+Testing
+
+Completed
+
+Archived
+
+Cancelled
+
+---
+
+# Goals
+
+Table:
+goals
+
+Fields
+
+id
+
+title
+
+description
+
+goal_type
+
+category
+
+status
+
+priority
+
+schedule_type
+
+target_date
+
+life_area_id
+
+progress
+
+notes
+
+created_at
+
+started_at
+
+completed_at
+
+updated_at
+
+---
+
+Goal Type
+
+Identity
+
+Outcome
+
+Milestone
+
+---
+
+Goal Status
+
+Idea
+
+Planned
+
+Active
+
+Completed
+
+Archived
+
+Cancelled
+
+---
+
+# Goal Relationships
+
+Table:
+goal_skills
+
+Fields
+
+id
+
+goal_id
+
+skill_id
+
+---
+
+Table:
+goal_projects
+
+Fields
+
+id
+
+goal_id
+
+project_id
+
+---
+
+# Project Skill Relationships
+
+Table:
+project_skills
+
+Fields
+
+id
+
+project_id
+
+skill_id
+
+---
+
+Purpose
+
+Connect projects with skills.
+
+Example
+
+Automation Dashboard
+
+→ React
+
+→ FastAPI
+
+→ SQLite
+
+---
+
+# Checklists
+
+Generic Checklist Container
+
+Table:
+checklists
+
+Fields
+
+id
+
+entity_type
+
+entity_id
+
+title
+
+created_at
+
+updated_at
+
+---
+
+entity_type
+
+skill
+
+project
+
+goal
+
+workout
+
+---
+
+Example
+
+Skill
+
+Playwright
+
+Checklist
+
+Fundamentals
+
+---
+
+Project
+
+Automation Dashboard
+
+Checklist
+
+Deployment
+
+---
+
+# Checklist Items
+
+Table:
+checklist_items
+
+Fields
+
+id
+
+checklist_id
+
+title
+
+description
+
+completed
+
+scheduled_date
+
+scheduled_time
+
+completed_at
+
+created_at
+
+updated_at
+
+display_order
+
+---
+
+Purpose
+
+Supports:
+
+Dashboard Queue
+
+Progress Calculation
+
+Scheduling
+
+Analytics
+
+---
+
+# Nutrition Logs
+
+Table:
+nutrition_logs
+
+Fields
+
+id
+
+log_date
+
+calories
+
+protein
+
+carbs
+
+fat
+
+fiber
+
+water
+
+notes
+
+created_at
+
+updated_at
+
+---
+
+# Recipes
+
+Table:
+recipes
+
+Fields
+
+id
+
+name
+
+description
+
+ingredients
+
+instructions
+
+calories
+
+protein
+
+carbs
+
+fat
+
+fiber
+
+created_at
+
+updated_at
+
+---
+
+# Recipe Tags
+
+Table:
+recipe_tags
+
+Fields
+
+id
+
+recipe_id
+
+tag
+
+---
+
+# Body Metrics
+
+Table:
+body_metrics
+
+Fields
+
+id
+
+measurement_date
+
+weight
+
+body_fat
+
+waist
+
+chest
+
+arms
+
+thighs
+
+neck
+
+notes
+
+created_at
+
+updated_at
+
+---
+
+# Workout Templates
+
+Table:
+workout_templates
+
+Fields
+
+id
+
+name
+
+description
+
+monday
+
+tuesday
+
+wednesday
+
+thursday
+
+friday
+
+saturday
+
+sunday
+
+created_at
+
+updated_at
+
+---
+
+# Workout Logs
+
+Table:
+workout_logs
+
+Fields
+
+id
+
+workout_name
+
+workout_type
+
+log_date
+
+completed
+
+duration_minutes
+
+notes
+
+created_at
+
+updated_at
+
+---
+
+# Strength Logs
+
+Table:
+strength_logs
+
+Fields
+
+id
+
+exercise_name
+
+weight
+
+reps
+
+sets
+
+log_date
+
+notes
+
+created_at
+
+updated_at
+
+---
+
+# Notifications
+
+Table:
+notifications
+
+Fields
+
+id
+
+title
+
+message
+
+notification_type
+
+scheduled_time
+
+completed
+
+created_at
+
+updated_at
+
+---
+
+# Activity Logs
+
+Purpose
+
+Generate timelines.
+
+Generate recent activity.
+
+Generate analytics.
+
+---
+
+Table:
+activity_logs
+
+Fields
+
+id
+
+entity_type
+
+entity_id
+
+action
+
+description
+
+created_at
+
+---
+
+Examples
+
+Skill Created
+
+Skill Completed
+
+Project Started
+
+Project Completed
+
+Goal Created
+
+Workout Logged
+
+Learning Session Added
+
+Nutrition Updated
+
+---
+
+# User Settings
+
+Table:
+user_settings
+
+Fields
+
+id
+
+display_name
+
+theme
+
+density
+
+date_format
+
+time_format
+
+default_dashboard_view
+
+protein_target
+
+calorie_target
+
+water_target
+
+weekly_workout_target
+
+created_at
+
+updated_at
+
+---
+
+# Automatic Fields
+
+Every major table should support:
+
+created_at
+
+updated_at
+
+---
+
+Applicable entities additionally support:
+
+started_at
+
+completed_at
+
+---
+
+# Derived Fields
+
+Should NOT be stored permanently
+
+Calculate dynamically
+
+Skill Progress
+
+Project Progress
+
+Goal Progress
+
+Workout Streak
+
+Learning Streak
+
+Nutrition Consistency
+
+Completion Rates
+
+Dashboard Statistics
+
+Analytics Values
+
+---
+
+# Dashboard Queue Source
+
+Dashboard tasks should come from:
+
+checklist_items
+
+WHERE
+
+completed = false
+
+ORDER BY
+
+scheduled_time ASC
+
+then
+
+alphabetical order
+
+This becomes the primary dashboard feed.
+
+---
+
+# Version 1 Rule
+
+Keep the schema relational.
+
+Do not introduce:
+
+JSON blobs
+
+Dynamic properties
+
+Custom databases
+
+Plugin schemas
+
+User-generated table structures
+
+The database should remain simple, explicit, and optimized for personal productivity tracking.
+
+# Database Design Notes
+
+## Progress Fields
+
+Do not permanently store progress values in the database.
+
+The following fields should be treated as computed values:
+
+* Skill Progress
+* Project Progress
+* Goal Progress
+
+Progress should be calculated dynamically from:
+
+Checklist Completion
+
+Linked Item Completion
+
+Goal Progress Rules
+
+This prevents data inconsistencies.
+
+---
+
+## Checklist Relationships
+
+Avoid polymorphic references such as:
+
+entity_type
+
+entity_id
+
+for checklist ownership.
+
+Instead use proper relationship tables:
+
+skill_checklists
+
+project_checklists
+
+goal_checklists
+
+workout_checklists
+
+linked to a shared:
+
+checklists
+
+table.
+
+This preserves database integrity while allowing a reusable checklist system.
+
+---
+
+## Dashboard Queue
+
+The Dashboard queue should be generated directly from:
+
+checklist_items
+
+where:
+
+completed = false
+
+Sorting Rules:
+
+1. Scheduled Tasks
+
+   * Sort by scheduled_date
+   * Then scheduled_time
+
+2. Unscheduled Tasks
+
+   * Sort alphabetically
+
+3. Completed Tasks
+
+   * Display separately in a Completed Today section
+
+---
+
+## Life Area Integration
+
+The following entities must support a Life Area relationship:
+
+* Skills
+* Projects
+* Goals
+* Learning Sessions (inherit from Skill)
+* Health Goals
+* Fitness Goals
+
+Life Areas are used throughout analytics, dashboard summaries, and reporting.
+
+---
+
+## Automatic Date Rules
+
+All major entities should automatically manage:
+
+created_at
+
+updated_at
+
+started_at (when applicable)
+
+completed_at (when applicable)
+
+Users should never manually manage system timestamps.
+
+---
+
+## Database Philosophy
+
+The schema should remain:
+
+* Relational
+* Explicit
+* Predictable
+* Analytics-Friendly
+
+Avoid:
+
+* Dynamic schemas
+* Custom database builders
+* Plugin-driven tables
+* User-generated table structures
+* Notion-style property systems
+
+Personal OS is a purpose-built personal operating system, not a general-purpose workspace platform.

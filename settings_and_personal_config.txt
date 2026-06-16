@@ -1,0 +1,668 @@
+# Personal OS - Settings & Personal Configuration Specification V1
+
+## Purpose
+
+The Settings System stores user preferences and application-wide configuration.
+
+Settings should control behavior, defaults, targets, appearance, and personalization.
+
+This is a single-user application.
+
+No account system is required.
+
+Settings are global and apply across the entire application.
+
+---
+
+# System Structure
+
+Settings
+│
+├── Profile
+├── Dashboard
+├── Appearance
+├── Health
+├── Fitness
+├── Skills
+├── Projects
+├── Goals
+└── Data Management
+
+---
+
+# Profile Settings
+
+Purpose:
+
+Store basic personal information used throughout the application.
+
+---
+
+## Fields
+
+Display Name
+
+Timezone
+
+Preferred Date Format
+
+Preferred Time Format
+
+Created At
+
+Updated At
+
+---
+
+## Time Format
+
+12 Hour
+
+24 Hour
+
+---
+
+## Date Format
+
+DD/MM/YYYY
+
+MM/DD/YYYY
+
+YYYY-MM-DD
+
+---
+
+# Dashboard Settings
+
+Purpose:
+
+Control dashboard behavior.
+
+---
+
+## Default Dashboard View
+
+Today
+
+Overview
+
+Analytics
+
+---
+
+## Queue Configuration
+
+Show Scheduled Tasks
+
+Show Unscheduled Tasks
+
+Show Completed Tasks
+
+Show Health Tasks
+
+Show Fitness Tasks
+
+Show Goal Tasks
+
+Show Project Tasks
+
+Show Skill Tasks
+
+---
+
+## Default Sort Order
+
+Time First
+
+Priority First
+
+Alphabetical First
+
+---
+
+## Default Landing Page
+
+Dashboard
+
+Skills
+
+Projects
+
+Health
+
+Fitness
+
+Goals
+
+---
+
+# Appearance Settings
+
+Purpose:
+
+Customize visual experience.
+
+---
+
+## Theme
+
+Architectural Brutalism
+
+Future Themes
+
+---
+
+## Density
+
+Compact
+
+Comfortable
+
+Spacious
+
+---
+
+## Sidebar
+
+Expanded
+
+Collapsed
+
+Remember Last State
+
+---
+
+## Animations
+
+Enabled
+
+Reduced
+
+Disabled
+
+---
+
+# Health Settings
+
+Purpose:
+
+Store nutrition and body metric defaults.
+
+---
+
+## Nutrition Targets
+
+Calories
+
+Protein
+
+Carbs
+
+Fat
+
+Fiber
+
+Water
+
+---
+
+Example
+
+Calories:
+2200
+
+Protein:
+150g
+
+Water:
+3L
+
+---
+
+## Body Metric Preferences
+
+Track Weight
+
+Track Body Fat
+
+Track Waist
+
+Track Chest
+
+Track Arms
+
+Track Thighs
+
+Track Neck
+
+---
+
+Only enabled metrics appear in forms and analytics.
+
+---
+
+# Fitness Settings
+
+Purpose:
+
+Store workout defaults.
+
+---
+
+## Weekly Target
+
+Workouts Per Week
+
+Example
+
+4
+
+5
+
+6
+
+---
+
+## Preferred Workout Template
+
+Push Pull Legs
+
+Upper Lower
+
+Full Body
+
+Custom
+
+---
+
+## Strength Tracking
+
+Enabled
+
+Disabled
+
+---
+
+## Favorite Exercises
+
+User-defined list.
+
+Examples
+
+Bench Press
+
+Squat
+
+Deadlift
+
+Pull-Ups
+
+Overhead Press
+
+---
+
+# Skill Settings
+
+Purpose:
+
+Control skill tracking behavior.
+
+---
+
+## Default Skill Status
+
+Wishlist
+
+Planned
+
+Active
+
+---
+
+Recommended Default:
+
+Wishlist
+
+---
+
+## Default Schedule Type
+
+Flexible
+
+Deadline
+
+---
+
+Recommended Default:
+
+Flexible
+
+---
+
+## Auto Complete Skills
+
+Enabled
+
+Disabled
+
+---
+
+If enabled:
+
+100% checklist completion
+
+↓
+
+Suggest completion
+
+Never force completion.
+
+---
+
+# Project Settings
+
+Purpose:
+
+Control project tracking behavior.
+
+---
+
+## Default Status
+
+Idea
+
+Planned
+
+Building
+
+---
+
+Recommended Default:
+
+Idea
+
+---
+
+## Default Schedule Type
+
+Flexible
+
+Deadline
+
+---
+
+Recommended Default:
+
+Flexible
+
+---
+
+## Portfolio Defaults
+
+Automatically Mark Portfolio Project
+
+Enabled
+
+Disabled
+
+---
+
+Default:
+
+Disabled
+
+---
+
+# Goal Settings
+
+Purpose:
+
+Control goal behavior.
+
+---
+
+## Default Goal Type
+
+Identity
+
+Outcome
+
+Milestone
+
+---
+
+Recommended Default:
+
+Milestone
+
+---
+
+## Default Goal Status
+
+Idea
+
+Planned
+
+Active
+
+---
+
+Recommended Default:
+
+Planned
+
+---
+
+## Progress Calculation Mode
+
+Checklist Based
+
+Linked Item Based
+
+Manual
+
+---
+
+Recommended Default:
+
+Checklist Based
+
+---
+
+# Notification Settings
+
+Purpose:
+
+Control reminders and alerts.
+
+---
+
+## Reminder Types
+
+Workout Reminders
+
+Goal Reminders
+
+Skill Reminders
+
+Project Reminders
+
+Nutrition Reminders
+
+---
+
+## Reminder Timing
+
+Custom Times
+
+Examples
+
+09:00
+
+18:00
+
+21:00
+
+---
+
+## Deadline Alerts
+
+Enabled
+
+Disabled
+
+---
+
+Example
+
+Skill Deadline Approaching
+
+Project Deadline Approaching
+
+Goal Deadline Approaching
+
+---
+
+# Data Management
+
+Purpose:
+
+Protect and manage application data.
+
+---
+
+## Export Data
+
+JSON
+
+CSV
+
+Markdown
+
+---
+
+## Backup Data
+
+Manual Backup
+
+Automatic Backup
+
+---
+
+## Restore Data
+
+Import Previous Backup
+
+---
+
+## Reset Application
+
+Clear All Data
+
+Confirmation Required
+
+---
+
+# Search Settings
+
+Purpose:
+
+Control global search behavior.
+
+---
+
+## Search Scope
+
+Skills
+
+Projects
+
+Goals
+
+Health
+
+Fitness
+
+Recipes
+
+Notes
+
+---
+
+## Default Search Results
+
+Most Recent
+
+Alphabetical
+
+Most Active
+
+---
+
+# Future Settings (Not V1)
+
+Cloud Sync
+
+Multi Device Sync
+
+User Accounts
+
+Team Workspaces
+
+AI Features
+
+Third Party Integrations
+
+Calendar Sync
+
+Wearable Device Sync
+
+Theme Marketplace
+
+Plugin System
+
+---
+
+# Version 1 Scope
+
+Must Include
+
+Profile
+
+Dashboard Settings
+
+Appearance
+
+Nutrition Targets
+
+Fitness Targets
+
+Skill Defaults
+
+Project Defaults
+
+Goal Defaults
+
+Notifications
+
+Export/Import
+
+Backup/Restore
+
+---
+
+Do Not Include
+
+Accounts
+
+Cloud Sync
+
+Team Features
+
+Third-Party Integrations
+
+Subscription Features
+
+Plugin Systems
+
+The Settings System should remain simple and focused on controlling application behavior rather than becoming a feature platform.

@@ -1,0 +1,671 @@
+# Personal OS - Design System Specification V1
+
+## Design Philosophy
+
+Theme:
+Architectural Brutalism
+
+Inspired by:
+
+* Exposed concrete
+* Raw plaster
+* Editorial layouts
+* Architecture portfolios
+* Design journals
+* Physical notebooks
+
+The application should feel:
+
+* Calm
+* Structured
+* Intentional
+* Tactile
+* Focused
+
+Not:
+
+* Futuristic
+* Cyberpunk
+* SaaS-looking
+* Glassmorphic
+* Over-animated
+* Neon
+
+The interface should disappear behind the work.
+
+---
+
+# Core Design Principles
+
+1. Tasks before analytics
+2. Content before decoration
+3. Structure before color
+4. Space before borders
+5. Progress before metrics
+6. Function before customization
+
+---
+
+# Color System
+
+## Core Neutrals
+
+Background
+
+#ffffff
+
+Surface
+
+#f9fafb
+
+Primary Text
+
+#111827
+
+Secondary Text
+
+#9ca3af
+
+Borders
+
+#f3f4f6
+
+---
+
+## Concrete Pigments
+
+Concrete White
+
+#e8eceb
+
+Concrete Black
+
+#31353c
+
+Concrete Pink
+
+#d69695
+
+Concrete Red
+
+#c26e60
+
+Concrete Yellow
+
+#c8a97e
+
+Concrete Green
+
+#738276
+
+Concrete Blue
+
+#6e8ca0
+
+Concrete Purple
+
+#8d7a8b
+
+---
+
+# Life Area Colors
+
+Career
+
+Concrete Blue
+
+Learning
+
+Concrete Purple
+
+Health
+
+Concrete Green
+
+Fitness
+
+Concrete Red
+
+Finance
+
+Concrete Yellow
+
+Creative
+
+Concrete Pink
+
+Personal
+
+Concrete Black
+
+Relationships
+
+Concrete White
+
+---
+
+# Typography
+
+Font Family
+
+System Sans Serif
+
+Examples
+
+Inter
+
+SF Pro
+
+Segoe UI
+
+Roboto
+
+System Default
+
+---
+
+# Type Scale
+
+Page Title
+
+text-2xl
+font-semibold
+
+---
+
+Section Title
+
+text-sm
+uppercase
+tracking-widest
+font-medium
+
+---
+
+Body
+
+text-sm
+
+---
+
+Metadata
+
+text-xs
+text-secondary
+
+---
+
+Rules
+
+Avoid giant headings.
+
+Avoid decorative typography.
+
+Hierarchy comes from spacing and weight.
+
+---
+
+# Layout System
+
+## Sidebar
+
+Width
+
+240px
+
+Position
+
+Fixed Left
+
+---
+
+Contains
+
+Dashboard
+
+Skills
+
+Projects
+
+Goals
+
+Health
+
+Fitness
+
+Analytics
+
+Settings
+
+---
+
+## Content Width
+
+Maximum Width
+
+1200px
+
+Dashboard
+
+1100px
+
+Reading Pages
+
+900px
+
+Forms
+
+700px
+
+---
+
+# Spacing System
+
+Small
+
+8px
+
+Medium
+
+16px
+
+Large
+
+24px
+
+Section
+
+48px
+
+Major Section
+
+80px
+
+---
+
+# Cards
+
+Cards should feel like paper sheets on a desk.
+
+---
+
+Card Style
+
+Background:
+White
+
+Border:
+1px solid #f3f4f6
+
+Radius:
+12px
+
+Padding:
+24px
+
+Shadow:
+None
+
+---
+
+Avoid
+
+Heavy Shadows
+
+Glow
+
+Glass Effects
+
+Gradient Backgrounds
+
+---
+
+# Checkboxes
+
+The most important visual component.
+
+---
+
+Unchecked
+
+Thin Border
+
+Neutral Background
+
+---
+
+Checked
+
+Filled With Category Color
+
+Hard Shadow
+
+2px 2px 0px rgba(0,0,0,1)
+
+---
+
+Hover
+
+Subtle Background Shift
+
+---
+
+Animation
+
+100ms
+
+Maximum
+
+---
+
+# Buttons
+
+Primary
+
+Filled
+
+Concrete Black
+
+White Text
+
+---
+
+Secondary
+
+Border Only
+
+White Background
+
+---
+
+Danger
+
+Concrete Red
+
+White Text
+
+---
+
+Never use:
+
+Gradient Buttons
+
+Floating Buttons
+
+Pill Buttons
+
+---
+
+# Inputs
+
+Background
+
+Surface Color
+
+---
+
+Border
+
+Very Light Gray
+
+---
+
+Focus State
+
+Pigment Accent
+
+No Glow
+
+No Neon Outline
+
+---
+
+# Tables
+
+Used For
+
+Skills
+
+Projects
+
+Goals
+
+Nutrition Logs
+
+Workout Logs
+
+---
+
+Style
+
+Minimal
+
+Row Borders Only
+
+No Heavy Grid
+
+Generous Padding
+
+---
+
+# Charts
+
+Purpose
+
+Display trends.
+
+Not decoration.
+
+---
+
+Chart Colors
+
+Use Life Area Colors.
+
+Maximum:
+
+3 visible series
+
+---
+
+Preferred
+
+Line Charts
+
+Bar Charts
+
+Progress Bars
+
+---
+
+Avoid
+
+Pie Charts Everywhere
+
+3D Charts
+
+Animated Charts
+
+Complex Dashboards
+
+---
+
+# Dashboard Layout
+
+Priority Order
+
+1. Today's Queue
+
+2. Current Focus
+
+3. Quick Stats
+
+4. Recent Activity
+
+5. Analytics
+
+---
+
+Today's Queue must always be visible without scrolling.
+
+---
+
+# Queue Design
+
+Scheduled Tasks
+
+Show Time
+
+Sorted Ascending
+
+---
+
+Unscheduled Tasks
+
+Alphabetical
+
+---
+
+Completed Tasks
+
+Collapsed By Default
+
+---
+
+# Progress Bars
+
+Height
+
+6px
+
+Rounded
+
+Full Width
+
+---
+
+Color
+
+Based On Life Area
+
+---
+
+# Navigation Behavior
+
+Sidebar remembers state.
+
+Current page highlighted.
+
+No multi-level nesting deeper than two levels.
+
+---
+
+# Mobile Design
+
+Collapse Sidebar
+
+Bottom Navigation Optional
+
+Priority:
+
+Today's Queue
+
+Current Focus
+
+Quick Stats
+
+---
+
+Analytics moved lower.
+
+---
+
+# Empty States
+
+Should feel intentional.
+
+Example
+
+"No active projects."
+
+Instead of
+
+"Nothing found."
+
+---
+
+# Animations
+
+Minimal.
+
+Duration
+
+100–200ms
+
+Use only for:
+
+Hover
+
+Expand
+
+Collapse
+
+Completion
+
+---
+
+Avoid
+
+Page Transitions
+
+Parallax
+
+Bouncy Effects
+
+Floating Animations
+
+---
+
+# Visual Hierarchy
+
+Most Important
+
+Today's Queue
+
+---
+
+Second
+
+Current Focus
+
+---
+
+Third
+
+Active Goals
+
+Active Projects
+
+Active Skills
+
+---
+
+Fourth
+
+Analytics
+
+---
+
+The user should immediately know:
+
+What needs to be done today.
+
+Everything else is secondary.
+
+---
+
+# Design Rule
+
+If a component exists only because it looks cool, remove it.
+
+If a component helps complete a task faster, keep it.

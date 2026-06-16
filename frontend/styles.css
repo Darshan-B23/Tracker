@@ -1,0 +1,292 @@
+:root {
+  /* Core Neutrals - Architectural Brutalism */
+  --bg-color: #ffffff;
+  --surface-color: #ffffff; /* Strip out gray surface */
+  --text-primary: #000000;
+  --text-secondary: #888888;
+  --border-color: #e5e5e5;
+
+  /* Concrete Pigments */
+  --concrete-white: #e8eceb;
+  --concrete-black: #1a1a1a;
+  --concrete-pink: #d69695;
+  --concrete-red: #c26e60;
+  --concrete-yellow: #c8a97e;
+  --concrete-green: #738276;
+  --concrete-blue: #6e8ca0;
+  --concrete-purple: #8d7a8b;
+
+  /* Life Areas */
+  --color-career: var(--concrete-blue);
+  --color-learning: var(--concrete-purple);
+  --color-health: var(--concrete-green);
+  --color-fitness: var(--concrete-red);
+  --color-finance: var(--concrete-yellow);
+  --color-creative: var(--concrete-pink);
+  --color-personal: var(--concrete-black);
+  --color-relationships: var(--concrete-white);
+
+  /* Spacing */
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 32px;
+  --spacing-section: 64px;
+  --spacing-major: 120px;
+
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Typography Scale */
+h1, .page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--spacing-lg);
+}
+
+h2, .section-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-md);
+}
+
+h3 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-bottom: var(--spacing-sm);
+}
+
+.metadata {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Structural Components (Replacing Cards) */
+.card {
+  /* A card is now just a container with padding, no borders or backgrounds, unless explicitly needed */
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.divider {
+  border-top: 1px solid var(--border-color);
+  margin: var(--spacing-lg) 0;
+}
+
+/* Checkboxes */
+.checkbox-container {
+  display: inline-flex;
+  align-items: flex-start;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  padding: var(--spacing-md) 0;
+  border-bottom: 1px solid var(--border-color);
+  width: 100%;
+  transition: opacity 200ms ease;
+}
+
+.checkbox-container:last-child {
+  border-bottom: none;
+}
+
+.checkbox-input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  height: 24px;
+  width: 24px;
+  background-color: var(--bg-color);
+  border: 1px solid var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 150ms ease;
+  margin-right: var(--spacing-lg);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.checkbox-container:hover .checkmark {
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+}
+
+.checkbox-input:checked ~ .checkmark {
+  background-color: var(--concrete-black);
+  border-color: var(--concrete-black);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+}
+
+/* Checked state removes the check icon and just becomes a solid pigment block */
+.checkbox-input:checked ~ .checkmark::after {
+  content: none;
+}
+
+/* Category Pigments */
+.checkbox-input:checked.cat-career ~ .checkmark { background-color: var(--color-career); border-color: var(--color-career); }
+.checkbox-input:checked.cat-learning ~ .checkmark { background-color: var(--color-learning); border-color: var(--color-learning); }
+.checkbox-input:checked.cat-health ~ .checkmark { background-color: var(--color-health); border-color: var(--color-health); }
+.checkbox-input:checked.cat-fitness ~ .checkmark { background-color: var(--color-fitness); border-color: var(--color-fitness); }
+.checkbox-input:checked.cat-finance ~ .checkmark { background-color: var(--color-finance); border-color: var(--color-finance); }
+.checkbox-input:checked.cat-creative ~ .checkmark { background-color: var(--color-creative); border-color: var(--color-creative); }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 100ms ease;
+  border: 1px solid var(--text-primary);
+  background-color: transparent;
+  color: var(--text-primary);
+}
+
+.btn:hover {
+  background-color: var(--surface-color);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+}
+
+.btn-primary {
+  background-color: var(--text-primary);
+  color: var(--bg-color);
+}
+
+.btn-primary:hover {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+}
+
+.btn-secondary {
+  /* Standard btn handles secondary style */
+}
+
+/* Inputs */
+.input-field {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--text-primary);
+  padding: 8px 0;
+  font-size: 1rem;
+  width: 100%;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-width 100ms ease;
+  border-radius: 0;
+}
+
+.input-field:focus {
+  border-bottom-width: 2px;
+}
+
+.input-field::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+/* Progress Bars */
+.progress-container {
+  width: 100%;
+  background-color: var(--border-color);
+  height: 2px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  transition: width 200ms ease;
+  background-color: var(--text-primary);
+}
+
+/* Category Progress Bars */
+.progress-career { background-color: var(--color-career); }
+.progress-learning { background-color: var(--color-learning); }
+.progress-health { background-color: var(--color-health); }
+.progress-fitness { background-color: var(--color-fitness); }
+.progress-finance { background-color: var(--color-finance); }
+.progress-creative { background-color: var(--color-creative); }
+.progress-personal { background-color: var(--color-personal); }
+
+/* Tables */
+.table-minimal {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-minimal th, .table-minimal td {
+  padding: var(--spacing-md) 0;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.table-minimal th {
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
+
+/* Layout Utilities */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 200px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-right: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+  padding: var(--spacing-lg);
+  overflow-y: auto;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 200px;
+  max-width: 100%;
+  padding: var(--spacing-section) var(--spacing-major);
+}
+
+/* Helpers */
+.text-huge {
+  font-size: 1.5rem;
+  line-height: 1.3;
+}

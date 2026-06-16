@@ -1,0 +1,635 @@
+# Personal OS - Goal System Specification V1
+
+## Purpose
+
+The Goal System is the highest level of the application.
+
+Goals answer:
+
+"Why am I doing all of this?"
+
+Without goals:
+
+* Skills are isolated
+* Projects are isolated
+* Fitness is isolated
+* Health is isolated
+
+Goals connect everything together.
+
+---
+
+# Hierarchy
+
+Goal
+│
+├── Skills
+├── Projects
+├── Fitness Goals
+├── Health Goals
+└── Goal Checklist
+
+---
+
+Example
+
+Goal
+
+Become Automation Freelancer
+
+Skills
+
+* Playwright
+* FastAPI
+* Docker
+
+Projects
+
+* Lead Scraper
+* Automation Dashboard
+* Portfolio Website
+
+Checklist
+
+* Learn Playwright
+* Learn FastAPI
+* Build Portfolio
+* Get First Client
+
+---
+
+# Goal Lifecycle
+
+Idea
+
+Planned
+
+Active
+
+Completed
+
+Archived
+
+Cancelled
+
+---
+
+# Goal Fields
+
+Title
+
+Description
+
+Category
+
+Status
+
+Priority
+
+Schedule Type
+
+Target Date
+
+Progress (automatic)
+
+Created At
+
+Started At
+
+Completed At
+
+Updated At
+
+---
+
+# Goal Categories
+
+Career
+
+Education
+
+Fitness
+
+Health
+
+Finance
+
+Personal
+
+Business
+
+Learning
+
+Custom
+
+---
+
+Examples
+
+Career
+
+Become Automation Freelancer
+
+---
+
+Fitness
+
+Bench 100kg
+
+---
+
+Health
+
+Reach 18% Body Fat
+
+---
+
+Education
+
+Master DSA
+
+---
+
+# Schedule Types
+
+Flexible
+
+Deadline
+
+---
+
+## Flexible
+
+No end date required.
+
+Tracks:
+
+Days Active
+
+Progress
+
+Last Activity
+
+---
+
+## Deadline
+
+Requires:
+
+Target Date
+
+Calculates:
+
+Days Remaining
+
+Expected Progress
+
+On Track
+
+Behind Schedule
+
+---
+
+# Automatic Dates
+
+When created:
+
+Created At = Current Date
+
+---
+
+When status becomes Active:
+
+Started At = Current Date
+
+---
+
+When status becomes Completed:
+
+Completed At = Current Date
+
+---
+
+When edited:
+
+Updated At = Current Date
+
+---
+
+# Goal Checklist
+
+Goals support checklists.
+
+Example
+
+Become Automation Freelancer
+
+□ Learn Playwright
+
+□ Learn FastAPI
+
+□ Learn Docker
+
+□ Build Portfolio
+
+□ Build Lead Scraper
+
+□ Get First Client
+
+□ Deliver First Project
+
+---
+
+Progress is automatically calculated.
+
+Example
+
+5 completed
+
+10 total
+
+Progress = 50%
+
+---
+
+# Linked Skills
+
+Goals can contain skills.
+
+Example
+
+Goal
+
+Become Automation Freelancer
+
+Linked Skills
+
+Playwright
+
+FastAPI
+
+Docker
+
+Git
+
+Communication
+
+---
+
+Benefits
+
+Goal page can display:
+
+Skill Progress
+
+Skill Completion
+
+Learning Hours
+
+---
+
+# Linked Projects
+
+Goals can contain projects.
+
+Example
+
+Goal
+
+Become Automation Freelancer
+
+Projects
+
+Lead Scraper
+
+Portfolio Website
+
+Automation Dashboard
+
+---
+
+Benefits
+
+Goal page can display:
+
+Project Progress
+
+Project Completion
+
+Project Status
+
+---
+
+# Linked Health Goals
+
+Examples
+
+Lose 15kg
+
+Reach 15% Body Fat
+
+Workout 4 Days Per Week
+
+---
+
+Can link to:
+
+Fitness
+
+Nutrition
+
+Body Metrics
+
+---
+
+# Progress Calculation
+
+Goal progress should support multiple modes.
+
+---
+
+Mode 1
+
+Checklist Based
+
+Completed Checklist Items
+
+÷
+
+Total Checklist Items
+
+---
+
+Mode 2
+
+Linked Items Based
+
+Completed Skills
+
+Completed Projects
+
+Completed Goal Tasks
+
+÷
+
+Total Linked Items
+
+---
+
+Mode 3
+
+Manual
+
+User manually sets progress.
+
+---
+
+Default
+
+Checklist Based
+
+---
+
+# Goal Dashboard Card
+
+Example
+
+Become Automation Freelancer
+
+Status:
+Active
+
+Progress:
+42%
+
+Started:
+14 Jun 2026
+
+Schedule:
+Flexible
+
+Skills:
+4 Linked
+
+Projects:
+3 Linked
+
+Checklist:
+8 / 19 Completed
+
+---
+
+# Goal Timeline
+
+Automatically generated.
+
+Example
+
+14 Jun 2026
+
+Goal Created
+
+---
+
+20 Jun 2026
+
+Playwright Added
+
+---
+
+28 Jun 2026
+
+Portfolio Project Completed
+
+---
+
+12 Jul 2026
+
+FastAPI Completed
+
+---
+
+Generated from events.
+
+No manual timeline management.
+
+---
+
+# Goal Analytics
+
+Active Goals
+
+Completed Goals
+
+Cancelled Goals
+
+Average Goal Completion Time
+
+Goals By Category
+
+Goal Success Rate
+
+---
+
+# Goal Relationships
+
+Goal
+→ Skills
+
+Goal
+→ Projects
+
+Goal
+→ Fitness Goals
+
+Goal
+→ Health Goals
+
+Goal
+→ Checklist Items
+
+---
+
+Examples
+
+Goal
+
+Become Automation Freelancer
+
+↓
+
+Skills
+
+Playwright
+
+FastAPI
+
+Docker
+
+↓
+
+Projects
+
+Lead Scraper
+
+Portfolio Website
+
+Automation Dashboard
+
+---
+
+Goal
+
+Reach 15% Body Fat
+
+↓
+
+Health
+
+Nutrition Tracking
+
+Protein Goal
+
+↓
+
+Fitness
+
+Workout Consistency
+
+Strength Training
+
+---
+
+# Goal Priority
+
+Low
+
+Medium
+
+High
+
+Critical
+
+---
+
+Dashboard should prioritize:
+
+Critical
+
+↓
+
+High
+
+↓
+
+Medium
+
+↓
+
+Low
+
+---
+
+# Future Features (Not V1)
+
+Goal Dependencies
+
+Recurring Goals
+
+Goal Templates
+
+Shared Goals
+
+Public Goals
+
+Goal Journaling
+
+AI Recommendations
+
+Habit Integration
+
+Vision Boards
+
+---
+
+# Version 1 Scope
+
+Must Include
+
+Goal Database
+
+Goal Checklist
+
+Linked Skills
+
+Linked Projects
+
+Progress Tracking
+
+Flexible / Deadline Scheduling
+
+Timeline
+
+Analytics
+
+Automatic Dates
+
+Priority System
+
+---
+
+Do Not Include
+
+Habit Tracking
+
+Recurring Goals
+
+Goal Templates
+
+Social Features
+
+AI Coaching
+
+Complex Dependency Trees
+
+The Goal System should remain lightweight and act as the top-level structure that gives meaning and direction to Skills, Projects, Health, and Fitness.

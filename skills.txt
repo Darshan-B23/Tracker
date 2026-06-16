@@ -1,0 +1,559 @@
+# Personal OS - System Specification V1
+
+## Purpose
+
+Personal OS is a personal productivity and life-tracking system.
+
+It is NOT:
+
+* A Notion clone
+* A tracker builder
+* A database builder
+* A multi-user application
+
+It is designed specifically for personal use and focuses on:
+
+* Skills
+* Projects
+* Nutrition
+* Fitness
+* Goals
+* Learning Progress
+
+The primary objective is to provide a clear overview of personal growth, learning, health, and project execution.
+
+---
+
+# Core Principles
+
+1. Fast data entry
+2. Minimal friction
+3. Automatic date tracking
+4. Progress should be calculated automatically wherever possible
+5. Dashboard-first design
+6. Long-term trend tracking
+7. Simple over flexible
+8. Purpose-built, not generic
+
+---
+
+# Main Sections
+
+## Dashboard
+
+Displays a high-level overview of:
+
+* Current Skill Focus
+* Current Project Focus
+* Today's Nutrition
+* Workout Status
+* Active Skills
+* Active Projects
+* Learning Progress
+* Consistency Metrics
+
+Analytics:
+
+* Weight Trend
+* Workout Consistency
+* Skill Progress
+* Project Progress
+
+---
+
+## Skills
+
+Purpose:
+
+Track career skills and hobbies.
+
+Examples:
+
+* Playwright
+* FastAPI
+* Docker
+* Guitar
+* Public Speaking
+
+### Fields
+
+Name
+
+Category
+
+Status
+
+Priority
+
+Schedule Type
+
+Target Date (optional)
+
+Progress (calculated)
+
+Created At
+
+Started At
+
+Completed At
+
+Updated At
+
+Notes
+
+Why Learning?
+
+---
+
+### Status Types
+
+Wishlist
+
+Planned
+
+Active
+
+Paused
+
+Completed
+
+Dropped
+
+---
+
+### Schedule Types
+
+Flexible
+
+Deadline
+
+Flexible:
+No target date required.
+
+Deadline:
+Target date required.
+
+System should automatically calculate:
+
+* Days Remaining
+* Expected Progress
+* On Track / Behind
+
+---
+
+### Automatic Date Rules
+
+When created:
+
+Created At = current date
+
+When moved to Active:
+
+Started At = current date
+
+When moved to Completed:
+
+Completed At = current date
+
+Whenever edited:
+
+Updated At = current date
+
+Dates should never require manual entry.
+
+---
+
+### Skill Checklist System
+
+Every skill can contain checklist sections.
+
+Example:
+
+Playwright
+
+Fundamentals
+
+* Install Playwright
+* Launch Browser
+* Open Page
+* Locate Elements
+
+Interactions
+
+* Click Elements
+* Fill Forms
+* Upload Files
+
+Projects
+
+* Build Scraper
+* Build Automation Tool
+
+---
+
+Progress Calculation
+
+Progress should be automatically calculated:
+
+Completed Items / Total Items
+
+Example:
+
+8 completed
+
+10 total
+
+Progress = 80%
+
+No manual percentage entry required.
+
+---
+
+## Learning Sessions
+
+Purpose:
+
+Track actual study time.
+
+### Fields
+
+Skill
+
+Duration
+
+Date
+
+Notes
+
+Created At
+
+---
+
+Metrics
+
+* Total Learning Hours
+* Hours Per Skill
+* Weekly Learning Time
+* Monthly Learning Time
+
+---
+
+## Projects
+
+Purpose:
+
+Track personal and professional projects.
+
+### Fields
+
+Name
+
+Description
+
+Status
+
+Priority
+
+Progress (calculated)
+
+Github URL
+
+Related Skills
+
+Created At
+
+Started At
+
+Completed At
+
+Updated At
+
+Notes
+
+---
+
+### Status Types
+
+Idea
+
+Planned
+
+Building
+
+Testing
+
+Completed
+
+Archived
+
+Cancelled
+
+---
+
+### Automatic Dates
+
+Created -> Created At
+
+Building -> Started At
+
+Completed -> Completed At
+
+Any edit -> Updated At
+
+---
+
+### Project Checklist System
+
+Projects use the same checklist structure as Skills.
+
+Example:
+
+Automation Portfolio
+
+* Create Repository
+* Setup Frontend
+* Build Dashboard
+* Add Charts
+* Deploy
+
+Progress is automatically calculated.
+
+---
+
+## Nutrition
+
+Purpose:
+
+Track food intake and nutrition.
+
+### Daily Log
+
+Date
+
+Calories
+
+Protein
+
+Carbs
+
+Fat
+
+Fiber
+
+Water
+
+Notes
+
+Created At
+
+Updated At
+
+Date defaults to today.
+
+---
+
+### Analytics
+
+* Calories Over Time
+* Protein Over Time
+* Weight Over Time
+
+---
+
+## Recipe Library
+
+### Fields
+
+Name
+
+Description
+
+Ingredients
+
+Instructions
+
+Calories
+
+Protein
+
+Carbs
+
+Fat
+
+Tags
+
+Created At
+
+Updated At
+
+---
+
+Tags
+
+Breakfast
+
+Lunch
+
+Dinner
+
+Snack
+
+High Protein
+
+Cutting
+
+Bulking
+
+Vegetarian
+
+Custom Tags
+
+---
+
+## Fitness
+
+Purpose:
+
+Track workouts and consistency.
+
+---
+
+### Workout Templates
+
+Fields
+
+Name
+
+Monday
+
+Tuesday
+
+Wednesday
+
+Thursday
+
+Friday
+
+Saturday
+
+Sunday
+
+Created At
+
+Updated At
+
+---
+
+### Workout Logs
+
+Fields
+
+Date
+
+Workout Type
+
+Completed
+
+Duration
+
+Notes
+
+Created At
+
+Updated At
+
+Date defaults to today.
+
+---
+
+### Fitness Analytics
+
+Workout Completion %
+
+Weekly Consistency
+
+Monthly Consistency
+
+Workout Streak
+
+Longest Streak
+
+---
+
+## Goals
+
+Purpose:
+
+Connect skills and projects to larger outcomes.
+
+Example:
+
+Goal:
+Become Automation Freelancer
+
+Checklist
+
+* Learn Playwright
+* Learn FastAPI
+* Build Portfolio
+* Get First Client
+* Deliver First Project
+
+Goal progress is automatically calculated.
+
+---
+
+# Dashboard Relationships
+
+Skills
+→ Learning Sessions
+
+Skills
+→ Projects
+
+Projects
+→ Skills
+
+Goals
+→ Skills
+
+Goals
+→ Projects
+
+Nutrition
+→ Dashboard Metrics
+
+Fitness
+→ Dashboard Metrics
+
+---
+
+# Automatic System Behavior
+
+Every major object should support:
+
+Created At
+
+Updated At
+
+Started At (when applicable)
+
+Completed At (when applicable)
+
+No manual date entry.
+
+Dates should be generated automatically by the system.
+
+---
+
+# Future Additions (Not V1)
+
+* Finance Tracker
+* Habit Tracker
+* Sleep Tracker
+* Journal
+* Reading Tracker
+* Freelance CRM
+* Job Application Tracker
+
+These should not be implemented in Version 1.

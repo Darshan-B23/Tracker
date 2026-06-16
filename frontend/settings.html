@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings | Personal OS</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Custom Brutalist Styling - Concrete + Pigment System */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@400;700;800&display=swap');
+
+    :root {
+      --bg-base: #ffffff;
+      --text-main: #31353c;
+      /* Concrete Black */
+      --border-light: #e8eceb;
+      /* Concrete White */
+      --shadow-color: #31353c;
+
+      /* Pigments */
+      --pigment-yellow: #c8a97e;
+      --pigment-red: #c26e60;
+      --pigment-purple: #8d7a8b;
+      --pigment-blue: #6e8ca0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      overflow-x: hidden;
+    }
+
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Static Brutal Block */
+    .brutal-block {
+      border: 2px solid var(--text-main);
+      background-color: var(--bg-base);
+    }
+
+    /* Interactive Brutal Block (Lifts on hover) */
+    .brutal-interactive {
+      border: 2px solid var(--text-main);
+      background-color: var(--bg-base);
+      transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .brutal-interactive:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 4px 4px 0px 0px var(--shadow-color);
+    }
+
+    /* Brutalist Inputs */
+    .brutal-input {
+      width: 100%;
+      border: 2px solid var(--text-main);
+      background-color: #f9fafb;
+      padding: 0.75rem 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      outline: none;
+      transition: background-color 0.2s;
+    }
+
+    .brutal-input:focus {
+      background-color: var(--bg-base);
+    }
+
+    /* Select Reset */
+    select.brutal-input {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2331353c%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem top 50%;
+      background-size: 0.65rem auto;
+      cursor: pointer;
+    }
+
+    /* Hide Number Input Arrows */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body class="selection:bg-[#e8eceb] p-4 sm:p-8 md:p-12 lg:p-16 flex justify-center">
+
+  <div class="w-full max-w-4xl relative">
+    <main class="w-full">
+
+      <!-- System Coordinates / Metadata -->
+      <div class="flex justify-between items-start mb-8 text-[10px] font-mono uppercase tracking-widest text-[#9ca3af] relative z-50">
+        <div class="flex flex-col gap-1">
+          <span>SYS.SETTINGS // OS</span>
+          <span id="current-date-display">--.--.--</span>
+        </div>
+
+      <!-- Navigation Dropdown -->
+      <div class="relative group z-50">
+        <button class="p-2 flex items-center justify-center text-[#31353c] hover:bg-[#31353c] hover:text-white transition-colors border-2 border-[#31353c] bg-white cursor-pointer" aria-label="Menu">
+          <i data-lucide="menu" class="w-4 h-4"></i>
+        </button>
+        
+        <!-- Dropdown Content -->
+        <div class="absolute right-0 mt-2 w-48 bg-white border-2 border-[#31353c] shadow-[4px_4px_0px_0px_#31353c] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col z-50 text-left">
+          <a href="/dashboard.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#6e8ca0] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
+          </a>
+          <a href="/goals.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#8d7a8b] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="target" class="w-4 h-4"></i> Goals
+          </a>
+          <a href="/projects.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c26e60] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="folder" class="w-4 h-4"></i> Projects
+          </a>
+          <a href="/skills.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c8a97e] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="brain" class="w-4 h-4"></i> Skills
+          </a>
+          <a href="/health.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c8a97e] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="activity" class="w-4 h-4"></i> Health
+          </a>
+          <a href="/fitness.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#6e8ca0] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="dumbbell" class="w-4 h-4"></i> Fitness
+          </a>
+          <a href="/analytics.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="bar-chart-2" class="w-4 h-4"></i> Analytics
+          </a>
+          <a href="/settings.html" class="px-4 py-3 text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="settings" class="w-4 h-4"></i> Settings
+          </a>
+        </div>
+      </div>
+
+      </div>
+
+      <header
+        class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b-4 border-[#31353c] pb-8 mt-4 md:mt-0 relative">
+        <h1 class="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none">
+          Settings
+        </h1>
+
+        <!-- Status Message Banner -->
+        <div id="settings-message"
+          class="hidden absolute -bottom-4 right-0 transform translate-y-full z-50 bg-[#31353c] text-white font-mono text-[10px] uppercase tracking-widest font-bold px-6 py-3 border-2 border-[#31353c] shadow-[4px_4px_0px_0px_rgba(200,169,126,1)]">
+          <!-- Injected message -->
+        </div>
+      </header>
+
+      <!-- Loading State -->
+      <div id="loading-text"
+        class="flex flex-col items-center justify-center py-24 border-2 border-dashed border-[#e8eceb] bg-[#f9fafb] text-[#9ca3af]">
+        <i data-lucide="loader-2" class="w-8 h-8 animate-spin mb-4 text-[#31353c]"></i>
+        <p class="font-mono text-xs uppercase tracking-widest font-bold">Compiling Settings...</p>
+      </div>
+
+      <!-- Settings Content -->
+      <div id="settings-container" style="display: none;" class="pb-32">
+        <form id="settings-form" class="flex flex-col gap-16">
+
+          <!-- Profile -->
+          <section>
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-3 h-3 bg-[#31353c]"></div>
+              <h2 class="text-xl font-bold tracking-tighter uppercase">Profile</h2>
+            </div>
+            <div class="brutal-block p-6 md:p-8 bg-white grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+              <div>
+                <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Display
+                  Name</label>
+                <input type="text" id="display_name" class="brutal-input text-base" />
+              </div>
+              <div>
+                <label
+                  class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Timezone</label>
+                <input type="text" id="timezone" class="brutal-input text-base" />
+              </div>
+              <div class="border-t-2 border-dashed border-[#e8eceb] pt-6 md:col-span-1">
+                <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Date
+                  Format</label>
+                <select id="date_format" class="brutal-input">
+                  <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                  <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                  <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                </select>
+              </div>
+              <div class="border-t-2 border-dashed border-[#e8eceb] pt-6 md:border-t-0 md:border-l-2 md:pl-8 md:pt-0">
+                <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Time
+                  Format</label>
+                <select id="time_format" class="brutal-input">
+                  <option value="12 Hour">12 Hour</option>
+                  <option value="24 Hour">24 Hour</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <!-- Dashboard -->
+          <section>
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-3 h-3 bg-[var(--pigment-blue)] border border-[#31353c]"></div>
+              <h2 class="text-xl font-bold tracking-tighter uppercase">Dashboard View</h2>
+            </div>
+            <div
+              class="brutal-block p-6 md:p-8 bg-[#f9fafb] grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 border-l-8 border-l-[var(--pigment-blue)]">
+              <div class="md:col-span-2">
+                <label
+                  class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Default
+                  Landing Page</label>
+                <select id="default_landing_page" class="brutal-input">
+                  <option value="Dashboard">Dashboard</option>
+                  <option value="Skills">Skills</option>
+                  <option value="Projects">Projects</option>
+                  <option value="Health">Health</option>
+                  <option value="Fitness">Fitness</option>
+                  <option value="Goals">Goals</option>
+                </select>
+              </div>
+              <div>
+                <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Default
+                  View</label>
+                <select id="default_dashboard_view" class="brutal-input">
+                  <option value="Today">Today</option>
+                  <option value="Overview">Overview</option>
+                  <option value="Analytics">Analytics</option>
+                </select>
+              </div>
+              <div>
+                <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Default Sort
+                  Order</label>
+                <select id="default_sort_order" class="brutal-input">
+                  <option value="Time First">Time First</option>
+                  <option value="Priority First">Priority First</option>
+                  <option value="Alphabetical First">Alphabetical First</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <!-- Appearance -->
+          <section>
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-3 h-3 bg-[var(--pigment-purple)] border border-[#31353c]"></div>
+              <h2 class="text-xl font-bold tracking-tighter uppercase">Appearance</h2>
+            </div>
+            <div
+              class="brutal-block p-6 md:p-8 bg-white grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 border-r-8 border-r-[var(--pigment-purple)]">
+              <div>
+                <label
+                  class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Theme</label>
+                <select id="theme" class="brutal-input pointer-events-none opacity-80" readonly>
+                  <option value="Architectural Brutalism">Architectural Brutalism</option>
+                </select>
+              </div>
+              <div>
+                <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Density</label>
+                <select id="density" class="brutal-input">
+                  <option value="Compact">Compact</option>
+                  <option value="Comfortable">Comfortable</option>
+                  <option value="Spacious">Spacious</option>
+                </select>
+              </div>
+              <div class="border-t-2 border-dashed border-[#e8eceb] pt-6">
+                <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Sidebar
+                  State</label>
+                <select id="sidebar_state" class="brutal-input">
+                  <option value="Expanded">Expanded</option>
+                  <option value="Collapsed">Collapsed</option>
+                </select>
+              </div>
+              <div class="border-t-2 border-dashed border-[#e8eceb] pt-6">
+                <label
+                  class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Animations</label>
+                <select id="animations" class="brutal-input">
+                  <option value="Enabled">Enabled</option>
+                  <option value="Reduced">Reduced</option>
+                  <option value="Disabled">Disabled</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <!-- Health -->
+          <section>
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-3 h-3 bg-[var(--pigment-yellow)] border border-[#31353c]"></div>
+              <h2 class="text-xl font-bold tracking-tighter uppercase">Health Targets</h2>
+            </div>
+            <div class="brutal-block p-6 md:p-8 bg-white grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+              <div>
+                <label
+                  class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Calories
+                  <span class="text-[#9ca3af] font-normal">(KCAL)</span></label>
+                <input type="number" id="calorie_target" class="brutal-input" />
+              </div>
+              <div>
+                <label
+                  class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Protein
+                  <span class="text-[#9ca3af] font-normal">(G)</span></label>
+                <input type="number" id="protein_target" class="brutal-input" />
+              </div>
+              <div>
+                <label class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Carbs
+                  <span class="text-[#9ca3af] font-normal">(G)</span></label>
+                <input type="number" id="carbs_target" class="brutal-input" />
+              </div>
+              <div>
+                <label class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Fat
+                  <span class="text-[#9ca3af] font-normal">(G)</span></label>
+                <input type="number" id="fat_target" class="brutal-input" />
+              </div>
+              <div>
+                <label class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Fiber
+                  <span class="text-[#9ca3af] font-normal">(G)</span></label>
+                <input type="number" id="fiber_target" class="brutal-input" />
+              </div>
+              <div>
+                <label class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Water
+                  <span class="text-[#9ca3af] font-normal">(L)</span></label>
+                <input type="number" id="water_target" class="brutal-input" step="0.1" />
+              </div>
+            </div>
+          </section>
+
+          <!-- Fitness -->
+          <section>
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-3 h-3 bg-[var(--pigment-red)] border border-[#31353c]"></div>
+              <h2 class="text-xl font-bold tracking-tighter uppercase">Fitness Defaults</h2>
+            </div>
+            <div class="brutal-block p-6 md:p-8 bg-white grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+              <div>
+                <label
+                  class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Weekly
+                  Target <span class="text-[#9ca3af] font-normal">(DAYS)</span></label>
+                <input type="number" id="weekly_workout_target" class="brutal-input" />
+              </div>
+              <div>
+                <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Preferred
+                  Template</label>
+                <select id="preferred_workout_template" class="brutal-input">
+                  <option value="Push Pull Legs">Push Pull Legs</option>
+                  <option value="Upper Lower">Upper Lower</option>
+                  <option value="Full Body">Full Body</option>
+                  <option value="Custom">Custom</option>
+                </select>
+              </div>
+              <div class="col-span-1 md:col-span-2 border-t-2 border-dashed border-[#e8eceb] pt-6 flex items-center">
+                <label class="flex items-center gap-4 cursor-pointer group">
+                  <div class="relative flex items-center justify-center mt-0.5">
+                    <input type="checkbox" id="strength_tracking_enabled" class="peer sr-only" />
+                    <div
+                      class="w-6 h-6 border-2 border-[#31353c] bg-transparent peer-checked:bg-[var(--pigment-red)] peer-checked:border-[var(--pigment-red)] flex items-center justify-center transition-colors">
+                      <i data-lucide="check"
+                        class="w-4 h-4 text-[#31353c] opacity-0 peer-checked:opacity-100 font-bold"></i>
+                    </div>
+                  </div>
+                  <span
+                    class="font-mono text-sm font-bold text-[#31353c] uppercase tracking-widest group-hover:text-[var(--pigment-red)] transition-colors">Enable
+                    Strength Tracking</span>
+                </label>
+              </div>
+            </div>
+          </section>
+
+          <!-- Modules Defaults -->
+          <section>
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-3 h-3 bg-[#e8eceb] border border-[#31353c]"></div>
+              <h2 class="text-xl font-bold tracking-tighter uppercase">Module Initialization Rules</h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
+
+              <!-- Skills -->
+              <div class="brutal-block p-6 bg-[#f9fafb]">
+                <h3
+                  class="font-mono text-xs uppercase tracking-widest text-[#31353c] font-bold border-b-2 border-[#31353c] pb-3 mb-6 flex items-center gap-2">
+                  <i data-lucide="zap" class="w-4 h-4"></i> Skills
+                </h3>
+                <div class="flex flex-col gap-6">
+                  <div>
+                    <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Default
+                      Status</label>
+                    <select id="default_skill_status" class="brutal-input">
+                      <option value="Wishlist">Wishlist</option>
+                      <option value="Planned">Planned</option>
+                      <option value="Active">Active</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Schedule
+                      Typology</label>
+                    <select id="default_skill_schedule" class="brutal-input">
+                      <option value="Flexible">Flexible</option>
+                      <option value="Deadline">Deadline</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Projects -->
+              <div class="brutal-block p-6 bg-[#f9fafb]">
+                <h3
+                  class="font-mono text-xs uppercase tracking-widest text-[#31353c] font-bold border-b-2 border-[#31353c] pb-3 mb-6 flex items-center gap-2">
+                  <i data-lucide="layers" class="w-4 h-4"></i> Projects
+                </h3>
+                <div class="flex flex-col gap-6">
+                  <div>
+                    <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Default
+                      Status</label>
+                    <select id="default_project_status" class="brutal-input">
+                      <option value="Idea">Idea</option>
+                      <option value="Planned">Planned</option>
+                      <option value="Building">Building</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Schedule
+                      Typology</label>
+                    <select id="default_project_schedule" class="brutal-input">
+                      <option value="Flexible">Flexible</option>
+                      <option value="Deadline">Deadline</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Goals -->
+              <div class="brutal-block p-6 bg-[#f9fafb]">
+                <h3
+                  class="font-mono text-xs uppercase tracking-widest text-[#31353c] font-bold border-b-2 border-[#31353c] pb-3 mb-6 flex items-center gap-2">
+                  <i data-lucide="target" class="w-4 h-4"></i> Goals
+                </h3>
+                <div class="flex flex-col gap-6">
+                  <div>
+                    <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Default
+                      Typology</label>
+                    <select id="default_goal_type" class="brutal-input">
+                      <option value="Milestone">Milestone</option>
+                      <option value="Outcome">Outcome</option>
+                      <option value="Identity">Identity</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Default
+                      Status</label>
+                    <select id="default_goal_status" class="brutal-input">
+                      <option value="Idea">Idea</option>
+                      <option value="Planned">Planned</option>
+                      <option value="Active">Active</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Progress
+                      Mode</label>
+                    <select id="default_goal_progress_mode" class="brutal-input">
+                      <option value="Checklist">Checklist</option>
+                      <option value="Linked">Linked</option>
+                      <option value="Manual">Manual</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- Notifications -->
+          <section>
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-3 h-3 bg-[#31353c]"></div>
+              <h2 class="text-xl font-bold tracking-tighter uppercase">Notifications</h2>
+            </div>
+            <div class="brutal-block p-6 md:p-8 bg-white flex items-center">
+              <label class="flex items-center gap-4 cursor-pointer group">
+                <div class="relative flex items-center justify-center mt-0.5">
+                  <input type="checkbox" id="deadline_alerts_enabled" class="peer sr-only" />
+                  <div
+                    class="w-6 h-6 border-2 border-[#31353c] bg-transparent peer-checked:bg-[#31353c] peer-checked:border-[#31353c] flex items-center justify-center transition-colors">
+                    <i data-lucide="check" class="w-4 h-4 text-white opacity-0 peer-checked:opacity-100 font-bold"></i>
+                  </div>
+                </div>
+                <span
+                  class="font-mono text-sm font-bold text-[#31353c] uppercase tracking-widest group-hover:underline">Enable
+                  Deadline Alerts</span>
+              </label>
+            </div>
+          </section>
+
+          <!-- Submit -->
+          <div class="mt-8">
+            <button type="submit"
+              class="brutal-interactive w-full py-6 text-2xl font-black tracking-tighter uppercase bg-[#31353c] text-white flex justify-center items-center gap-3 group"
+              id="save-btn">
+              <i data-lucide="save" class="w-6 h-6 group-hover:scale-110 transition-transform"></i> Save Configuration
+            </button>
+          </div>
+        </form>
+
+        <!-- Data Management (Danger Zone) -->
+        <section class="mt-24 pt-12 border-t-8 border-[#c26e60]">
+          <div class="flex items-center gap-3 mb-8 text-[#c26e60]">
+            <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+            <h2 class="text-3xl font-black tracking-tighter uppercase">Danger Zone</h2>
+          </div>
+
+          <div class="brutal-block border-[#c26e60] bg-[#fdf5f4] p-6 md:p-8">
+            <p
+              class="font-mono text-xs uppercase tracking-widest text-[#c26e60] mb-8 font-bold border-b-2 border-dashed border-[#c26e60] pb-4">
+              Data management tools. Importing a backup will irreversibly destroy all current active telemetry and data
+              instances.
+            </p>
+
+            <div class="flex flex-col md:flex-row gap-6">
+              <button
+                class="brutal-interactive flex-1 py-4 font-mono text-[10px] uppercase tracking-widest font-bold bg-[#c26e60] text-white border-[#c26e60] flex justify-center items-center gap-2 hover:bg-[#a15548]"
+                onclick="handleExport()">
+                <i data-lucide="download" class="w-4 h-4"></i> Export JSON Archive
+              </button>
+
+              <label
+                class="brutal-interactive flex-1 py-4 font-mono text-[10px] uppercase tracking-widest font-bold bg-white text-[#c26e60] border-[#c26e60] flex justify-center items-center gap-2 cursor-pointer hover:bg-[#fdf5f4]">
+                <i data-lucide="upload" class="w-4 h-4"></i> Restore From Backup
+                <input type="file" accept=".json" class="hidden" onchange="handleImport(event)" />
+              </label>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+  <script>
+    // Initialize Icons & Date
+    lucide.createIcons();
+    document.getElementById('current-date-display').textContent = new Date().toLocaleDateString('en-GB').replace(/\//g, '.');
+
+    let globalSettings = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      await fetchSettings();
+      document.getElementById('settings-form').addEventListener('submit', handleSave);
+    });
+
+    async function fetchSettings() {
+      try {
+        const res = await fetch('http://localhost:3000/api/settings');
+        if (res.ok) {
+          globalSettings = await res.json();
+          populateForm();
+          document.getElementById('loading-text').style.display = 'none';
+          document.getElementById('settings-container').style.display = 'block';
+        }
+      } catch (e) {
+        console.error(e);
+        document.getElementById('loading-text').innerHTML = `
+          <div class="p-6 border-2 border-[var(--pigment-red)] bg-[#fdf5f4] text-[var(--pigment-red)] font-mono text-xs uppercase tracking-widest">
+            ERR: Connection to localhost:3000 refused.
+          </div>
+        `;
+        document.getElementById('loading-text').classList.remove('border-dashed', 'bg-[#f9fafb]', 'py-24');
+      }
+    }
+
+    function populateForm() {
+      const s = globalSettings;
+      const ids = [
+        'display_name', 'timezone', 'date_format', 'time_format',
+        'default_dashboard_view', 'default_sort_order', 'default_landing_page',
+        'theme', 'density', 'sidebar_state', 'animations',
+        'calorie_target', 'protein_target', 'carbs_target', 'fat_target', 'fiber_target', 'water_target',
+        'weekly_workout_target', 'preferred_workout_template',
+        'default_skill_status', 'default_skill_schedule',
+        'default_project_status', 'default_project_schedule',
+        'default_goal_type', 'default_goal_status', 'default_goal_progress_mode'
+      ];
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = s[id] || '';
+      });
+
+      document.getElementById('strength_tracking_enabled').checked = s.strength_tracking_enabled === 1;
+      document.getElementById('deadline_alerts_enabled').checked = s.deadline_alerts_enabled === 1;
+    }
+
+    function gatherFormData() {
+      const ids = [
+        'display_name', 'timezone', 'date_format', 'time_format',
+        'default_dashboard_view', 'default_sort_order', 'default_landing_page',
+        'theme', 'density', 'sidebar_state', 'animations',
+        'calorie_target', 'protein_target', 'carbs_target', 'fat_target', 'fiber_target', 'water_target',
+        'weekly_workout_target', 'preferred_workout_template',
+        'default_skill_status', 'default_skill_schedule',
+        'default_project_status', 'default_project_schedule',
+        'default_goal_type', 'default_goal_status', 'default_goal_progress_mode'
+      ];
+      const data = {};
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          // parse numbers for number inputs
+          if (el.type === 'number') data[id] = Number(el.value);
+          else data[id] = el.value;
+        }
+      });
+      data.strength_tracking_enabled = document.getElementById('strength_tracking_enabled').checked ? 1 : 0;
+      data.deadline_alerts_enabled = document.getElementById('deadline_alerts_enabled').checked ? 1 : 0;
+      return { ...globalSettings, ...data };
+    }
+
+    function showMessage(msg, isError = false) {
+      const m = document.getElementById('settings-message');
+      m.textContent = msg;
+
+      if (isError) {
+        m.classList.remove('bg-[#31353c]', 'text-white', 'shadow-[4px_4px_0px_0px_rgba(200,169,126,1)]');
+        m.classList.add('bg-[#c26e60]', 'text-white', 'border-[#c26e60]', 'shadow-[4px_4px_0px_0px_#31353c]');
+      } else {
+        m.classList.add('bg-[#31353c]', 'text-white', 'shadow-[4px_4px_0px_0px_rgba(200,169,126,1)]');
+        m.classList.remove('bg-[#c26e60]', 'text-white', 'border-[#c26e60]', 'shadow-[4px_4px_0px_0px_#31353c]');
+      }
+
+      m.classList.remove('hidden');
+      m.classList.remove('translate-y-full');
+
+      setTimeout(() => {
+        m.classList.add('translate-y-full');
+        setTimeout(() => m.classList.add('hidden'), 300); // hide after transform
+      }, 3000);
+    }
+
+    async function handleSave(e) {
+      e.preventDefault();
+      const btn = document.getElementById('save-btn');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<i data-lucide="loader-2" class="w-6 h-6 animate-spin"></i> SAVING...';
+      lucide.createIcons();
+
+      const payload = gatherFormData();
+
+      try {
+        const res = await fetch('http://localhost:3000/api/settings', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          showMessage('CONFIGURATION SAVED');
+          globalSettings = payload;
+          window.HBT_SETTINGS = payload;
+        } else {
+          showMessage('ERR: FAILED TO SAVE', true);
+        }
+      } catch (e) {
+        showMessage('ERR: SYSTEM OFFLINE', true);
+      }
+      btn.innerHTML = originalText;
+      lucide.createIcons();
+    }
+
+    async function handleExport() {
+      try {
+        const res = await fetch('http://localhost:3000/api/settings/export');
+        if (!res.ok) throw new Error("Failed to reach API");
+        const data = await res.json();
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `sys_archive_os_${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+      } catch (e) {
+        console.error(e);
+        showMessage('ERR: EXPORT FAILED', true);
+      }
+    }
+
+    async function handleImport(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      if (!window.confirm('SYS.WARN: This will completely wipe all current data and replace it with the imported backup. Proceed with overwrite?')) return;
+
+      const reader = new FileReader();
+      reader.onload = async (event) => {
+        try {
+          const data = JSON.parse(event.target.result);
+          const res = await fetch('http://localhost:3000/api/settings/import', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+          if (res.ok) {
+            alert('SYS.MSG: OVERWRITE SUCCESS. Rebooting OS.');
+            window.location.reload();
+          } else {
+            showMessage('ERR: RESTORE FAILED', true);
+          }
+        } catch (err) {
+          showMessage('ERR: INVALID JSON ARCHIVE', true);
+        }
+      };
+      reader.readAsText(file);
+    }
+  </script>
+</body>
+
+</html>

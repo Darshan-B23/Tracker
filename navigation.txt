@@ -1,0 +1,622 @@
+# Personal OS - Navigation & Information Architecture Specification V1
+
+## Purpose
+
+The navigation system should make the application predictable and easy to understand.
+
+A user should always know:
+
+* Where they are
+* What they can do next
+* How to reach any section within 2–3 clicks
+
+The structure should reflect the hierarchy of life management rather than database tables.
+
+---
+
+# Navigation Philosophy
+
+Primary Question:
+
+"What do I need to do today?"
+
+Secondary Question:
+
+"What am I working toward?"
+
+Therefore:
+
+Dashboard comes first.
+
+Analytics comes later.
+
+Settings come last.
+
+---
+
+# Application Hierarchy
+
+Dashboard
+
+Goals
+
+Skills
+
+Projects
+
+Health
+
+Fitness
+
+Analytics
+
+Settings
+
+---
+
+# Sidebar Navigation
+
+## Primary Navigation
+
+Dashboard
+
+Goals
+
+Skills
+
+Projects
+
+Health
+
+Fitness
+
+Analytics
+
+Settings
+
+---
+
+## Behavior
+
+Fixed Left Sidebar
+
+Current Page Highlighted
+
+Collapsed State Supported
+
+Remember Last State
+
+---
+
+# Page Hierarchy
+
+Dashboard
+│
+├── Today's Queue
+├── Current Focus
+├── Recent Activity
+└── Quick Analytics
+
+---
+
+Goals
+│
+├── Active Goals
+├── Planned Goals
+├── Completed Goals
+└── Goal Details
+
+---
+
+Skills
+│
+├── Wishlist
+├── Planned
+├── Active
+├── Completed
+├── Dropped
+└── Skill Details
+
+---
+
+Projects
+│
+├── Active Projects
+├── Planned Projects
+├── Completed Projects
+├── Archived Projects
+└── Project Details
+
+---
+
+Health
+│
+├── Nutrition Logs
+├── Body Metrics
+├── Recipes
+├── Health Goals
+└── Health Analytics
+
+---
+
+Fitness
+│
+├── Workout Templates
+├── Workout Logs
+├── Strength Tracking
+├── Fitness Goals
+└── Fitness Analytics
+
+---
+
+Analytics
+│
+├── Overview
+├── Life Areas
+├── Skills Analytics
+├── Projects Analytics
+├── Goals Analytics
+├── Health Analytics
+├── Fitness Analytics
+└── Productivity Analytics
+
+---
+
+Settings
+│
+├── Profile
+├── Dashboard
+├── Appearance
+├── Health
+├── Fitness
+├── Skills
+├── Projects
+├── Goals
+├── Notifications
+└── Data Management
+
+---
+
+# Dashboard Navigation Rules
+
+The Dashboard is the application's home page.
+
+Opening the application should always land here.
+
+---
+
+Dashboard Sections
+
+1. Today's Queue
+
+2. Current Focus
+
+3. Quick Stats
+
+4. Recent Activity
+
+5. Analytics Summary
+
+---
+
+Today's Queue should always appear first.
+
+---
+
+# Goals Section
+
+Purpose:
+
+Define direction.
+
+---
+
+Contains
+
+Identity Goals
+
+Outcome Goals
+
+Milestone Goals
+
+---
+
+Default View
+
+Active Goals
+
+---
+
+# Skills Section
+
+Purpose:
+
+Track learning.
+
+---
+
+Default View
+
+Active Skills
+
+---
+
+Secondary Views
+
+Wishlist
+
+Planned
+
+Completed
+
+Dropped
+
+---
+
+Skill Detail Navigation
+
+Overview
+
+Checklist
+
+Learning Sessions
+
+Projects
+
+Notes
+
+Analytics
+
+---
+
+# Projects Section
+
+Purpose:
+
+Track execution.
+
+---
+
+Default View
+
+Active Projects
+
+---
+
+Project Detail Navigation
+
+Overview
+
+Checklist
+
+Milestones
+
+Notes
+
+Timeline
+
+Analytics
+
+Related Skills
+
+---
+
+# Health Section
+
+Purpose:
+
+Track nutrition and body progress.
+
+---
+
+Default View
+
+Today's Nutrition
+
+---
+
+Secondary Views
+
+Nutrition Logs
+
+Recipes
+
+Body Metrics
+
+Health Goals
+
+Analytics
+
+---
+
+# Fitness Section
+
+Purpose:
+
+Track workouts and consistency.
+
+---
+
+Default View
+
+Today's Workout
+
+---
+
+Secondary Views
+
+Workout Logs
+
+Templates
+
+Strength Tracking
+
+Fitness Goals
+
+Analytics
+
+---
+
+# Analytics Section
+
+Purpose:
+
+Understand trends and progress.
+
+---
+
+Default View
+
+Overview
+
+---
+
+Secondary Views
+
+Life Areas
+
+Skills
+
+Projects
+
+Goals
+
+Health
+
+Fitness
+
+Productivity
+
+---
+
+# Life Areas Navigation
+
+Life Areas are visible inside Analytics.
+
+---
+
+Views
+
+Career
+
+Learning
+
+Health
+
+Fitness
+
+Finance
+
+Personal
+
+Creative
+
+Relationships
+
+---
+
+Selecting a Life Area displays:
+
+Goals
+
+Skills
+
+Projects
+
+Learning Hours
+
+Completion Rates
+
+Activity
+
+Progress
+
+---
+
+# Search
+
+Global Search
+
+Shortcut
+
+Ctrl + K
+
+---
+
+Searchable Items
+
+Goals
+
+Skills
+
+Projects
+
+Recipes
+
+Workout Logs
+
+Learning Sessions
+
+Checklist Items
+
+---
+
+Results grouped by type.
+
+---
+
+# Quick Actions
+
+Accessible from:
+
+Header
+
+Ctrl + K
+
+---
+
+Actions
+
+Create Goal
+
+Create Skill
+
+Create Project
+
+Log Workout
+
+Log Nutrition
+
+Add Learning Session
+
+Add Body Metric
+
+Create Recipe
+
+---
+
+# Breadcrumbs
+
+Use for detail pages.
+
+Examples
+
+Skills
+
+>
+
+Playwright
+
+---
+
+Projects
+
+>
+
+Automation Dashboard
+
+---
+
+Goals
+
+>
+
+Become Automation Freelancer
+
+---
+
+# Information Architecture Hierarchy
+
+Life Areas
+│
+├── Goals
+│
+├── Skills
+│
+├── Projects
+│
+├── Health
+│
+└── Fitness
+
+---
+
+Dashboard
+│
+└── Aggregates Everything
+
+---
+
+Analytics
+│
+└── Measures Everything
+
+---
+
+Settings
+│
+└── Configures Everything
+
+---
+
+# Navigation Rules
+
+Never exceed 2 levels of nesting.
+
+Avoid hidden pages.
+
+Avoid deeply nested menus.
+
+Avoid separate dashboards for each module.
+
+Keep navigation predictable.
+
+A user should be able to access any major feature within three clicks or fewer.
+
+---
+
+# Version 1 Scope
+
+Must Include
+
+Sidebar Navigation
+
+Dashboard
+
+Goals
+
+Skills
+
+Projects
+
+Health
+
+Fitness
+
+Analytics
+
+Settings
+
+Global Search
+
+Quick Actions
+
+Breadcrumbs
+
+---
+
+Do Not Include
+
+Multi-Workspace Navigation
+
+Team Navigation
+
+Project Spaces
+
+Complex Nested Menus
+
+Role-Based Navigation
+
+Plugin Navigation
+
+The navigation system should remain simple, task-oriented, and centered around the Dashboard as the user's command center.

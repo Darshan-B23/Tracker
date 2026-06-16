@@ -1,0 +1,784 @@
+          <!DOCTYPE html>
+          <html lang="en">
+
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Skills | Personal OS</title>
+
+            <!-- Tailwind CSS -->
+            <script src="https://cdn.tailwindcss.com"></script>
+
+            <!-- Lucide Icons -->
+            <script src="https://unpkg.com/lucide@latest"></script>
+
+            <style>
+              /* Custom Brutalist Styling - Concrete + Pigment System */
+              @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@400;700;800&display=swap');
+
+              :root {
+                --bg-base: #ffffff;
+                --text-main: #31353c;
+                /* Concrete Black */
+                --border-light: #e8eceb;
+                /* Concrete White */
+                --shadow-color: #31353c;
+
+                /* Pigments */
+                --pigment-yellow: #c8a97e;
+                --pigment-red: #c26e60;
+                --pigment-purple: #8d7a8b;
+                --pigment-blue: #6e8ca0;
+              }
+
+              body {
+                font-family: 'Inter', sans-serif;
+                background-color: var(--bg-base);
+                color: var(--text-main);
+                overflow-x: hidden;
+              }
+
+              .font-mono {
+                font-family: 'JetBrains Mono', monospace;
+              }
+
+              /* Static Brutal Block */
+              .brutal-block {
+                border: 2px solid var(--text-main);
+                background-color: var(--bg-base);
+              }
+
+              /* Interactive Brutal Block (Lifts on hover) */
+              .brutal-interactive {
+                border: 2px solid var(--text-main);
+                background-color: var(--bg-base);
+                transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+              }
+
+              .brutal-interactive:hover {
+                transform: translate(-4px, -4px);
+                box-shadow: 4px 4px 0px 0px var(--shadow-color);
+              }
+
+              /* Brutalist Inputs */
+              .brutal-input {
+                width: 100%;
+                border: 2px solid var(--text-main);
+                background-color: #f9fafb;
+                padding: 0.75rem 1rem;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 0.75rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                outline: none;
+                transition: background-color 0.2s;
+              }
+
+              .brutal-input:focus {
+                background-color: var(--bg-base);
+              }
+
+              /* Select Reset */
+              select.brutal-input {
+                appearance: none;
+                background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2331353c%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+                background-repeat: no-repeat;
+                background-position: right 1rem top 50%;
+                background-size: 0.65rem auto;
+                cursor: pointer;
+              }
+
+              /* Hide Number Input Arrows */
+              input[type=number]::-webkit-inner-spin-button,
+              input[type=number]::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+              }
+
+              /* Custom Scrollbar for tabs */
+              .no-scrollbar::-webkit-scrollbar {
+                display: none;
+              }
+
+              .no-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+              }
+            </style>
+          </head>
+
+          <body class="selection:bg-[#e8eceb] p-4 sm:p-8 md:p-12 lg:p-16 flex justify-center">
+
+            <div class="w-full max-w-6xl relative">
+              <main class="w-full">
+
+                <!-- System Coordinates / Metadata -->
+                <div
+                  class="flex justify-between items-start mb-8 text-[10px] font-mono uppercase tracking-widest text-[#9ca3af]">
+                  <div class="flex flex-col gap-1">
+                    <span>SYS.SKILLS // OS</span>
+                    <span id="current-date-display">--.--.--</span>
+                  </div>
+
+      <!-- Navigation Dropdown -->
+      <div class="relative group z-50">
+        <button class="p-2 flex items-center justify-center text-[#31353c] hover:bg-[#31353c] hover:text-white transition-colors border-2 border-[#31353c] bg-white cursor-pointer" aria-label="Menu">
+          <i data-lucide="menu" class="w-4 h-4"></i>
+        </button>
+        
+        <!-- Dropdown Content -->
+        <div class="absolute right-0 mt-2 w-48 bg-white border-2 border-[#31353c] shadow-[4px_4px_0px_0px_#31353c] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col z-50 text-left">
+          <a href="/dashboard.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#6e8ca0] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
+          </a>
+          <a href="/goals.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#8d7a8b] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="target" class="w-4 h-4"></i> Goals
+          </a>
+          <a href="/projects.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c26e60] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="folder" class="w-4 h-4"></i> Projects
+          </a>
+          <a href="/skills.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c8a97e] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="brain" class="w-4 h-4"></i> Skills
+          </a>
+          <a href="/health.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c8a97e] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="activity" class="w-4 h-4"></i> Health
+          </a>
+          <a href="/fitness.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#6e8ca0] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="dumbbell" class="w-4 h-4"></i> Fitness
+          </a>
+          <a href="/analytics.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="bar-chart-2" class="w-4 h-4"></i> Analytics
+          </a>
+          <a href="/settings.html" class="px-4 py-3 text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="settings" class="w-4 h-4"></i> Settings
+          </a>
+        </div>
+      </div>
+
+                </div>
+
+                <!-- LIST VIEW -->
+                <div id="list-view" class="hidden">
+                  <header
+                    class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b-4 border-[#31353c] pb-8 mt-4 md:mt-0">
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none">
+                      Skills
+                    </h1>
+                    <button
+                      class="brutal-interactive px-6 py-3 font-mono text-[10px] uppercase tracking-widest font-bold bg-[#31353c] text-white"
+                      onclick="toggleNewSkillForm()" id="new-skill-btn">
+                      New Skill
+                    </button>
+                  </header>
+
+                  <div id="new-skill-form-container"
+                    class="mb-16 border-4 border-[#31353c] p-6 md:p-8 hidden bg-[#f9fafb]">
+                    <div class="flex items-center gap-3 mb-6">
+                      <div class="w-3 h-3 bg-[var(--pigment-yellow)]"></div>
+                      <h2 class="text-xl font-bold tracking-tighter uppercase">Create New Skill</h2>
+                    </div>
+                    <form id="new-skill-form" class="flex flex-col gap-6">
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Skill
+                            Name</label>
+                          <input type="text" id="skill-name" placeholder="SKILL NAME"
+                            class="brutal-input text-lg font-bold" required />
+                        </div>
+                        <div>
+                          <label
+                            class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Category</label>
+                          <input type="text" id="skill-category" placeholder="E.G. PROGRAMMING, LANGUAGE"
+                            class="brutal-input" />
+                        </div>
+
+                        <div>
+                          <label
+                            class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Status</label>
+                          <select id="skill-status" class="brutal-input">
+                            <option value="Wishlist">Wishlist</option>
+                            <option value="Planned">Planned</option>
+                            <option value="Active">Active</option>
+                            <option value="Paused">Paused</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Dropped">Dropped</option>
+                          </select>
+                        </div>
+
+                        <div>
+                          <label
+                            class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Schedule
+                            Type</label>
+                          <select id="skill-schedule" class="brutal-input">
+                            <option value="Flexible">Flexible Schedule</option>
+                            <option value="Deadline">Deadline Driven</option>
+                          </select>
+                        </div>
+
+                        <div>
+                          <label
+                            class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Life
+                            Area</label>
+                          <select id="skill-life-area" class="brutal-input">
+                            <option value="">Select Life Area...</option>
+                          </select>
+                        </div>
+
+                        <div>
+                          <label
+                            class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Target
+                            Date</label>
+                          <input type="date" id="skill-target-date" class="brutal-input" />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Why
+                          learning?</label>
+                        <textarea id="skill-why" placeholder="WHY ARE YOU LEARNING THIS?" class="brutal-input"
+                          rows="2"></textarea>
+                      </div>
+
+                      <div class="mt-4 flex justify-end">
+                        <button type="submit"
+                          class="brutal-interactive px-8 py-3 font-mono text-xs uppercase tracking-widest font-bold bg-[#31353c] text-white">Create
+                          Skill</button>
+                      </div>
+                    </form>
+                  </div>
+
+                  <!-- Architectural Tabs -->
+                  <div class="mb-8 border-b-2 border-[#e8eceb]">
+                    <div class="flex gap-2 overflow-x-auto no-scrollbar pb-4 pt-2 px-2 -mx-2" id="tabs-container">
+                      <!-- Tabs injected by JS -->
+                    </div>
+                  </div>
+
+                  <div id="skills-grid"
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-12 mt-8">
+                    <!-- Skills injected by JS -->
+                  </div>
+                </div>
+
+                <!-- DETAIL VIEW -->
+                <div id="detail-view" class="hidden">
+                  <header
+                    class="mb-12 border-b-4 border-[#31353c] pb-8 mt-4 md:mt-0 relative group flex flex-col lg:flex-row lg:justify-between lg:items-end gap-6">
+                    <button onclick="window.location.search=''"
+                      class="absolute -top-10 left-0 font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] hover:text-[#31353c] flex items-center gap-1 transition-colors cursor-pointer">
+                      <i data-lucide="arrow-left" class="w-3 h-3"></i> Back to Archive
+                    </button>
+
+                    <div class="flex-grow">
+                      <h1 class="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-none mt-6"
+                        id="detail-name">
+                        ...
+                      </h1>
+                      <div
+                        class="flex flex-wrap items-center gap-4 text-[#9ca3af] font-mono text-[10px] uppercase tracking-widest mt-4 font-bold">
+                        <span id="detail-category" class="text-[#31353c]">...</span>
+                        <span>///</span>
+                        <span id="detail-life-area">...</span>
+                      </div>
+                      <div
+                        class="mt-4 font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] flex flex-wrap gap-4"
+                        id="detail-dates">
+                        <!-- Dates injected here -->
+                      </div>
+                    </div>
+
+                    <div class="w-full lg:w-48 relative flex-shrink-0">
+                      <label
+                        class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2 lg:absolute lg:-top-5 lg:left-0">Status</label>
+                      <select id="detail-status-select" class="brutal-input font-bold uppercase tracking-widest text-xs"
+                        onchange="updateSkillStatus(this.value)">
+                        <option value="Wishlist">Wishlist</option>
+                        <option value="Planned">Planned</option>
+                        <option value="Active">Active</option>
+                        <option value="Paused">Paused</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Dropped">Dropped</option>
+                      </select>
+                    </div>
+                  </header>
+
+                  <!-- Main Progress Bar -->
+                  <div class="mb-16">
+                    <div class="flex justify-between items-baseline mb-3">
+                      <span class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] font-bold"
+                        id="detail-progress-fraction">0 / 0 COMPLETED</span>
+                      <span class="text-4xl md:text-5xl font-black tracking-tighter text-[#31353c]"
+                        id="detail-progress-text">0%</span>
+                    </div>
+                    <div class="w-full h-3 border-2 border-[#31353c] bg-[#f9fafb] overflow-hidden"
+                      id="detail-progress-bar">
+                      <!-- Injected by JS -->
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 xl:grid-cols-3 gap-16 lg:gap-12">
+                    <!-- Left Column -->
+                    <div class="xl:col-span-2 flex flex-col gap-16">
+
+                      <section>
+                        <div class="flex items-center gap-3 mb-6">
+                          <div class="w-3 h-3 bg-[#31353c]"></div>
+                          <h2 class="text-xl font-bold tracking-tighter uppercase">Checklists</h2>
+                        </div>
+                        <div class="flex flex-col gap-8" id="detail-checklists">
+                          <!-- Checklists Injected Here -->
+                        </div>
+                      </section>
+
+                      <section>
+                        <div class="flex items-center gap-3 mb-6">
+                          <div class="w-3 h-3 bg-[var(--pigment-yellow)] border border-[#31353c]"></div>
+                          <h2 class="text-xl font-bold tracking-tighter uppercase">Add Checklist Item</h2>
+                        </div>
+                        <div class="brutal-block p-6 bg-white border-4 border-[#31353c]">
+                          <form id="add-item-form" class="flex flex-col gap-6">
+                            <div class="flex flex-col md:flex-row gap-4">
+                              <div class="w-full md:w-1/3">
+                                <label
+                                  class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Section</label>
+                                <input type="text" id="new-cl-section" placeholder="E.G. FUNDAMENTALS"
+                                  class="brutal-input" value="General" />
+                              </div>
+                              <div class="w-full md:w-2/3">
+                                <label
+                                  class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Task
+                                  Title</label>
+                                <input type="text" id="new-cl-title" placeholder="TASK TITLE..." class="brutal-input"
+                                  required />
+                              </div>
+                            </div>
+                            <div
+                              class="flex flex-col md:flex-row gap-4 md:items-end pt-6 border-t-2 border-dashed border-[#e8eceb]">
+                              <div class="w-full md:w-auto">
+                                <label
+                                  class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Schedule
+                                  Date</label>
+                                <input type="date" id="new-cl-date" class="brutal-input" />
+                              </div>
+                              <div class="w-full md:w-auto">
+                                <label
+                                  class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Time</label>
+                                <input type="time" id="new-cl-time" class="brutal-input" />
+                              </div>
+                              <button type="submit"
+                                class="brutal-interactive w-full md:w-auto md:ml-auto px-8 py-3 font-mono text-xs uppercase tracking-widest font-bold bg-[#31353c] text-white">Add
+                                Item</button>
+                            </div>
+                          </form>
+                        </div>
+                      </section>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="flex flex-col gap-16">
+
+                      <section>
+                        <div class="flex items-center gap-3 mb-6">
+                          <div class="w-3 h-3 bg-[#e8eceb] border border-[#31353c]"></div>
+                          <h2 class="text-xl font-bold tracking-tighter uppercase">Learning Sessions</h2>
+                        </div>
+
+                        <div class="brutal-block p-6 mb-8 bg-[#f9fafb]">
+                          <h3 class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold mb-4">Log
+                            Session</h3>
+                          <form id="log-session-form" class="flex flex-col gap-4">
+                            <div>
+                              <label
+                                class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Duration
+                                (MINS)</label>
+                              <input type="number" id="session-duration" placeholder="MINS" class="brutal-input"
+                                required />
+                            </div>
+                            <div>
+                              <label
+                                class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Notes</label>
+                              <textarea id="session-notes" placeholder="WHAT DID YOU LEARN?"
+                                class="brutal-input h-24 resize-none"></textarea>
+                            </div>
+                            <button type="submit"
+                              class="brutal-interactive px-4 py-3 font-mono text-[10px] uppercase tracking-widest font-bold bg-[#31353c] text-white mt-2">Log
+                              Session</button>
+                          </form>
+                        </div>
+
+                        <div class="brutal-block p-6 bg-white">
+                          <h3
+                            class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] mb-4 border-b-2 border-dashed border-[#e8eceb] pb-2">
+                            Recent Sessions</h3>
+                          <div id="detail-sessions" class="flex flex-col gap-4">
+                            <!-- Sessions injected here -->
+                          </div>
+                        </div>
+                      </section>
+
+                      <section id="why-learning-container" class="hidden">
+                        <div class="flex items-center gap-3 mb-6">
+                          <div class="w-3 h-3 bg-[#9ca3af] border border-[#31353c]"></div>
+                          <h2 class="text-xl font-bold tracking-tighter uppercase">Why Learning?</h2>
+                        </div>
+                        <div class="brutal-block p-6 bg-[#31353c] text-white">
+                          <p class="font-mono text-sm leading-relaxed" id="why-learning-text"></p>
+                        </div>
+                      </section>
+
+                    </div>
+                  </div>
+                </div>
+
+              </main>
+            </div>
+
+            <script src="/app.js"></script>
+            <script>
+              lucide.createIcons();
+              document.getElementById('current-date-display').textContent = new Date().toLocaleDateString('en-GB').replace(/\//g, '.');
+
+              const urlParams = new URLSearchParams(window.location.search);
+              const skillId = urlParams.get('id');
+
+              let currentFilter = 'Active';
+              const filters = ['Wishlist', 'Planned', 'Active', 'Paused', 'Completed', 'Dropped'];
+
+              // Formatting utility
+              function formatDate(dateStr) {
+                if (!dateStr) return '';
+                const date = new Date(dateStr);
+                return date.toLocaleDateString('en-GB').replace(/\//g, '.');
+              }
+
+              document.addEventListener('DOMContentLoaded', async () => {
+                if (skillId) {
+                  document.getElementById('detail-view').classList.remove('hidden');
+                  await loadDetailView();
+                } else {
+                  document.getElementById('list-view').classList.remove('hidden');
+                  await loadListView();
+                }
+              });
+
+              // --- LIST VIEW LOGIC ---
+
+              async function loadListView() {
+                await fetchLifeAreas();
+                renderTabs();
+                await fetchSkills(currentFilter);
+
+                if (window.HBT_SETTINGS) {
+                  document.getElementById('skill-status').value = window.HBT_SETTINGS.default_skill_status || 'Wishlist';
+                  document.getElementById('skill-schedule').value = window.HBT_SETTINGS.default_skill_schedule || 'Flexible';
+                }
+
+                document.getElementById('new-skill-form').addEventListener('submit', handleCreateSkill);
+              }
+
+              function toggleNewSkillForm() {
+                const container = document.getElementById('new-skill-form-container');
+                const btn = document.getElementById('new-skill-btn');
+                if (container.classList.contains('hidden')) {
+                  container.classList.remove('hidden');
+                  btn.innerHTML = 'Cancel';
+                } else {
+                  container.classList.add('hidden');
+                  btn.innerHTML = 'New Skill';
+                }
+              }
+
+              async function fetchLifeAreas() {
+                try {
+                  const res = await fetch('http://localhost:3000/api/skills/life-areas');
+                  if (res.ok) {
+                    const areas = await res.json();
+                    const select = document.getElementById('skill-life-area');
+                    areas.forEach(a => {
+                      select.insertAdjacentHTML('beforeend', `<option value="${a.id}">${a.name}</option>`);
+                    });
+                  }
+                } catch (e) {
+                  console.error(e);
+                }
+              }
+
+              function renderTabs() {
+                const container = document.getElementById('tabs-container');
+                container.innerHTML = filters.map(f => {
+                  const isActive = currentFilter === f;
+                  return `
+          <button
+            onclick="setFilter('${f}')"
+            class="font-mono text-[10px] uppercase tracking-widest font-bold px-4 py-3 border-2 transition-all whitespace-nowrap ${isActive
+                      ? 'bg-[var(--pigment-yellow)] text-[#31353c] border-[var(--pigment-yellow)] translate-y-[-2px] shadow-[2px_2px_0px_0px_#31353c]'
+                      : 'bg-transparent text-[#9ca3af] border-transparent hover:border-[#e8eceb]'
+                    }"
+          >
+            ${f}
+          </button>
+        `;
+                }).join('');
+              }
+
+              async function setFilter(f) {
+                currentFilter = f;
+                renderTabs();
+                await fetchSkills(f);
+              }
+
+              async function fetchSkills(status) {
+                const container = document.getElementById('skills-grid');
+                container.innerHTML = `
+        <div class="col-span-3 flex items-center gap-3 text-[#9ca3af] font-mono text-sm uppercase tracking-widest animate-pulse py-8">
+          <i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Fetching Skills...
+        </div>
+      `;
+                lucide.createIcons();
+
+                try {
+                  const res = await fetch(`http://localhost:3000/api/skills?status=${status}`);
+                  if (res.ok) {
+                    const skills = await res.json();
+                    if (skills.length === 0) {
+                      container.innerHTML = `
+              <div class="col-span-3 py-12 border-2 border-dashed border-[#e8eceb] flex flex-col items-center justify-center text-[#9ca3af]">
+                <i data-lucide="folder-open" class="w-8 h-8 mb-4 opacity-50"></i>
+                <p class="font-mono text-xs uppercase tracking-widest">No ${status.toLowerCase()} skills found.</p>
+              </div>
+            `;
+                      lucide.createIcons();
+                      return;
+                    }
+
+                    container.innerHTML = skills.map(skill => {
+                      const completedItems = skill.checklist_stats?.completed || 0;
+                      const totalItems = skill.checklist_stats?.total || 0;
+
+                      return `
+              <div class="brutal-interactive p-6 flex flex-col justify-between cursor-pointer bg-white group h-[220px]" onclick="window.location.href='?id=${skill.id}'">
+                <div>
+                  <h3 class="font-bold text-2xl tracking-tighter uppercase mb-4 group-hover:underline">${skill.name}</h3>
+                  <p class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] font-bold">
+                    <span class="text-[#31353c]">${skill.category || 'Uncategorized'}</span> /// ${skill.life_area_name || 'No Life Area'}
+                  </p>
+                </div>
+                
+                <div class="mt-6">
+                  <div class="flex justify-between font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold mb-2">
+                    <span>${skill.progress || 0}%</span>
+                    <span>${completedItems}/${totalItems}</span>
+                  </div>
+                  <div class="w-full h-2 border-2 border-[#31353c] bg-[#f9fafb] overflow-hidden">
+                    <div class="bg-[var(--pigment-yellow)] h-full transition-all" style="width: ${Math.min(100, Math.max(0, skill.progress || 0))}%"></div>
+                  </div>
+                </div>
+              </div>
+            `;
+                    }).join('');
+                  }
+                } catch (e) {
+                  console.error(e);
+                  container.innerHTML = `
+          <div class="col-span-3 p-6 border-2 border-[var(--pigment-red)] bg-[#fdf5f4] text-[var(--pigment-red)] font-mono text-xs uppercase tracking-widest">
+            ERR: Connection to localhost:3000 refused.
+          </div>
+        `;
+                }
+              }
+
+              async function handleCreateSkill(e) {
+                e.preventDefault();
+                const payload = {
+                  name: document.getElementById('skill-name').value,
+                  category: document.getElementById('skill-category').value,
+                  status: document.getElementById('skill-status').value,
+                  schedule_type: document.getElementById('skill-schedule').value,
+                  target_date: document.getElementById('skill-target-date').value,
+                  life_area_id: document.getElementById('skill-life-area').value,
+                  why_learning: document.getElementById('skill-why').value
+                };
+
+                try {
+                  const res = await fetch('http://localhost:3000/api/skills', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                  });
+                  if (res.ok) {
+                    toggleNewSkillForm();
+                    document.getElementById('new-skill-form').reset();
+                    fetchSkills(currentFilter);
+                  }
+                } catch (e) {
+                  console.error(e);
+                }
+              }
+
+              // --- DETAIL VIEW LOGIC ---
+
+              async function loadDetailView() {
+                try {
+                  const res = await fetch(`http://localhost:3000/api/skills/${skillId}`);
+                  if (res.ok) {
+                    const skill = await res.json();
+                    renderDetailView(skill);
+                  } else {
+                    document.getElementById('detail-name').textContent = "ERROR LOADING SKILL";
+                  }
+                } catch (e) {
+                  console.error(e);
+                  document.getElementById('detail-name').textContent = "ERROR LOADING SKILL";
+                }
+
+                document.getElementById('add-item-form').addEventListener('submit', handleAddItem);
+                document.getElementById('log-session-form').addEventListener('submit', handleAddSession);
+              }
+
+              function renderDetailView(skill) {
+                document.title = `${skill.name} | Skills`;
+                document.getElementById('detail-name').textContent = skill.name;
+                document.getElementById('detail-category').textContent = skill.category || 'UNCATEGORIZED';
+                document.getElementById('detail-life-area').textContent = skill.life_area_name || 'NO LIFE AREA';
+                document.getElementById('detail-status-select').value = skill.status;
+
+                let datesHtml = '';
+                if (skill.started_at) datesHtml += `<span class="flex items-center gap-1"><i data-lucide="play-circle" class="w-3 h-3"></i> ${formatDate(skill.started_at)}</span>`;
+                if (skill.completed_at) datesHtml += `<span class="flex items-center gap-1"><i data-lucide="check-circle" class="w-3 h-3"></i> ${formatDate(skill.completed_at)}</span>`;
+                datesHtml += `<span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3"></i> ${skill.schedule_type}</span>`;
+                document.getElementById('detail-dates').innerHTML = datesHtml;
+                lucide.createIcons();
+
+                const totalItems = skill.checklists?.reduce((acc, c) => acc + c.items.length, 0) || 0;
+                const completedItems = skill.checklists?.reduce((acc, c) => acc + c.items.filter(i => i.completed).length, 0) || 0;
+                const progress = totalItems === 0 ? 0 : Math.round((completedItems / totalItems) * 100);
+
+                document.getElementById('detail-progress-text').textContent = `${progress}%`;
+                document.getElementById('detail-progress-fraction').textContent = `${completedItems} / ${totalItems} COMPLETED`;
+                document.getElementById('detail-progress-bar').innerHTML = `
+        <div class="h-full bg-[var(--pigment-yellow)] transition-all duration-500" style="width: ${progress}%"></div>
+      `;
+
+                // Checklists
+                const clContainer = document.getElementById('detail-checklists');
+                if (!skill.checklists || skill.checklists.length === 0) {
+                  clContainer.innerHTML = `
+          <div class="py-12 border-2 border-dashed border-[#e8eceb] flex flex-col items-center justify-center text-[#9ca3af] bg-[#f9fafb]">
+            <i data-lucide="list-todo" class="w-8 h-8 mb-4 opacity-50"></i>
+            <p class="font-mono text-xs uppercase tracking-widest">No checklists available.</p>
+          </div>
+        `;
+                } else {
+                  clContainer.innerHTML = skill.checklists.map((cl, index) => `
+          <div class="brutal-block p-6 bg-white">
+            <h3 class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] font-bold border-b-2 border-[#31353c] pb-2 mb-4">${cl.title}</h3>
+            <div class="flex flex-col border-l-2 border-[#31353c] pl-4 gap-1">
+              ${cl.items.map(item => {
+                    const timeStr = item.scheduled_time ? `${formatDate(item.scheduled_date) || ''} ${item.scheduled_time}` : (formatDate(item.scheduled_date) || '');
+                    return `
+                  <label class="group flex items-start gap-4 p-4 border-2 border-transparent hover:border-[#e8eceb] cursor-pointer transition-colors bg-white">
+                    <div class="relative flex items-center justify-center mt-0.5">
+                      <input type="checkbox" class="peer sr-only" ${item.completed ? 'checked' : ''} onchange="toggleChecklistItem(${item.id}, ${item.completed})" />
+                      <div class="w-6 h-6 border-2 flex items-center justify-center transition-colors duration-200 ${item.completed ? 'bg-[var(--pigment-yellow)] border-[var(--pigment-yellow)]' : 'border-[#31353c] bg-transparent group-hover:bg-[#f9fafb]'}">
+                        <i data-lucide="check" class="w-4 h-4 text-[#31353c] transition-opacity ${item.completed ? 'opacity-100' : 'opacity-0'}"></i>
+                      </div>
+                    </div>
+                    <div class="flex flex-col flex-1">
+                      ${timeStr ? `<span class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] mb-1">${timeStr}</span>` : ''}
+                      <span class="text-xl md:text-2xl font-bold tracking-tight transition-all duration-200 ${item.completed ? 'text-[#9ca3af] line-through' : 'text-[#31353c]'}">
+                        ${item.title}
+                      </span>
+                    </div>
+                  </label>
+                `;
+                  }).join('')}
+            </div>
+          </div>
+        `).join('');
+                }
+
+                // Sessions
+                const sessionsContainer = document.getElementById('detail-sessions');
+                if (!skill.sessions || skill.sessions.length === 0) {
+                  sessionsContainer.innerHTML = '<p class="text-[#9ca3af] font-mono text-[10px] uppercase tracking-widest py-2">No sessions logged.</p>';
+                } else {
+                  sessionsContainer.innerHTML = skill.sessions.map(s => `
+          <div class="border-b-2 border-dashed border-[#e8eceb] last:border-0 pb-4 last:pb-0 pt-4 first:pt-0">
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-bold text-sm text-[#31353c] uppercase tracking-tight">${s.duration_minutes} MIN</span>
+              <span class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af]">${formatDate(s.session_date)}</span>
+            </div>
+            ${s.notes ? `<p class="text-[#31353c] text-xs font-mono tracking-wide mt-2 border-l-2 border-[#31353c] pl-2">${s.notes}</p>` : ''}
+          </div>
+        `).join('');
+                }
+
+                // Why learning
+                if (skill.why_learning) {
+                  document.getElementById('why-learning-container').classList.remove('hidden');
+                  document.getElementById('why-learning-text').textContent = skill.why_learning;
+                }
+
+                lucide.createIcons();
+              }
+
+              async function updateSkillStatus(status) {
+                try {
+                  await fetch(`http://localhost:3000/api/skills/${skillId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status })
+                  });
+                  loadDetailView();
+                } catch (e) { console.error(e); }
+              }
+
+              async function toggleChecklistItem(itemId, isCompleted) {
+                try {
+                  await fetch(`http://localhost:3000/api/skills/${skillId}/checklists/items/${itemId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ completed: !isCompleted })
+                  });
+                  loadDetailView();
+                } catch (e) { console.error(e); }
+              }
+
+              async function handleAddItem(e) {
+                e.preventDefault();
+                try {
+                  await fetch(`http://localhost:3000/api/skills/${skillId}/checklists`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      checklist_title: document.getElementById('new-cl-section').value,
+                      item_title: document.getElementById('new-cl-title').value,
+                      scheduled_date: document.getElementById('new-cl-date').value || null,
+                      scheduled_time: document.getElementById('new-cl-time').value || null
+                    })
+                  });
+                  document.getElementById('new-cl-title').value = '';
+                  loadDetailView();
+                } catch (e) { console.error(e); }
+              }
+
+              async function handleAddSession(e) {
+                e.preventDefault();
+                try {
+                  await fetch(`http://localhost:3000/api/skills/${skillId}/sessions`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      duration_minutes: parseInt(document.getElementById('session-duration').value),
+                      notes: document.getElementById('session-notes').value
+                    })
+                  });
+                  document.getElementById('log-session-form').reset();
+                  loadDetailView();
+                } catch (e) { console.error(e); }
+              }
+            </script>
+          </body>
+
+          </html>

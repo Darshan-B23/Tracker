@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health & Nutrition | Personal OS</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Custom Brutalist Styling - Concrete + Pigment System */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@400;700;800&display=swap');
+
+    :root {
+      --bg-base: #ffffff;
+      --text-main: #31353c;
+      /* Concrete Black */
+      --border-light: #e8eceb;
+      /* Concrete White */
+      --shadow-color: #31353c;
+
+      /* Pigments */
+      --pigment-yellow: #c8a97e;
+      --pigment-red: #c26e60;
+      --pigment-purple: #8d7a8b;
+      --pigment-blue: #6e8ca0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      overflow-x: hidden;
+    }
+
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Static Brutal Block */
+    .brutal-block {
+      border: 2px solid var(--text-main);
+      background-color: var(--bg-base);
+    }
+
+    /* Interactive Brutal Block (Lifts on hover) */
+    .brutal-interactive {
+      border: 2px solid var(--text-main);
+      background-color: var(--bg-base);
+      transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .brutal-interactive:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 4px 4px 0px 0px var(--shadow-color);
+    }
+
+    /* Brutalist Inputs */
+    .brutal-input {
+      width: 100%;
+      border: 2px solid var(--text-main);
+      background-color: #f9fafb;
+      padding: 0.75rem 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      outline: none;
+      transition: background-color 0.2s;
+    }
+
+    .brutal-input:focus {
+      background-color: var(--bg-base);
+    }
+
+    /* Hide Number Input Arrows */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body class="selection:bg-[#e8eceb] p-4 sm:p-8 md:p-12 lg:p-16 flex justify-center">
+
+  <div class="w-full max-w-6xl relative">
+    <main class="w-full">
+
+      <!-- System Coordinates / Metadata -->
+      <div class="flex justify-between items-start mb-8 text-[10px] font-mono uppercase tracking-widest text-[#9ca3af] relative z-50">
+        <div class="flex flex-col gap-1">
+          <span>SYS.HEALTH // OS</span>
+          <span id="current-date-display">--.--.--</span>
+        </div>
+
+      <!-- Navigation Dropdown -->
+      <div class="relative group z-50">
+        <button class="p-2 flex items-center justify-center text-[#31353c] hover:bg-[#31353c] hover:text-white transition-colors border-2 border-[#31353c] bg-white cursor-pointer" aria-label="Menu">
+          <i data-lucide="menu" class="w-4 h-4"></i>
+        </button>
+        
+        <!-- Dropdown Content -->
+        <div class="absolute right-0 mt-2 w-48 bg-white border-2 border-[#31353c] shadow-[4px_4px_0px_0px_#31353c] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col z-50 text-left">
+          <a href="/dashboard.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#6e8ca0] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
+          </a>
+          <a href="/goals.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#8d7a8b] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="target" class="w-4 h-4"></i> Goals
+          </a>
+          <a href="/projects.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c26e60] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="folder" class="w-4 h-4"></i> Projects
+          </a>
+          <a href="/skills.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c8a97e] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="brain" class="w-4 h-4"></i> Skills
+          </a>
+          <a href="/health.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c8a97e] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="activity" class="w-4 h-4"></i> Health
+          </a>
+          <a href="/fitness.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#6e8ca0] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="dumbbell" class="w-4 h-4"></i> Fitness
+          </a>
+          <a href="/analytics.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="bar-chart-2" class="w-4 h-4"></i> Analytics
+          </a>
+          <a href="/settings.html" class="px-4 py-3 text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] transition-colors flex items-center gap-2 normal-case">
+            <i data-lucide="settings" class="w-4 h-4"></i> Settings
+          </a>
+        </div>
+      </div>
+
+      </div>
+
+      <header
+        class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b-4 border-[#31353c] pb-8 mt-4 md:mt-0">
+        <h1 class="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none">
+          Health &<br />Nutrition
+        </h1>
+      </header>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-12">
+
+        <!-- Left Col: Daily Tracking & Stats -->
+        <div class="lg:col-span-2 flex flex-col gap-16">
+
+          <!-- MACROS SECTION -->
+          <section>
+            <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center gap-3">
+                <div class="w-3 h-3 bg-[#31353c]"></div>
+                <h2 class="text-xl font-bold tracking-tighter uppercase">Today's Macros</h2>
+              </div>
+              <button
+                class="font-mono text-[10px] uppercase tracking-widest font-bold text-[#9ca3af] hover:text-[#31353c] transition-colors flex items-center gap-1"
+                onclick="toggleTargetsForm()">
+                <i data-lucide="settings-2" class="w-3 h-3"></i> Edit Targets
+              </button>
+            </div>
+
+            <!-- Targets Form (Hidden) -->
+            <div id="targets-form-container" class="mb-8 border-4 border-[#31353c] p-6 bg-[#f9fafb] hidden">
+              <h3
+                class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold mb-4 border-b-2 border-[#e8eceb] pb-2">
+                Update Daily Targets</h3>
+              <form id="targets-form" class="flex flex-col gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Calories
+                      (KCAL)</label>
+                    <input type="number" id="target-calories" class="brutal-input" required />
+                  </div>
+                  <div>
+                    <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Protein
+                      (G)</label>
+                    <input type="number" id="target-protein" class="brutal-input" required />
+                  </div>
+                  <div>
+                    <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Water
+                      (L)</label>
+                    <input type="number" step="0.1" id="target-water" class="brutal-input" required />
+                  </div>
+                </div>
+                <div class="flex justify-end">
+                  <button type="submit"
+                    class="brutal-interactive px-6 py-3 font-mono text-[10px] uppercase tracking-widest font-bold bg-[#31353c] text-white">Save
+                    Targets</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Macros Render Area -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6" id="macros-overview">
+              <div
+                class="flex items-center gap-3 text-[#9ca3af] font-mono text-sm uppercase tracking-widest animate-pulse py-4">
+                <i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Loading...
+              </div>
+            </div>
+          </section>
+
+          <!-- LOG NUTRITION SECTION -->
+          <section>
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-3 h-3 bg-[#e8eceb] border border-[#31353c]"></div>
+              <h2 class="text-xl font-bold tracking-tighter uppercase">Log Nutrition</h2>
+            </div>
+
+            <div class="brutal-block p-6 md:p-8 bg-white">
+              <form id="log-form" class="flex flex-col gap-6">
+
+                <div class="flex flex-col md:flex-row md:items-center gap-4 mb-2">
+                  <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] md:w-16">Date</label>
+                  <input type="date" id="log-date" class="brutal-input md:w-auto flex-grow" required />
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 border-t-2 border-dashed border-[#e8eceb] pt-6">
+                  <div>
+                    <label
+                      class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Calories</label>
+                    <div class="relative">
+                      <input type="number" id="log-calories" class="brutal-input pr-10" value="0" />
+                      <span
+                        class="absolute right-3 top-1/2 -translate-y-1/2 font-mono text-[10px] text-[#9ca3af]">KCAL</span>
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Protein</label>
+                    <div class="relative">
+                      <input type="number" id="log-protein" class="brutal-input pr-10" value="0" />
+                      <span
+                        class="absolute right-3 top-1/2 -translate-y-1/2 font-mono text-[10px] text-[#9ca3af]">G</span>
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Carbs</label>
+                    <div class="relative">
+                      <input type="number" id="log-carbs" class="brutal-input pr-10" value="0" />
+                      <span
+                        class="absolute right-3 top-1/2 -translate-y-1/2 font-mono text-[10px] text-[#9ca3af]">G</span>
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Fat</label>
+                    <div class="relative">
+                      <input type="number" id="log-fat" class="brutal-input pr-10" value="0" />
+                      <span
+                        class="absolute right-3 top-1/2 -translate-y-1/2 font-mono text-[10px] text-[#9ca3af]">G</span>
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Fiber</label>
+                    <div class="relative">
+                      <input type="number" id="log-fiber" class="brutal-input pr-10" value="0" />
+                      <span
+                        class="absolute right-3 top-1/2 -translate-y-1/2 font-mono text-[10px] text-[#9ca3af]">G</span>
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Water</label>
+                    <div class="relative">
+                      <input type="number" step="0.1" id="log-water" class="brutal-input pr-10" value="0" />
+                      <span
+                        class="absolute right-3 top-1/2 -translate-y-1/2 font-mono text-[10px] text-[#9ca3af]">L</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border-t-2 border-dashed border-[#e8eceb] pt-6">
+                  <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Notes</label>
+                  <textarea id="log-notes" placeholder="E.G. FELT SLUGGISH, DIGESTED WELL..." class="brutal-input"
+                    rows="2"></textarea>
+                </div>
+
+                <div class="mt-2">
+                  <button type="submit"
+                    class="brutal-interactive w-full px-6 py-4 font-mono text-xs uppercase tracking-widest font-bold bg-[#31353c] text-white">Commit
+                    Nutrition Log</button>
+                </div>
+              </form>
+            </div>
+          </section>
+
+          <!-- BODY METRICS SECTION -->
+          <section>
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-3 h-3 bg-[var(--pigment-purple)]"></div>
+              <h2 class="text-xl font-bold tracking-tighter uppercase">Body Metrics</h2>
+            </div>
+
+            <div class="brutal-block p-6 bg-white">
+              <form id="metric-form"
+                class="flex flex-col md:flex-row gap-4 items-end mb-8 border-b-2 border-[#e8eceb] pb-8">
+                <div class="w-full md:w-auto flex-grow">
+                  <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Date</label>
+                  <input type="date" id="metric-date" class="brutal-input" required />
+                </div>
+                <div class="w-full md:w-auto">
+                  <label
+                    class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Weight
+                    <span class="text-[#9ca3af] font-normal">(KG/LBS)</span></label>
+                  <input type="number" step="0.1" id="metric-weight" class="brutal-input" required />
+                </div>
+                <div class="w-full md:w-auto">
+                  <label
+                    class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Body Fat
+                    %</label>
+                  <input type="number" step="0.1" id="metric-fat" class="brutal-input" />
+                </div>
+                <button type="submit"
+                  class="brutal-interactive w-full md:w-auto px-6 py-[0.8rem] font-mono text-[10px] uppercase tracking-widest font-bold bg-[#f9fafb]">Log</button>
+              </form>
+
+              <div class="overflow-x-auto">
+                <table class="w-full text-left font-mono text-xs">
+                  <thead class="text-[#9ca3af] uppercase tracking-widest">
+                    <tr>
+                      <th class="pb-4 font-normal">Date</th>
+                      <th class="pb-4 font-normal">Weight</th>
+                      <th class="pb-4 font-normal text-right">Body Fat</th>
+                    </tr>
+                  </thead>
+                  <tbody id="metrics-table-body" class="text-[#31353c]">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Right Col: Recipes & History -->
+        <div class="flex flex-col gap-16">
+
+          <!-- RECIPES SECTION -->
+          <section>
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-3 h-3 bg-white border-2 border-[#31353c]"></div>
+              <h2 class="text-xl font-bold tracking-tighter uppercase">Recipe Library</h2>
+            </div>
+
+            <div class="brutal-block flex flex-col p-6 bg-white">
+              <form id="recipe-form" class="flex flex-col gap-4 pb-6 border-b-2 border-dashed border-[#e8eceb]">
+                <div>
+                  <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Name</label>
+                  <input type="text" id="recipe-name" placeholder="RECIPE NAME" class="brutal-input" required />
+                </div>
+                <div class="grid grid-cols-4 gap-2">
+                  <input type="number" id="recipe-cal" placeholder="KCAL" class="brutal-input px-2 text-center" />
+                  <input type="number" id="recipe-pro" placeholder="PRO" class="brutal-input px-2 text-center" />
+                  <input type="number" id="recipe-car" placeholder="CAR" class="brutal-input px-2 text-center" />
+                  <input type="number" id="recipe-fat" placeholder="FAT" class="brutal-input px-2 text-center" />
+                </div>
+                <button type="submit"
+                  class="brutal-interactive px-4 py-3 font-mono text-[10px] uppercase tracking-widest font-bold bg-[#f9fafb]">Add
+                  Recipe</button>
+              </form>
+
+              <div id="recipes-list" class="mt-4 flex flex-col gap-1"></div>
+            </div>
+          </section>
+
+          <!-- RECENT LOGS SECTION -->
+          <section>
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-3 h-3 bg-[#9ca3af] border border-[#31353c]"></div>
+              <h2 class="text-xl font-bold tracking-tighter uppercase">Recent History</h2>
+            </div>
+
+            <div class="brutal-block p-6 bg-[#f9fafb]" id="logs-history">
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+  <script>
+    // Initialize Icons & Date
+    lucide.createIcons();
+    document.getElementById('current-date-display').textContent = new Date().toLocaleDateString('en-GB').replace(/\//g, '.');
+
+    let globalTargets = { protein_target: 150, calorie_target: 2200, water_target: 3.0 };
+    let globalLogs = [];
+
+    // Safely generate local date string "YYYY-MM-DD"
+    const localDate = new Date();
+    localDate.setMinutes(localDate.getMinutes() - localDate.getTimezoneOffset());
+    const todayDateStr = localDate.toISOString().split('T')[0];
+
+    // Format utility
+    function formatDate(dateStr) {
+      if (!dateStr) return '';
+      const date = new Date(dateStr);
+      return date.toLocaleDateString('en-GB').replace(/\//g, '.');
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      document.getElementById('log-date').value = todayDateStr;
+      document.getElementById('metric-date').value = todayDateStr;
+
+      await fetchData();
+
+      document.getElementById('log-date').addEventListener('change', updateLogFormWithSelectedDate);
+      document.getElementById('targets-form').addEventListener('submit', handleUpdateTargets);
+      document.getElementById('log-form').addEventListener('submit', handleSaveLog);
+      document.getElementById('metric-form').addEventListener('submit', handleSaveMetric);
+      document.getElementById('recipe-form').addEventListener('submit', handleCreateRecipe);
+    });
+
+    async function fetchData() {
+      try {
+        const [tRes, nRes, mRes, rRes] = await Promise.all([
+          fetch('http://localhost:3000/api/health/targets'),
+          fetch('http://localhost:3000/api/health/nutrition'),
+          fetch('http://localhost:3000/api/health/metrics'),
+          fetch('http://localhost:3000/api/health/recipes')
+        ]);
+
+        if (tRes.ok) {
+          globalTargets = await tRes.json();
+          document.getElementById('target-calories').value = globalTargets.calorie_target || 0;
+          document.getElementById('target-protein').value = globalTargets.protein_target || 0;
+          document.getElementById('target-water').value = globalTargets.water_target || 0;
+        }
+        if (nRes.ok) {
+          globalLogs = await nRes.json();
+          renderMacros();
+          renderLogsHistory();
+          updateLogFormWithSelectedDate();
+        }
+        if (mRes.ok) renderMetrics(await mRes.json());
+        if (rRes.ok) renderRecipes(await rRes.json());
+
+      } catch (e) {
+        console.error('Failed to fetch health data', e);
+        document.getElementById('macros-overview').innerHTML = `
+          <div class="col-span-3 p-6 border-2 border-[var(--pigment-red)] bg-[#fdf5f4] text-[var(--pigment-red)] font-mono text-xs uppercase tracking-widest">
+            ERR: Connection to localhost:3000 refused.
+          </div>
+        `;
+      }
+    }
+
+    function toggleTargetsForm() {
+      const container = document.getElementById('targets-form-container');
+      container.classList.toggle('hidden');
+    }
+
+    function updateLogFormWithSelectedDate() {
+      const selectedDate = document.getElementById('log-date').value;
+      const log = globalLogs.find(l => l.log_date === selectedDate);
+      if (log) {
+        document.getElementById('log-calories').value = log.calories;
+        document.getElementById('log-protein').value = log.protein;
+        document.getElementById('log-carbs').value = log.carbs;
+        document.getElementById('log-fat').value = log.fat;
+        document.getElementById('log-fiber').value = log.fiber;
+        document.getElementById('log-water').value = log.water;
+        document.getElementById('log-notes').value = log.notes || '';
+      } else {
+        document.getElementById('log-calories').value = 0;
+        document.getElementById('log-protein').value = 0;
+        document.getElementById('log-carbs').value = 0;
+        document.getElementById('log-fat').value = 0;
+        document.getElementById('log-fiber').value = 0;
+        document.getElementById('log-water').value = 0;
+        document.getElementById('log-notes').value = '';
+      }
+    }
+
+    function renderMacros() {
+      const todayLogData = globalLogs.find(l => l.log_date === todayDateStr) || { calories: 0, protein: 0, water: 0 };
+      const calProgress = globalTargets.calorie_target > 0 ? Math.round((todayLogData.calories / globalTargets.calorie_target) * 100) : 0;
+      const proProgress = globalTargets.protein_target > 0 ? Math.round((todayLogData.protein / globalTargets.protein_target) * 100) : 0;
+      const watProgress = globalTargets.water_target > 0 ? Math.round((todayLogData.water / globalTargets.water_target) * 100) : 0;
+
+      document.getElementById('macros-overview').innerHTML = `
+        <div class="brutal-interactive p-6 flex flex-col gap-2 group cursor-default">
+          <div class="flex justify-between items-baseline mb-2">
+            <span class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] group-hover:text-[var(--pigment-yellow)] transition-colors">Calories</span>
+            <span class="font-mono text-xs font-bold text-[#31353c]">${todayLogData.calories} / ${globalTargets.calorie_target}</span>
+          </div>
+          <div class="text-4xl font-black tracking-tighter mb-4 text-[#31353c]">${calProgress}%</div>
+          <div class="w-full h-2 border-2 border-[#31353c] bg-[#f9fafb] overflow-hidden">
+            <div class="bg-[var(--pigment-yellow)] h-full transition-all" style="width: ${Math.min(100, Math.max(0, calProgress))}%"></div>
+          </div>
+        </div>
+
+        <div class="brutal-interactive p-6 flex flex-col gap-2 group cursor-default">
+          <div class="flex justify-between items-baseline mb-2">
+            <span class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] group-hover:text-[var(--pigment-red)] transition-colors">Protein</span>
+            <span class="font-mono text-xs font-bold text-[#31353c]">${todayLogData.protein}g / ${globalTargets.protein_target}g</span>
+          </div>
+          <div class="text-4xl font-black tracking-tighter mb-4 text-[#31353c]">${proProgress}%</div>
+          <div class="w-full h-2 border-2 border-[#31353c] bg-[#f9fafb] overflow-hidden">
+            <div class="bg-[var(--pigment-red)] h-full transition-all" style="width: ${Math.min(100, Math.max(0, proProgress))}%"></div>
+          </div>
+        </div>
+
+        <div class="brutal-interactive p-6 flex flex-col gap-2 group cursor-default">
+          <div class="flex justify-between items-baseline mb-2">
+            <span class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] group-hover:text-[var(--pigment-blue)] transition-colors">Water</span>
+            <span class="font-mono text-xs font-bold text-[#31353c]">${todayLogData.water}L / ${globalTargets.water_target}L</span>
+          </div>
+          <div class="text-4xl font-black tracking-tighter mb-4 text-[#31353c]">${watProgress}%</div>
+          <div class="w-full h-2 border-2 border-[#31353c] bg-[#f9fafb] overflow-hidden">
+            <div class="bg-[var(--pigment-blue)] h-full transition-all" style="width: ${Math.min(100, Math.max(0, watProgress))}%"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderMetrics(metrics) {
+      const tbody = document.getElementById('metrics-table-body');
+      if (metrics.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="3" class="text-[#9ca3af] text-center pt-4 border-t-2 border-dashed border-[#e8eceb]">NO BODY METRICS LOGGED.</td></tr>';
+      } else {
+        tbody.innerHTML = metrics.slice(0, 7).map(m => `
+          <tr class="border-t-2 border-dashed border-[#e8eceb] hover:bg-[#f9fafb] transition-colors">
+            <td class="py-4 text-[#9ca3af]">${formatDate(m.measurement_date)}</td>
+            <td class="py-4 font-bold text-[#31353c]">${m.weight}</td>
+            <td class="py-4 font-bold text-[#31353c] text-right">${m.body_fat !== null && m.body_fat !== undefined ? `${m.body_fat}%` : '-'}</td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    function renderRecipes(recipes) {
+      const container = document.getElementById('recipes-list');
+      if (recipes.length === 0) {
+        container.innerHTML = '<p class="text-[#9ca3af] font-mono text-[10px] uppercase tracking-widest pt-2">No recipes added yet.</p>';
+      } else {
+        container.innerHTML = recipes.map(r => `
+          <div class="py-4 border-b-2 border-dashed border-[#e8eceb] hover:bg-[#f9fafb] transition-colors px-2 -mx-2">
+            <h3 class="font-bold text-sm text-[#31353c] uppercase tracking-tight mb-2">${r.name}</h3>
+            <div class="flex gap-4 font-mono text-[10px] uppercase tracking-widest text-[#9ca3af]">
+              <span class="text-[#31353c] font-bold">${r.calories} KCAL</span>
+              <span>${r.protein}G P</span>
+              <span>${r.carbs}G C</span>
+              <span>${r.fat}G F</span>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    function renderLogsHistory() {
+      const container = document.getElementById('logs-history');
+      if (globalLogs.length === 0) {
+        container.innerHTML = '<p class="text-[#9ca3af] font-mono text-[10px] uppercase tracking-widest">No history recorded.</p>';
+      } else {
+        container.innerHTML = globalLogs.slice(0, 10).map(log => `
+          <div class="py-3 border-b-2 border-dashed border-[#e8eceb] last:border-0 flex justify-between items-center hover:bg-white transition-colors px-2 -mx-2">
+            <span class="font-bold text-sm text-[#31353c]">${formatDate(log.log_date)}</span>
+            <span class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] font-bold">
+              <span class="text-[#31353c]">${log.calories} KCAL</span> • ${log.protein}G P
+            </span>
+          </div>
+        `).join('');
+      }
+    }
+
+    async function handleUpdateTargets(e) {
+      e.preventDefault();
+      const payload = {
+        calorie_target: Number(document.getElementById('target-calories').value),
+        protein_target: Number(document.getElementById('target-protein').value),
+        water_target: Number(document.getElementById('target-water').value)
+      };
+      try {
+        await fetch('http://localhost:3000/api/health/targets', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        toggleTargetsForm();
+        fetchData();
+      } catch (e) { console.error(e); }
+    }
+
+    async function handleSaveLog(e) {
+      e.preventDefault();
+      const payload = {
+        log_date: document.getElementById('log-date').value,
+        calories: Number(document.getElementById('log-calories').value),
+        protein: Number(document.getElementById('log-protein').value),
+        carbs: Number(document.getElementById('log-carbs').value),
+        fat: Number(document.getElementById('log-fat').value),
+        fiber: Number(document.getElementById('log-fiber').value),
+        water: Number(document.getElementById('log-water').value),
+        notes: document.getElementById('log-notes').value
+      };
+      try {
+        await fetch('http://localhost:3000/api/health/nutrition', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        fetchData();
+      } catch (e) { console.error(e); }
+    }
+
+    async function handleSaveMetric(e) {
+      e.preventDefault();
+      const payload = {
+        measurement_date: document.getElementById('metric-date').value,
+        weight: Number(document.getElementById('metric-weight').value),
+        body_fat: document.getElementById('metric-fat').value ? Number(document.getElementById('metric-fat').value) : null
+      };
+      try {
+        await fetch('http://localhost:3000/api/health/metrics', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        document.getElementById('metric-weight').value = '';
+        document.getElementById('metric-fat').value = '';
+        fetchData();
+      } catch (e) { console.error(e); }
+    }
+
+    async function handleCreateRecipe(e) {
+      e.preventDefault();
+      const payload = {
+        name: document.getElementById('recipe-name').value,
+        calories: Number(document.getElementById('recipe-cal').value || 0),
+        protein: Number(document.getElementById('recipe-pro').value || 0),
+        carbs: Number(document.getElementById('recipe-car').value || 0),
+        fat: Number(document.getElementById('recipe-fat').value || 0)
+      };
+      try {
+        await fetch('http://localhost:3000/api/health/recipes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        document.getElementById('recipe-form').reset();
+        fetchData();
+      } catch (e) { console.error(e); }
+    }
+  </script>
+</body>
+
+</html>
