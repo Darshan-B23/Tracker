@@ -1,5 +1,6 @@
 const express = require('express');
 const { db } = require('../db/schema');
+const { checkAndCompleteParents, checkGoalCompletion } = require('../services/goalHelpers');
 const router = express.Router();
 
 // Helper to log activity
@@ -143,7 +144,7 @@ router.post('/', (req, res) => {
     const result = db.prepare(`
       INSERT INTO projects (name, category, status, priority, schedule_type, target_date, life_area_id, description, why_building, notes, started_at, completed_at)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `).run(name, category, newStatus, priority, schedule_type || 'Flexible', target_date, life_area_id, description, why_building, notes, startedAt, completedAt);
+    `).run(name, category, newStatus, priority, schedule_type || 'Flexible', target_date || null, life_area_id || null, description, why_building, notes, startedAt, completedAt);
     
     logActivity('project', result.lastInsertRowid, 'Created Project', `Status initialized as ${newStatus}`);
     
@@ -189,7 +190,24 @@ router.put('/:id', (req, res) => {
       WHERE id = ?
     `;
     
-    db.prepare(query).run(status, schedule_type, target_date, description, why_building, notes, id);
+    db.transaction(() => {
+      db.prepare(query).run(status, schedule_type, target_date || null, description, why_building, notes, id);
+
+      // Auto-complete goal_nodes linked to this project if status changed to 'Completed'
+      if (status === 'Completed' && current.status !== 'Completed') {
+        const linkedNodes = db.prepare("SELECT id, goal_id, parent_id FROM goal_nodes WHERE project_id = ? AND completed = 0").all(id);
+        
+        if (linkedNodes.length > 0) {
+          db.prepare("UPDATE goal_nodes SET completed = 1, completed_at = CURRENT_TIMESTAMP WHERE project_id = ? AND completed = 0").run(id);
+          
+          for (const node of linkedNodes) {
+             checkAndCompleteParents(node.goal_id, node.parent_id);
+             checkGoalCompletion(node.goal_id);
+          }
+        }
+      }
+    })();
+    
     res.json({ success: true });
   } catch (error) {
     console.error(error);
@@ -315,6 +333,18 @@ router.post('/:id/skills', (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to link skill' });
+  }
+});
+
+// Delete a project
+router.delete('/:id', (req, res) => {
+  try {
+    const id = req.params.id;
+    db.prepare('DELETE FROM projects WHERE id = ?').run(id);
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to delete project' });
   }
 });
 

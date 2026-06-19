@@ -1,5 +1,6 @@
 const express = require('express');
 const { db } = require('../db/schema');
+const { checkAndCompleteParents, checkGoalCompletion } = require('../services/goalHelpers');
 const router = express.Router();
 
 // GET all goals with basic aggregated progress
@@ -8,11 +9,10 @@ router.get('/', (req, res) => {
     const goals = db.prepare(`
       SELECT g.*, la.name as life_area_name,
         (
-          SELECT json_object('total', COUNT(*), 'completed', SUM(CASE WHEN ci.completed = 1 THEN 1 ELSE 0 END))
-          FROM goal_checklists gc
-          JOIN checklist_items ci ON gc.checklist_id = ci.checklist_id
-          WHERE gc.goal_id = g.id
-        ) as checklist_stats
+          SELECT json_object('total', COUNT(*), 'completed', SUM(CASE WHEN n.completed = 1 THEN 1 ELSE 0 END))
+          FROM goal_nodes n
+          WHERE n.goal_id = g.id AND n.id NOT IN (SELECT parent_id FROM goal_nodes WHERE parent_id IS NOT NULL AND goal_id = g.id)
+        ) as node_stats
       FROM goals g
       LEFT JOIN life_areas la ON g.life_area_id = la.id
       ORDER BY 
@@ -25,25 +25,19 @@ router.get('/', (req, res) => {
         END,
         g.updated_at DESC
     `).all().map(goal => {
-      // In the list view we just do a rough approximation or rely on the same calculation
-      // But actually, it's better to fetch full details or just do checklist for now to save queries.
-      // We will re-implement the actual progress below.
-      const stats = goal.checklist_stats ? JSON.parse(goal.checklist_stats) : { total: 0, completed: 0 };
+      const stats = goal.node_stats ? JSON.parse(goal.node_stats) : { total: 0, completed: 0 };
       const total = stats.total || 0;
       const completed = stats.completed || 0;
       let progress = 0;
-      if (goal.progress_mode === 'Checklist') {
-         progress = total === 0 ? 0 : Math.round((completed / total) * 100);
-      } else if (goal.progress_mode === 'Manual') {
+      if (goal.progress_mode === 'Manual') {
          progress = goal.manual_progress;
       } else {
-         // Linked mode approximation (we don't have all linked data here, so we fallback to checklist for list view unless manual)
          progress = total === 0 ? 0 : Math.round((completed / total) * 100);
       }
       return {
         ...goal,
         progress,
-        checklist_stats: { total, completed }
+        node_stats: { total, completed }
       };
     });
     res.json(goals);
@@ -66,25 +60,13 @@ router.get('/:id', (req, res) => {
 
     if (!goal) return res.status(404).json({ error: 'Goal not found' });
 
-    // Fetch checklists
-    const checklists = db.prepare(`
-      SELECT c.id as checklist_id, c.title as checklist_title, ci.id as item_id, ci.title as item_title, ci.completed
-      FROM goal_checklists gc
-      JOIN checklists c ON gc.checklist_id = c.id
-      JOIN checklist_items ci ON c.id = ci.checklist_id
-      WHERE gc.goal_id = ?
-      ORDER BY ci.display_order, ci.id
+    // Fetch recursive nodes
+    const nodes = db.prepare(`
+      SELECT *
+      FROM goal_nodes
+      WHERE goal_id = ?
+      ORDER BY display_order, id
     `).all(id);
-
-    const groupedChecklists = checklists.reduce((acc, curr) => {
-      let cl = acc.find(c => c.id === curr.checklist_id);
-      if (!cl) {
-        cl = { id: curr.checklist_id, title: curr.checklist_title, items: [] };
-        acc.push(cl);
-      }
-      cl.items.push({ id: curr.item_id, title: curr.item_title, completed: curr.completed });
-      return acc;
-    }, []);
 
     // Fetch linked skills
     const skills = db.prepare(`
@@ -107,39 +89,21 @@ router.get('/:id', (req, res) => {
       SELECT * FROM goal_targets WHERE goal_id = ?
     `).all(id);
 
-    // Calculate aggregated progress based on mode
+    // Calculate aggregated progress based on leaf nodes
     let progress = 0;
-    
-    if (goal.progress_mode === 'Checklist') {
-      let clTotal = 0;
-      let clCompleted = 0;
-      groupedChecklists.forEach(c => {
-        clTotal += c.items.length;
-        clCompleted += c.items.filter(i => i.completed).length;
-      });
-      progress = clTotal === 0 ? 0 : Math.round((clCompleted / clTotal) * 100);
-    } 
-    else if (goal.progress_mode === 'Linked') {
-      let lnTotal = 0;
-      let lnCompleted = 0;
-      skills.forEach(s => { lnTotal++; if (s.status === 'Completed') lnCompleted++; });
-      projects.forEach(p => { lnTotal++; if (p.status === 'Completed') lnCompleted++; });
-      targets.forEach(t => {
-        lnTotal++;
-        if ((t.target_type === 'weight' && t.current_value <= t.target_value && t.current_value > 0) || 
-            (t.target_type !== 'weight' && t.current_value >= t.target_value)) {
-          lnCompleted++;
-        }
-      });
-      progress = lnTotal === 0 ? 0 : Math.round((lnCompleted / lnTotal) * 100);
-    } 
-    else if (goal.progress_mode === 'Manual') {
+    if (goal.progress_mode === 'Manual') {
       progress = goal.manual_progress || 0;
+    } else {
+      const parentIds = new Set(nodes.map(n => n.parent_id).filter(pid => pid !== null));
+      const leafNodes = nodes.filter(n => !parentIds.has(n.id));
+      const totalLeafs = leafNodes.length;
+      const completedLeafs = leafNodes.filter(n => n.completed).length;
+      progress = totalLeafs === 0 ? 0 : Math.round((completedLeafs / totalLeafs) * 100);
     }
 
     res.json({
       ...goal,
-      checklists: groupedChecklists,
+      nodes,
       skills,
       projects,
       targets,
@@ -153,12 +117,12 @@ router.get('/:id', (req, res) => {
 
 // POST create goal
 router.post('/', (req, res) => {
-  const { title, description, goal_type, category, priority, schedule_type, target_date, life_area_id, notes } = req.body;
+  const { title, description, goal_type, category, priority, schedule_type, start_date, target_date, life_area_id, notes } = req.body;
   try {
     const result = db.prepare(`
-      INSERT INTO goals (title, description, goal_type, category, priority, schedule_type, target_date, life_area_id, notes)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `).run(title, description, goal_type || 'Outcome', category, priority || 'Medium', schedule_type || 'Flexible', target_date, life_area_id, notes);
+      INSERT INTO goals (title, description, goal_type, category, priority, schedule_type, start_date, target_date, life_area_id, notes)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `).run(title, description, goal_type || 'Outcome', category, priority || 'Medium', schedule_type || 'Flexible', start_date || null, target_date || null, life_area_id || null, notes);
     
     db.prepare("INSERT INTO activity_logs (entity_type, entity_id, action, description) VALUES ('goal', ?, 'Created', ?)").run(result.lastInsertRowid, title);
     
@@ -172,36 +136,70 @@ router.post('/', (req, res) => {
 // PUT update goal
 router.put('/:id', (req, res) => {
   const id = req.params.id;
-  const { title, description, category, status, priority, schedule_type, target_date, life_area_id, notes, progress_mode, manual_progress } = req.body;
+  const { title, description, category, status, priority, schedule_type, start_date, target_date, life_area_id, notes, progress_mode, manual_progress } = req.body;
   try {
-    const currentGoal = db.prepare("SELECT status FROM goals WHERE id = ?").get(id);
-    let startedAtQuery = "";
-    let completedAtQuery = "";
-    
-    if (status && status !== currentGoal.status) {
-      if (status === 'Active' && currentGoal.status !== 'Active') startedAtQuery = ", started_at = CURRENT_TIMESTAMP";
-      if (status === 'Completed' && currentGoal.status !== 'Completed') completedAtQuery = ", completed_at = CURRENT_TIMESTAMP";
-      db.prepare("INSERT INTO activity_logs (entity_type, entity_id, action, description) VALUES ('goal', ?, 'Status Changed', ?)").run(id, `Status changed to ${status}`);
-    }
+    db.transaction(() => {
+      const currentGoal = db.prepare("SELECT status FROM goals WHERE id = ?").get(id);
+      let startedAtQuery = "";
+      let completedAtQuery = "";
+      
+      if (status && status !== currentGoal.status) {
+        if (status === 'Running' && currentGoal.status !== 'Running') startedAtQuery = ", started_at = CURRENT_TIMESTAMP";
+        if (status === 'Completed' && currentGoal.status !== 'Completed') completedAtQuery = ", completed_at = CURRENT_TIMESTAMP";
+        db.prepare("INSERT INTO activity_logs (entity_type, entity_id, action, description) VALUES ('goal', ?, 'Status Changed', ?)").run(id, `Status changed to ${status}`);
+        
+        let projectStatus, skillStatus;
+        switch (status) {
+          case 'Running':
+            projectStatus = 'Building';
+            skillStatus = 'Learning';
+            break;
+          case 'Dropped':
+            projectStatus = 'Cancelled';
+            skillStatus = 'Dropped';
+            break;
+          case 'Backlog':
+            projectStatus = 'Idea';
+            skillStatus = 'Planned';
+            break;
+          case 'Completed':
+            projectStatus = 'Completed';
+            skillStatus = 'Completed';
+            break;
+          case 'Planned':
+            projectStatus = 'Planned';
+            skillStatus = 'Planned';
+            break;
+        }
 
-    db.prepare(`
-      UPDATE goals
-      SET title = coalesce(?, title),
-          description = coalesce(?, description),
-          category = coalesce(?, category),
-          status = coalesce(?, status),
-          priority = coalesce(?, priority),
-          schedule_type = coalesce(?, schedule_type),
-          target_date = coalesce(?, target_date),
-          life_area_id = coalesce(?, life_area_id),
-          notes = coalesce(?, notes),
-          progress_mode = coalesce(?, progress_mode),
-          manual_progress = coalesce(?, manual_progress),
-          updated_at = CURRENT_TIMESTAMP
-          ${startedAtQuery}
-          ${completedAtQuery}
-      WHERE id = ?
-    `).run(title, description, category, status, priority, schedule_type, target_date, life_area_id, notes, progress_mode, manual_progress, id);
+        if (projectStatus) {
+          db.prepare(`UPDATE projects SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id IN (SELECT project_id FROM goal_projects WHERE goal_id = ?) AND status != 'Completed'`).run(projectStatus, id);
+        }
+        if (skillStatus) {
+          db.prepare(`UPDATE skills SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id IN (SELECT skill_id FROM goal_skills WHERE goal_id = ?) AND status != 'Completed'`).run(skillStatus, id);
+        }
+      }
+
+      db.prepare(`
+        UPDATE goals
+        SET title = coalesce(?, title),
+            description = coalesce(?, description),
+            category = coalesce(?, category),
+            status = coalesce(?, status),
+            priority = coalesce(?, priority),
+            schedule_type = coalesce(?, schedule_type),
+            start_date = coalesce(?, start_date),
+            target_date = coalesce(?, target_date),
+            life_area_id = coalesce(?, life_area_id),
+            notes = coalesce(?, notes),
+            progress_mode = coalesce(?, progress_mode),
+            manual_progress = coalesce(?, manual_progress),
+            updated_at = CURRENT_TIMESTAMP
+            ${startedAtQuery}
+            ${completedAtQuery}
+        WHERE id = ?
+      `).run(title, description, category, status, priority, schedule_type, start_date || null, target_date || null, life_area_id || null, notes, progress_mode, manual_progress, id);
+    })();
     
     res.json({ success: true });
   } catch (error) {
@@ -210,39 +208,86 @@ router.put('/:id', (req, res) => {
   }
 });
 
-// POST add checklist item
-router.post('/:id/checklists', (req, res) => {
-  const { checklist_title, item_title } = req.body;
+// POST add node
+router.post('/:id/nodes', (req, res) => {
+  const { title, description, parent_id, skill_id, project_id } = req.body;
   const goal_id = req.params.id;
-  
   try {
-    let checklist_id;
-    db.transaction(() => {
-      let cl = db.prepare(`
-        SELECT c.id FROM checklists c 
-        JOIN goal_checklists gc ON c.id = gc.checklist_id 
-        WHERE gc.goal_id = ? AND c.title = ?
-      `).get(goal_id, checklist_title || 'Execution Tasks');
-
-      if (!cl) {
-        const insertCl = db.prepare(`INSERT INTO checklists (title) VALUES (?)`).run(checklist_title || 'Execution Tasks');
-        checklist_id = insertCl.lastInsertRowid;
-        db.prepare(`INSERT INTO goal_checklists (goal_id, checklist_id) VALUES (?, ?)`).run(goal_id, checklist_id);
-      } else {
-        checklist_id = cl.id;
-      }
-
-      db.prepare(`INSERT INTO checklist_items (checklist_id, title) VALUES (?, ?)`).run(checklist_id, item_title);
-      db.prepare("INSERT INTO activity_logs (entity_type, entity_id, action, description) VALUES ('goal', ?, 'Task Added', ?)").run(goal_id, item_title);
-    })();
-    res.status(201).json({ success: true });
+    const result = db.prepare(`
+      INSERT INTO goal_nodes (goal_id, parent_id, title, description, skill_id, project_id)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `).run(goal_id, parent_id || null, title, description || null, skill_id || null, project_id || null);
+    
+    db.prepare("INSERT INTO activity_logs (entity_type, entity_id, action, description) VALUES ('goal', ?, 'Node Added', ?)").run(goal_id, title);
+    res.status(201).json({ id: result.lastInsertRowid });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to add checklist item' });
+    res.status(500).json({ error: 'Failed to add node' });
   }
 });
 
-// LINK Skills
+// PUT update node
+router.put('/:id/nodes/:nodeId', (req, res) => {
+  const { title, description, display_order, skill_id, project_id } = req.body;
+  const { id: goal_id, nodeId } = req.params;
+  try {
+    db.prepare(`
+      UPDATE goal_nodes
+      SET title = coalesce(?, title),
+          description = coalesce(?, description),
+          display_order = coalesce(?, display_order),
+          skill_id = coalesce(?, skill_id),
+          project_id = coalesce(?, project_id),
+          updated_at = CURRENT_TIMESTAMP
+      WHERE id = ? AND goal_id = ?
+    `).run(title, description, display_order, skill_id, project_id, nodeId, goal_id);
+    
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to update node' });
+  }
+});
+
+// PUT toggle node
+router.put('/:id/nodes/:nodeId/toggle', (req, res) => {
+  const { completed } = req.body;
+  const { id: goal_id, nodeId } = req.params;
+  try {
+    db.transaction(() => {
+      // Toggle the node itself
+      db.prepare(`
+        UPDATE goal_nodes
+        SET completed = ?, completed_at = CASE WHEN ? = 1 THEN CURRENT_TIMESTAMP ELSE NULL END,
+            unchecked_at = CASE WHEN ? = 0 THEN CURRENT_TIMESTAMP ELSE NULL END,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = ?
+      `).run(completed ? 1 : 0, completed ? 1 : 0, completed ? 1 : 0, nodeId);
+
+      const node = db.prepare("SELECT title, parent_id FROM goal_nodes WHERE id = ?").get(nodeId);
+
+      // Recursively complete parents if checked
+      if (completed && node.parent_id) {
+        checkAndCompleteParents(goal_id, node.parent_id);
+      }
+
+      checkGoalCompletion(goal_id);
+
+      // Timeline log for the task
+      db.prepare("INSERT INTO activity_logs (entity_type, entity_id, action, description) VALUES ('goal', ?, ?, ?)").run(
+        goal_id, 
+        completed ? 'Node Completed' : 'Node Unchecked', 
+        node.title
+      );
+    })();
+    res.json({ success: true });
+  } catch(error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to toggle node' });
+  }
+});
+
+// LINK Skills (Global)
 router.post('/:id/skills', (req, res) => {
   const { skill_id } = req.body;
   try {
@@ -255,7 +300,7 @@ router.post('/:id/skills', (req, res) => {
   }
 });
 
-// LINK Projects
+// LINK Projects (Global)
 router.post('/:id/projects', (req, res) => {
   const { project_id } = req.body;
   try {
@@ -283,29 +328,25 @@ router.post('/:id/targets', (req, res) => {
 // GET timeline
 router.get('/:id/timeline', (req, res) => {
   try {
-    const timeline = db.prepare("SELECT * FROM activity_logs WHERE entity_type = 'goal' AND entity_id = ? ORDER BY created_at DESC").all(req.params.id);
+    const timeline = db.prepare("SELECT * FROM activity_logs WHERE entity_type = 'goal' AND entity_id = ? AND action IN ('Created', 'Status Changed') ORDER BY created_at DESC").all(req.params.id);
     res.json(timeline);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch timeline' });
   }
 });
 
-// Toggle checklist item
-router.put('/:id/checklists/items/:itemId', (req, res) => {
-  const { completed } = req.body;
-  const itemId = req.params.itemId;
-  
+// DEPRECATED POST add checklist item (kept for backwards compat if needed, but we shouldn't need it)
+// We remove this to avoid confusion.
+
+// Delete a goal
+router.delete('/:id', (req, res) => {
   try {
-    db.prepare(`
-      UPDATE checklist_items 
-      SET completed = ?, completed_at = CASE WHEN ? = 1 THEN CURRENT_TIMESTAMP ELSE NULL END, updated_at = CURRENT_TIMESTAMP
-      WHERE id = ?
-    `).run(completed ? 1 : 0, completed ? 1 : 0, itemId);
-    
+    const id = req.params.id;
+    db.prepare('DELETE FROM goals WHERE id = ?').run(id);
     res.json({ success: true });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to update checklist item' });
+    res.status(500).json({ error: 'Failed to delete goal' });
   }
 });
 

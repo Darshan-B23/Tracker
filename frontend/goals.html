@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 
 <head>
   <meta charset="UTF-8">
@@ -13,58 +13,73 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    /* Custom Brutalist Styling - Concrete + Pigment System */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@400;700;800&display=swap');
 
+    /* =========================================
+       1. LIGHT MODE VARIABLES (Raw Concrete)
+       ========================================= */
     :root {
-      --bg-base: #ffffff;
-      --text-main: #31353c;
-      /* Concrete Black */
-      --border-light: #e8eceb;
-      /* Concrete White */
-      --shadow-color: #31353c;
-
-      /* Pigments */
+      --bg-base: #dfdfdf;       /* User specified light base */
+      --bg-surface: #ebebeb;    /* Slightly lighter for inputs/cards */
+      --text-main: #1a1a1a;     /* Deep contrast text */
+      --text-muted: #5a5a5a;    /* Mid-grey for secondary text */
+      --border-main: #1a1a1a;   /* Harsh borders */
+      --border-muted: #8a8a8a;  /* Subtle borders */
+      --shadow-color: #1a1a1a;  /* Solid shadow */
+      
+      /* Pigments (Consistent across both modes) */
       --pigment-yellow: #c8a97e;
       --pigment-red: #c26e60;
       --pigment-purple: #8d7a8b;
       --pigment-blue: #6e8ca0;
     }
 
+    /* =========================================
+       2. DARK MODE VARIABLES (Matte Graphite)
+       ========================================= */
+    .dark {
+      --bg-base: #222222;       /* User specified dark base */
+      --bg-surface: #2c2c2c;    /* Slightly lighter for inputs/cards */
+      --text-main: #ececec;     /* Crisp off-white text */
+      --text-muted: #a3a3a3;    /* Mid-light grey for secondary */
+      --border-main: #ececec;   /* Harsh light borders */
+      --border-muted: #686868;  /* Subtle borders */
+      --shadow-color: #111111;  /* Deep shadow to stand out against #383838 */
+    }
+
     body {
       font-family: 'Inter', sans-serif;
       background-color: var(--bg-base);
       color: var(--text-main);
-      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    .font-mono {
-      font-family: 'JetBrains Mono', monospace;
-    }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
 
-    /* Static Brutal Block */
+    /* =========================================
+       3. COMPONENT STYLES (Variable-Driven)
+       ========================================= */
     .brutal-block {
-      border: 2px solid var(--text-main);
+      border: 2px solid var(--border-main);
       background-color: var(--bg-base);
     }
 
-    /* Interactive Brutal Block (Lifts on hover) */
     .brutal-interactive {
-      border: 2px solid var(--text-main);
+      border: 2px solid var(--border-main);
       background-color: var(--bg-base);
       transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
-
     .brutal-interactive:hover {
       transform: translate(-4px, -4px);
       box-shadow: 4px 4px 0px 0px var(--shadow-color);
+      background-color: var(--bg-surface); 
     }
 
-    /* Brutalist Inputs */
     .brutal-input {
       width: 100%;
-      border: 2px solid var(--text-main);
-      background-color: #f9fafb;
+      border: 2px solid var(--border-muted);
+      background-color: var(--bg-surface);
+      color: var(--text-main);
       padding: 0.75rem 1rem;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.75rem;
@@ -72,39 +87,42 @@
       text-transform: uppercase;
       letter-spacing: 0.1em;
       outline: none;
-      transition: background-color 0.2s;
+      transition: all 0.2s;
     }
-
     .brutal-input:focus {
+      border-color: var(--border-main);
       background-color: var(--bg-base);
     }
+    .brutal-input::placeholder {
+      color: var(--text-muted);
+    }
 
-    /* Select Reset */
+    /* =========================================
+       4. DYNAMIC SVG ARROWS FOR SELECTS
+       ========================================= */
+    /* Light mode arrow (#1a1a1a) */
     select.brutal-input {
       appearance: none;
-      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2331353c%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%231a1a1a%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
       background-repeat: no-repeat;
       background-position: right 1rem top 50%;
       background-size: 0.65rem auto;
       cursor: pointer;
     }
-
-    /* Hide Number Input Arrows */
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
+    /* Dark mode arrow (#ececec) */
+    .dark select.brutal-input {
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ececec%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
     }
   </style>
 </head>
 
-<body class="selection:bg-[#e8eceb] p-4 sm:p-8 md:p-12 lg:p-16 flex justify-center">
+<body class="selection:bg-[var(--border-main)] selection:text-[var(--bg-base)] p-4 sm:p-8 md:p-12 lg:p-16 flex justify-center">
 
   <div class="w-full max-w-6xl relative">
     <main class="w-full">
 
       <!-- System Coordinates / Metadata -->
-      <div class="flex justify-between items-start mb-8 text-[10px] font-mono uppercase tracking-widest text-[#9ca3af] relative z-50">
+      <div class="flex justify-between items-start mb-8 text-[10px] font-mono uppercase tracking-widest text-[var(--text-muted)] relative z-50">
         <div class="flex flex-col gap-1">
           <span>SYS.GOALS // OS</span>
           <span id="current-date-display">--.--.--</span>
@@ -112,34 +130,39 @@
 
         <!-- Navigation Dropdown -->
         <div class="relative group z-50">
-          <button class="p-2 flex items-center justify-center text-[#31353c] hover:bg-[#31353c] hover:text-white transition-colors border-2 border-[#31353c] bg-white cursor-pointer" aria-label="Menu">
+          <div class="flex items-center gap-2">
+          <button onclick="toggleTheme()" class="p-2 text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors cursor-pointer" aria-label="Toggle Theme">
+            <i data-lucide="moon" class="w-4 h-4 theme-icon"></i>
+          </button>
+          <button class="p-2 text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors cursor-pointer" aria-label="Menu">
             <i data-lucide="menu" class="w-4 h-4"></i>
           </button>
+        </div>
           
           <!-- Dropdown Content -->
-          <div class="absolute right-0 mt-2 w-48 bg-white border-2 border-[#31353c] shadow-[4px_4px_0px_0px_#31353c] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col z-50 text-left">
-            <a href="/dashboard.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#6e8ca0] transition-colors flex items-center gap-2 normal-case">
+          <div class="absolute right-0 mt-2 w-48 bg-[var(--bg-base)] border-2 border-[var(--border-main)] shadow-[4px_4px_0px_0px_var(--shadow-color)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col z-50 text-left">
+            <a href="/dashboard.html" class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-blue)] transition-colors flex items-center gap-2 normal-case">
               <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
             </a>
-            <a href="/goals.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#8d7a8b] transition-colors flex items-center gap-2 normal-case">
+            <a href="/goals.html" class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-purple)] transition-colors flex items-center gap-2 normal-case">
               <i data-lucide="target" class="w-4 h-4"></i> Goals
             </a>
-            <a href="/projects.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c26e60] transition-colors flex items-center gap-2 normal-case">
+            <a href="/projects.html" class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-red)] transition-colors flex items-center gap-2 normal-case">
               <i data-lucide="folder" class="w-4 h-4"></i> Projects
             </a>
-            <a href="/skills.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c8a97e] transition-colors flex items-center gap-2 normal-case">
+            <a href="/skills.html" class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-yellow)] transition-colors flex items-center gap-2 normal-case">
               <i data-lucide="brain" class="w-4 h-4"></i> Skills
             </a>
-            <a href="/health.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c8a97e] transition-colors flex items-center gap-2 normal-case">
+            <a href="/health.html" class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-yellow)] transition-colors flex items-center gap-2 normal-case">
               <i data-lucide="activity" class="w-4 h-4"></i> Health
             </a>
-            <a href="/fitness.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#6e8ca0] transition-colors flex items-center gap-2 normal-case">
+            <a href="/fitness.html" class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-blue)] transition-colors flex items-center gap-2 normal-case">
               <i data-lucide="dumbbell" class="w-4 h-4"></i> Fitness
             </a>
-            <a href="/analytics.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] transition-colors flex items-center gap-2 normal-case">
+            <a href="/analytics.html" class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] transition-colors flex items-center gap-2 normal-case">
               <i data-lucide="bar-chart-2" class="w-4 h-4"></i> Analytics
             </a>
-            <a href="/settings.html" class="px-4 py-3 text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] transition-colors flex items-center gap-2 normal-case">
+            <a href="/settings.html" class="px-4 py-3 text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] transition-colors flex items-center gap-2 normal-case">
               <i data-lucide="settings" class="w-4 h-4"></i> Settings
             </a>
           </div>
@@ -149,38 +172,38 @@
       <!-- LIST VIEW -->
       <div id="list-view" class="hidden">
         <header
-          class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b-4 border-[#31353c] pb-8 mt-4 md:mt-0">
+          class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b-4 border-[var(--border-main)] pb-8 mt-4 md:mt-0">
           <h1 class="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none">
             Goals
           </h1>
           <button
-            class="brutal-interactive px-6 py-3 font-mono text-[10px] uppercase tracking-widest font-bold bg-[#31353c] text-white"
+            class="brutal-interactive px-6 py-3 font-mono text-[10px] uppercase tracking-widest font-bold bg-[var(--text-main)] text-[var(--bg-base)]"
             onclick="toggleNewGoalForm()" id="new-goal-btn">
             New Goal
           </button>
         </header>
 
-        <div id="new-goal-form-container" class="mb-16 border-4 border-[#31353c] p-6 md:p-8 hidden bg-[#f9fafb]">
+        <div id="new-goal-form-container" class="mb-16 border-4 border-[var(--border-main)] p-6 md:p-8 hidden bg-[var(--bg-surface)]">
           <div class="flex items-center gap-3 mb-6">
             <div class="w-3 h-3 bg-[var(--pigment-purple)]"></div>
             <h2 class="text-xl font-bold tracking-tighter uppercase">Define Goal</h2>
           </div>
           <form id="new-goal-form" class="flex flex-col gap-6 max-w-3xl">
             <div>
-              <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Title</label>
+              <label class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] block mb-2">Title</label>
               <input type="text" id="goal-title" placeholder="GOAL TITLE" class="brutal-input text-lg font-bold"
                 required />
             </div>
             <div>
               <label
-                class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Description</label>
+                class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] block mb-2">Description</label>
               <input type="text" id="goal-description" placeholder="WHY ARE YOU DOING THIS?" class="brutal-input" />
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <label
-                  class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Type</label>
+                  class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-main)] font-bold block mb-2">Type</label>
                 <select id="goal-type" class="brutal-input">
                   <option value="Identity">Identity</option>
                   <option value="Outcome">Outcome</option>
@@ -189,7 +212,7 @@
               </div>
               <div>
                 <label
-                  class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Category</label>
+                  class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-main)] font-bold block mb-2">Category</label>
                 <select id="goal-category" class="brutal-input">
                   <option value="Career">Career</option>
                   <option value="Education">Education</option>
@@ -204,7 +227,7 @@
               </div>
               <div>
                 <label
-                  class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Priority</label>
+                  class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-main)] font-bold block mb-2">Priority</label>
                 <select id="goal-priority" class="brutal-input">
                   <option value="Low">Low</option>
                   <option value="Medium" selected>Medium</option>
@@ -217,7 +240,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <label
-                  class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Schedule
+                  class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-main)] font-bold block mb-2">Schedule
                   Type</label>
                 <select id="goal-schedule" class="brutal-input">
                   <option value="Flexible">Flexible</option>
@@ -226,12 +249,16 @@
               </div>
               <div>
                 <label
-                  class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Target
-                  Date</label>
+                  class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-main)] font-bold block mb-2">Start Date</label>
+                <input type="date" id="goal-start-date" class="brutal-input" />
+              </div>
+              <div>
+                <label
+                  class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-main)] font-bold block mb-2">Target Date</label>
                 <input type="date" id="goal-target-date" class="brutal-input" />
               </div>
               <div>
-                <label class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Life
+                <label class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-main)] font-bold block mb-2">Life
                   Area</label>
                 <select id="goal-life-area" class="brutal-input">
                   <option value="">None</option>
@@ -241,7 +268,7 @@
 
             <div class="mt-4">
               <button type="submit"
-                class="brutal-interactive px-8 py-3 font-mono text-xs uppercase tracking-widest font-bold bg-[#31353c] text-white">Create
+                class="brutal-interactive px-8 py-3 font-mono text-xs uppercase tracking-widest font-bold bg-[var(--text-main)] text-[var(--bg-base)]">Create
                 Goal</button>
             </div>
           </form>
@@ -250,7 +277,7 @@
         <div id="goals-list" class="flex flex-col gap-6">
           <!-- Goals injected by JS -->
           <div
-            class="flex items-center gap-3 text-[#9ca3af] font-mono text-sm uppercase tracking-widest animate-pulse py-8">
+            class="flex items-center gap-3 text-[var(--text-muted)] font-mono text-sm uppercase tracking-widest animate-pulse py-8">
             <i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Compiling Goals...
           </div>
         </div>
@@ -259,9 +286,9 @@
       <!-- DETAIL VIEW -->
       <div id="detail-view" class="hidden">
         <header
-          class="mb-12 border-b-4 border-[#31353c] pb-8 mt-4 md:mt-0 relative group flex flex-col lg:flex-row lg:justify-between lg:items-end gap-6">
+          class="mb-12 border-b-4 border-[var(--border-main)] pb-8 mt-4 md:mt-0 relative group flex flex-col lg:flex-row lg:justify-between lg:items-end gap-6">
           <button onclick="window.location.search=''"
-            class="absolute -top-10 left-0 font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] hover:text-[#31353c] flex items-center gap-1 transition-colors cursor-pointer">
+            class="absolute -top-10 left-0 font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] hover:text-[var(--text-main)] flex items-center gap-1 transition-colors cursor-pointer">
             <i data-lucide="arrow-left" class="w-3 h-3"></i> Back to Archive
           </button>
 
@@ -269,21 +296,25 @@
             <h1 class="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-none mt-6" id="detail-title">
               ...
             </h1>
-            <p class="text-[#31353c] font-medium text-lg mt-4 max-w-3xl" id="detail-description">...</p>
+            <p class="text-[var(--text-main)] font-medium text-lg mt-4 max-w-3xl" id="detail-description">...</p>
           </div>
 
-          <div class="w-full lg:w-48 relative">
-            <label
-              class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2 lg:absolute lg:-top-5 lg:left-0">Status</label>
-            <select id="detail-status" class="brutal-input font-bold uppercase tracking-widest text-xs"
-              onchange="updateGoalStatus(this.value)">
-              <option value="Idea">Idea</option>
-              <option value="Planned">Planned</option>
-              <option value="Active">Active</option>
-              <option value="Completed">Completed</option>
-              <option value="Archived">Archived</option>
-              <option value="Cancelled">Cancelled</option>
-            </select>
+          <div class="w-full lg:w-48 relative flex flex-col gap-4">
+            <div class="relative">
+              <label
+                class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] block mb-2 lg:absolute lg:-top-5 lg:left-0">Status</label>
+              <select id="detail-status" class="brutal-input font-bold uppercase tracking-widest text-xs"
+                onchange="updateGoalStatus(this.value)">
+                <option value="Planned">Planned</option>
+                <option value="Running">Running</option>
+                <option value="Backlog">Backlog</option>
+                <option value="Dropped">Dropped</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+            <button onclick="deleteGoal()" class="brutal-interactive p-2 border-2 border-[var(--border-main)] bg-[var(--pigment-red)] text-[var(--bg-base)] hover:bg-[var(--text-main)] font-mono text-[10px] uppercase tracking-widest font-bold flex justify-center items-center gap-2">
+              <i data-lucide="trash-2" class="w-3 h-3"></i> Delete Goal
+            </button>
           </div>
         </header>
 
@@ -292,7 +323,7 @@
           <!-- Left Col -->
           <div class="lg:col-span-2">
             <div class="flex items-center gap-3 mb-6">
-              <div class="w-3 h-3 bg-[#31353c]"></div>
+              <div class="w-3 h-3 bg-[var(--text-main)]"></div>
               <h2 class="text-xl font-bold tracking-tighter uppercase">Execution Tasks</h2>
             </div>
 
@@ -301,7 +332,7 @@
                 <input type="text" id="new-task-title" class="brutal-input pr-12" placeholder="ADD NEXT STEP..."
                   required />
                 <button type="submit"
-                  class="absolute right-0 top-0 h-full px-4 text-[#31353c] hover:bg-[#e8eceb] transition-colors border-l-2 border-[#31353c]">
+                  class="absolute right-0 top-0 h-full px-4 text-[var(--text-main)] hover:bg-[var(--border-muted)] transition-colors border-l-2 border-[var(--border-main)]">
                   <i data-lucide="plus" class="w-4 h-4"></i>
                 </button>
               </div>
@@ -311,30 +342,30 @@
               <!-- Checklists injected here -->
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12 border-t-4 border-[#31353c] pt-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12 border-t-4 border-[var(--border-main)] pt-12">
               <div>
                 <div class="flex items-center gap-3 mb-6">
-                  <div class="w-3 h-3 bg-[var(--pigment-yellow)] border border-[#31353c]"></div>
+                  <div class="w-3 h-3 bg-[var(--pigment-yellow)] border border-[var(--border-main)]"></div>
                   <h2 class="text-xl font-bold tracking-tighter uppercase">Linked Skills</h2>
                 </div>
                 <div class="flex flex-col gap-4">
                   <select id="link-skill-select" class="brutal-input" onchange="handleLinkSkill(this.value)">
                     <option value="" disabled selected>+ Link Skill</option>
                   </select>
-                  <div id="linked-skills-list" class="flex flex-col gap-1 border-l-2 border-[#e8eceb] pl-4"></div>
+                  <div id="linked-skills-list" class="flex flex-col gap-1 border-l-2 border-[var(--border-muted)] pl-4"></div>
                 </div>
               </div>
 
               <div>
                 <div class="flex items-center gap-3 mb-6">
-                  <div class="w-3 h-3 bg-[var(--pigment-red)] border border-[#31353c]"></div>
+                  <div class="w-3 h-3 bg-[var(--pigment-red)] border border-[var(--border-main)]"></div>
                   <h2 class="text-xl font-bold tracking-tighter uppercase">Linked Projects</h2>
                 </div>
                 <div class="flex flex-col gap-4">
                   <select id="link-project-select" class="brutal-input" onchange="handleLinkProject(this.value)">
                     <option value="" disabled selected>+ Link Project</option>
                   </select>
-                  <div id="linked-projects-list" class="flex flex-col gap-1 border-l-2 border-[#e8eceb] pl-4"></div>
+                  <div id="linked-projects-list" class="flex flex-col gap-1 border-l-2 border-[var(--border-muted)] pl-4"></div>
                 </div>
               </div>
             </div>
@@ -343,7 +374,7 @@
           <!-- Right Col -->
           <div>
             <div class="flex items-center gap-3 mb-6">
-              <div class="w-3 h-3 bg-[#e8eceb] border border-[#31353c]"></div>
+              <div class="w-3 h-3 bg-[var(--border-muted)] border border-[var(--border-main)]"></div>
               <h2 class="text-xl font-bold tracking-tighter uppercase">Overview</h2>
             </div>
 
@@ -351,9 +382,9 @@
 
               <div>
                 <div class="flex justify-between items-center mb-2">
-                  <h3 class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af]">Global Progress</h3>
+                  <h3 class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)]">Global Progress</h3>
                   <select id="detail-progress-mode"
-                    class="bg-transparent border-none outline-none cursor-pointer text-right uppercase tracking-widest text-[10px] font-mono text-[#31353c] font-bold"
+                    class="bg-transparent border-none outline-none cursor-pointer text-right uppercase tracking-widest text-[10px] font-mono text-[var(--text-main)] font-bold"
                     onchange="handleUpdateGoal({ progress_mode: this.value })">
                     <option value="Checklist">Checklist Mode</option>
                     <option value="Linked">Linked Mode</option>
@@ -362,32 +393,32 @@
                 </div>
 
                 <div class="flex justify-between items-baseline mb-3">
-                  <span class="text-4xl font-black tracking-tighter text-[#31353c]" id="detail-progress-text">0%</span>
+                  <span class="text-4xl font-black tracking-tighter text-[var(--text-main)]" id="detail-progress-text">0%</span>
                   <input type="number" id="detail-manual-progress"
                     class="brutal-input w-24 py-1 px-2 text-right text-xs hidden"
                     onchange="handleUpdateGoal({ manual_progress: this.value })" min="0" max="100" />
                 </div>
 
-                <div id="detail-progress-bar" class="w-full h-3 border-2 border-[#31353c] bg-[#f9fafb] overflow-hidden">
+                <div id="detail-progress-bar" class="w-full h-3 border-2 border-[var(--border-main)] bg-[var(--bg-surface)] overflow-hidden">
                   <div class="h-full bg-[var(--pigment-purple)] transition-all duration-500" style="width: 0%"></div>
                 </div>
               </div>
 
-              <div class="border-t-2 border-dashed border-[#e8eceb] pt-6">
-                <h3 class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] mb-1">Schedule</h3>
+              <div class="border-t-2 border-dashed border-[var(--border-muted)] pt-6">
+                <h3 class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-1">Schedule</h3>
                 <p class="text-xl font-bold tracking-tight" id="detail-schedule-type">Flexible</p>
                 <div id="detail-schedule-info"
-                  class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] mt-2"></div>
+                  class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] mt-2"></div>
               </div>
 
-              <div class="border-t-2 border-dashed border-[#e8eceb] pt-6">
-                <h3 class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] mb-1">Priority</h3>
+              <div class="border-t-2 border-dashed border-[var(--border-muted)] pt-6">
+                <h3 class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-1">Priority</h3>
                 <span id="detail-priority"
-                  class="px-3 py-1 text-[10px] font-bold uppercase tracking-widest bg-[#31353c] text-white inline-block mt-1">Medium</span>
+                  class="px-3 py-1 text-[10px] font-bold uppercase tracking-widest bg-[var(--text-main)] text-[var(--bg-base)] inline-block mt-1">Medium</span>
               </div>
 
-              <div id="targets-container" class="border-t-2 border-dashed border-[#e8eceb] pt-6 hidden">
-                <h3 class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] mb-4">Health / Fitness Targets
+              <div id="targets-container" class="border-t-2 border-dashed border-[var(--border-muted)] pt-6 hidden">
+                <h3 class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-4">Health / Fitness Targets
                 </h3>
                 <form id="add-target-form" class="flex gap-2 mb-4">
                   <select id="new-target-type" class="brutal-input py-2 px-2 flex-grow">
@@ -398,7 +429,7 @@
                   </select>
                   <input type="number" id="new-target-value" class="brutal-input py-2 px-2 w-20 text-center"
                     placeholder="VAL" required />
-                  <button type="submit" class="brutal-interactive px-3 py-2 text-[#31353c] bg-[#f9fafb]"><i
+                  <button type="submit" class="brutal-interactive px-3 py-2 text-[var(--text-main)] bg-[var(--bg-surface)]"><i
                       data-lucide="plus" class="w-4 h-4"></i></button>
                 </form>
                 <div id="detail-targets" class="flex flex-col gap-2"></div>
@@ -407,11 +438,11 @@
             </div>
 
             <div class="flex items-center gap-3 mb-6 mt-16">
-              <div class="w-3 h-3 bg-[#9ca3af] border border-[#31353c]"></div>
+              <div class="w-3 h-3 bg-[var(--text-muted)] border border-[var(--border-main)]"></div>
               <h2 class="text-xl font-bold tracking-tighter uppercase">Timeline</h2>
             </div>
 
-            <div id="detail-timeline" class="border-l-2 border-[#31353c] ml-1.5 pl-6 flex flex-col gap-6">
+            <div id="detail-timeline" class="border-l-2 border-[var(--border-main)] ml-1.5 pl-6 flex flex-col gap-6">
             </div>
           </div>
 
@@ -486,17 +517,17 @@
     async function fetchGoals() {
       const container = document.getElementById('goals-list');
       container.innerHTML = `
-        <div class="flex items-center gap-3 text-[#9ca3af] font-mono text-sm uppercase tracking-widest animate-pulse py-8">
+        <div class="flex items-center gap-3 text-[var(--text-muted)] font-mono text-sm uppercase tracking-widest animate-pulse py-8">
           <i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Compiling Goals...
         </div>
       `;
       try {
-        const res = await fetch('http://localhost:3000/api/goals');
+        const res = await fetch('http://localhost:3000/api/goals', { cache: 'no-store' });
         if (res.ok) {
           const goals = await res.json();
           if (goals.length === 0) {
             container.innerHTML = `
-              <div class="py-12 border-2 border-dashed border-[#e8eceb] flex flex-col items-center justify-center text-[#9ca3af]">
+              <div class="py-12 border-2 border-dashed border-[var(--border-muted)] flex flex-col items-center justify-center text-[var(--text-muted)]">
                 <i data-lucide="target" class="w-8 h-8 mb-4 opacity-50"></i>
                 <p class="font-mono text-xs uppercase tracking-widest">No goals defined.</p>
               </div>
@@ -506,26 +537,26 @@
           }
 
           container.innerHTML = goals.map(goal => `
-            <div class="brutal-interactive p-6 flex flex-col cursor-pointer bg-white" onclick="window.location.href='?id=${goal.id}'">
+            <div class="brutal-interactive p-6 flex flex-col cursor-pointer bg-[var(--bg-base)]" onclick="window.location.href='?id=${goal.id}'">
               <div class="flex justify-between items-start mb-6">
                 <div>
-                  <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-widest mr-3 ${goal.priority === 'Critical' ? 'bg-[#c26e60] text-white' : 'border-2 border-[#e8eceb] text-[#31353c]'}">${goal.priority}</span>
+                  <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-widest mr-3 ${goal.priority === 'Critical' ? 'bg-[var(--pigment-red)] text-[var(--bg-base)]' : 'border-2 border-[var(--border-muted)] text-[var(--text-main)]'}">${goal.priority}</span>
                   <h3 class="inline font-bold text-2xl tracking-tighter uppercase">${goal.title}</h3>
                 </div>
-                <span class="font-mono text-[10px] uppercase tracking-widest font-bold px-2 py-1 ${goal.status === 'Completed' ? 'bg-[#31353c] text-white' : 'bg-[#e8eceb] text-[#31353c]'}">${goal.status}</span>
+                <span class="font-mono text-[10px] uppercase tracking-widest font-bold px-2 py-1 ${goal.status === 'Completed' ? 'bg-[var(--text-main)] text-[var(--bg-base)]' : 'bg-[var(--border-muted)] text-[var(--text-main)]'}">${goal.status}</span>
               </div>
               
-              <div class="flex flex-wrap gap-4 font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] font-bold mb-6">
-                <span class="flex items-center gap-1 text-[#31353c]"><i data-lucide="tag" class="w-3 h-3 text-[#9ca3af]"></i> ${goal.category}</span>
-                ${goal.life_area_name ? `<span class="flex items-center gap-1"><i data-lucide="compass" class="w-3 h-3 text-[#9ca3af]"></i> ${goal.life_area_name}</span>` : ''}
-                ${goal.target_date ? `<span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3 text-[#9ca3af]"></i> TGT: ${formatDate(goal.target_date)}</span>` : ''}
+              <div class="flex flex-wrap gap-4 font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] font-bold mb-6">
+                <span class="flex items-center gap-1 text-[var(--text-main)]"><i data-lucide="tag" class="w-3 h-3 text-[var(--text-muted)]"></i> ${goal.category}</span>
+                ${goal.life_area_name ? `<span class="flex items-center gap-1"><i data-lucide="compass" class="w-3 h-3 text-[var(--text-muted)]"></i> ${goal.life_area_name}</span>` : ''}
+                ${goal.target_date ? `<span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3 text-[var(--text-muted)]"></i> TGT: ${formatDate(goal.target_date)}</span>` : ''}
               </div>
               
-              <div class="flex justify-between font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold mb-2">
+              <div class="flex justify-between font-mono text-[10px] uppercase tracking-widest text-[var(--text-main)] font-bold mb-2">
                  <span>Progress</span>
                  <span>${goal.progress}%</span>
               </div>
-              <div class="w-full h-2 border-2 border-[#31353c] bg-[#f9fafb] overflow-hidden">
+              <div class="w-full h-2 border-2 border-[var(--border-main)] bg-[var(--bg-surface)] overflow-hidden">
                 <div class="bg-[var(--pigment-purple)] h-full transition-all" style="width: ${Math.min(100, Math.max(0, goal.progress))}%"></div>
               </div>
             </div>
@@ -535,7 +566,7 @@
       } catch (e) {
         console.error(e);
         container.innerHTML = `
-          <div class="p-6 border-2 border-[var(--pigment-red)] bg-[#fdf5f4] text-[var(--pigment-red)] font-mono text-xs uppercase tracking-widest">
+          <div class="p-6 border-2 border-[var(--pigment-red)] bg-[var(--bg-surface)] text-[var(--pigment-red)] font-mono text-xs uppercase tracking-widest">
             ERR: Connection to localhost:3000 refused.
           </div>
         `;
@@ -551,6 +582,7 @@
         category: document.getElementById('goal-category').value,
         priority: document.getElementById('goal-priority').value,
         schedule_type: document.getElementById('goal-schedule').value,
+        start_date: document.getElementById('goal-start-date').value,
         target_date: document.getElementById('goal-target-date').value,
         life_area_id: document.getElementById('goal-life-area').value
       };
@@ -570,7 +602,9 @@
     }
 
     // --- DETAIL VIEW LOGIC ---
+    // --- DETAIL VIEW LOGIC ---
     let globalGoalData = null;
+    let currentNodeId = null;
 
     async function loadDetailView() {
       try {
@@ -595,8 +629,24 @@
         document.getElementById('detail-title').textContent = "ERROR";
       }
 
-      document.getElementById('add-task-form').addEventListener('submit', handleAddTask);
-      document.getElementById('add-target-form').addEventListener('submit', handleAddTarget);
+      // Re-bind to avoid duplicate listeners if loadDetailView is called multiple times
+      const addForm = document.getElementById('add-task-form');
+      addForm.removeEventListener('submit', handleAddNode);
+      addForm.addEventListener('submit', handleAddNode);
+      
+      const targetForm = document.getElementById('add-target-form');
+      targetForm.removeEventListener('submit', handleAddTarget);
+      targetForm.addEventListener('submit', handleAddTarget);
+    }
+
+    function getPath(nodes, currentId) {
+      const path = [];
+      let curr = nodes.find(n => n.id === currentId);
+      while (curr) {
+        path.unshift(curr);
+        curr = nodes.find(n => n.id === curr.parent_id);
+      }
+      return path;
     }
 
     function renderDetailView(goal) {
@@ -605,41 +655,80 @@
       document.getElementById('detail-description').textContent = goal.description || 'NO DESCRIPTION SET.';
       document.getElementById('detail-status').value = goal.status;
 
-      // Checklists
+      // Render Nodes (Folder System)
       const clContainer = document.getElementById('detail-checklists');
-      if (!goal.checklists || goal.checklists.length === 0) {
-        clContainer.innerHTML = `
-          <div class="py-12 border-2 border-dashed border-[#e8eceb] flex flex-col items-center justify-center text-[#9ca3af] bg-[#f9fafb]">
-            <i data-lucide="clipboard-list" class="w-8 h-8 mb-4 opacity-50"></i>
-            <p class="font-mono text-xs uppercase tracking-widest">No tasks defined.</p>
+      
+      // Compute Path Breadcrumbs
+      const path = getPath(goal.nodes || [], currentNodeId);
+      
+      let breadcrumbHTML = `
+        <div class="flex items-center gap-2 mb-6 text-sm font-mono tracking-widest uppercase overflow-x-auto whitespace-nowrap pb-2 text-[var(--text-muted)]">
+          <button onclick="navigateToNode(null)" class="hover:text-[var(--text-main)] transition-colors font-bold ${currentNodeId === null ? 'text-[var(--text-main)]' : ''}">${goal.title}</button>
+      `;
+      
+      path.forEach((node, idx) => {
+        const isLast = idx === path.length - 1;
+        breadcrumbHTML += `
+          <span>/</span>
+          <button onclick="navigateToNode(${node.id})" class="hover:text-[var(--text-main)] transition-colors ${isLast ? 'text-[var(--text-main)] font-bold' : ''}">${node.title}</button>
+        `;
+      });
+      breadcrumbHTML += `</div>`;
+
+      // Find children of current node
+      const children = (goal.nodes || []).filter(n => n.parent_id === currentNodeId);
+
+      let nodesHTML = '';
+      if (children.length === 0) {
+        nodesHTML = `
+          <div class="py-12 border-2 border-dashed border-[var(--border-muted)] flex flex-col items-center justify-center text-[var(--text-muted)] bg-[var(--bg-surface)]">
+            <i data-lucide="folder-open" class="w-8 h-8 mb-4 opacity-50"></i>
+            <p class="font-mono text-xs uppercase tracking-widest">No items here.</p>
           </div>
         `;
       } else {
-        clContainer.innerHTML = goal.checklists.map(checklist => `
-          <div class="mb-6">
-            <h3 class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] border-b-2 border-[#31353c] pb-2 mb-4">
-              ${checklist.title}
-            </h3>
-            <div class="flex flex-col border-l-2 border-[#31353c] pl-4 gap-1">
-              ${checklist.items.map(item => `
-                <label class="group flex items-start gap-4 p-4 border-2 border-transparent hover:border-[#e8eceb] cursor-pointer transition-colors bg-white">
-                  <div class="relative flex items-center justify-center mt-0.5">
-                    <input type="checkbox" class="peer sr-only" ${item.completed ? 'checked' : ''} onchange="toggleTask(${item.id}, ${item.completed})" />
-                    <div class="w-6 h-6 border-2 flex items-center justify-center transition-colors duration-200 ${item.completed ? 'bg-[var(--pigment-purple)] border-[var(--pigment-purple)]' : 'border-[#31353c] bg-transparent group-hover:bg-[#f9fafb]'}">
-                      <i data-lucide="check" class="w-4 h-4 text-white transition-opacity ${item.completed ? 'opacity-100' : 'opacity-0'}"></i>
+        nodesHTML = `<div class="flex flex-col gap-2">`;
+        children.forEach(node => {
+          const isLeaf = !(goal.nodes || []).some(n => n.parent_id === node.id);
+          
+          nodesHTML += `
+            <div class="group flex flex-col p-4 border-2 border-[var(--border-muted)] bg-[var(--bg-base)] hover:border-[var(--border-main)] transition-colors">
+              <div class="flex items-start gap-4">
+                
+                <!-- Checkbox -->
+                <div class="relative flex items-center justify-center mt-0.5 cursor-pointer" onclick="handleNodeToggleClick(${node.id}, ${node.completed})">
+                  <div class="w-6 h-6 border-2 flex items-center justify-center transition-colors duration-200 ${node.completed ? 'bg-[var(--pigment-purple)] border-[var(--pigment-purple)]' : 'border-[var(--border-main)] bg-transparent group-hover:bg-[var(--bg-surface)]'}">
+                    <i data-lucide="check" class="w-4 h-4 text-[var(--bg-base)] transition-opacity ${node.completed ? 'opacity-100' : 'opacity-0'}"></i>
+                  </div>
+                </div>
+
+                <!-- Title / Navigation -->
+                <div class="flex flex-col flex-1 cursor-pointer" onclick="navigateToNode(${node.id})">
+                  <span class="text-xl md:text-2xl font-bold tracking-tight transition-all duration-200 ${node.completed ? 'text-[var(--text-muted)] line-through' : 'text-[var(--text-main)]'} flex items-center gap-2">
+                    ${!isLeaf ? '<i data-lucide="folder" class="w-5 h-5"></i>' : ''} ${node.title}
+                  </span>
+                  
+                  ${node.description ? `
+                    <div class="text-[var(--text-muted)] mt-2 text-sm font-medium pr-4 leading-relaxed line-clamp-2">
+                      ${node.description}
                     </div>
-                  </div>
-                  <div class="flex flex-col flex-1">
-                    <span class="text-xl md:text-2xl font-bold tracking-tight transition-all duration-200 ${item.completed ? 'text-[#9ca3af] line-through' : 'text-[#31353c]'}">
-                      ${item.title}
-                    </span>
-                  </div>
-                </label>
-              `).join('')}
+                  ` : ''}
+                </div>
+              </div>
+              
+              <!-- Completion Timestamps / Linked Info -->
+              ${node.completed && node.completed_at ? `
+                <div class="mt-4 pl-10 text-xs font-mono text-[var(--text-muted)] uppercase tracking-widest">
+                  Completed: ${formatDate(node.completed_at)} ${new Date(node.completed_at).toLocaleTimeString('en-GB', {hour: '2-digit', minute:'2-digit'})}
+                </div>
+              ` : ''}
             </div>
-          </div>
-        `).join('');
+          `;
+        });
+        nodesHTML += `</div>`;
       }
+
+      clContainer.innerHTML = breadcrumbHTML + nodesHTML;
 
       // Progress
       document.getElementById('detail-progress-mode').value = goal.progress_mode || 'Checklist';
@@ -661,40 +750,44 @@
       document.getElementById('detail-schedule-type').textContent = goal.schedule_type;
       const schedInfo = document.getElementById('detail-schedule-info');
       if (!goal.started_at) {
-        schedInfo.innerHTML = '<span class="px-2 py-1 bg-[#e8eceb] text-[#31353c]">NOT STARTED</span>';
+        if (goal.start_date) {
+          schedInfo.innerHTML = `<span class="px-2 py-1 bg-[var(--border-muted)] text-[var(--text-main)]">PLANNED START: ${formatDate(goal.start_date)}</span>`;
+        } else {
+          schedInfo.innerHTML = '<span class="px-2 py-1 bg-[var(--border-muted)] text-[var(--text-main)]">NOT STARTED</span>';
+        }
       } else {
         const today = new Date();
         if (goal.schedule_type === 'Flexible') {
           const started = new Date(goal.started_at);
           const daysActive = Math.floor((today - started) / (1000 * 60 * 60 * 24));
-          schedInfo.innerHTML = `<span class="px-2 py-1 bg-[#f9fafb] border border-[#e8eceb] text-[#31353c]">${daysActive} DAYS ACTIVE</span>`;
+          schedInfo.innerHTML = `<span class="px-2 py-1 bg-[var(--bg-surface)] border border-[var(--border-muted)] text-[var(--text-main)]">${daysActive} DAYS ACTIVE</span>`;
         } else {
           if (!goal.target_date) {
-            schedInfo.innerHTML = '<span class="px-2 py-1 bg-[#fdf5f4] text-[#c26e60]">NO TARGET DATE SET</span>';
+            schedInfo.innerHTML = '<span class="px-2 py-1 bg-[var(--bg-surface)] text-[var(--pigment-red)]">NO TARGET DATE SET</span>';
           } else {
             const target = new Date(goal.target_date);
             const daysRemaining = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
             if (daysRemaining >= 0) {
-              schedInfo.innerHTML = `<span class="px-2 py-1 bg-[#f9fafb] border border-[#e8eceb] text-[#31353c]">${daysRemaining} DAYS REMAINING</span>`;
+              schedInfo.innerHTML = `<span class="px-2 py-1 bg-[var(--bg-surface)] border border-[var(--border-muted)] text-[var(--text-main)]">${daysRemaining} DAYS REMAINING</span>`;
             } else {
-              schedInfo.innerHTML = `<span class="px-2 py-1 bg-[#fdf5f4] border border-[#c26e60] text-[#c26e60]">${Math.abs(daysRemaining)} DAYS OVERDUE</span>`;
+              schedInfo.innerHTML = `<span class="px-2 py-1 bg-[var(--bg-surface)] border border-[var(--pigment-red)] text-[var(--pigment-red)]">${Math.abs(daysRemaining)} DAYS OVERDUE</span>`;
             }
           }
         }
       }
 
       // Priority
-      const pColor = goal.priority === 'Critical' ? 'bg-[#c26e60]' : 'bg-[#31353c]';
+      const pColor = goal.priority === 'Critical' ? 'bg-[var(--pigment-red)]' : 'bg-[var(--text-main)]';
       document.getElementById('detail-priority').textContent = goal.priority;
-      document.getElementById('detail-priority').className = `px-3 py-1 text-[10px] font-bold uppercase tracking-widest ${pColor} text-white inline-block mt-1`;
+      document.getElementById('detail-priority').className = `px-3 py-1 text-[10px] font-bold uppercase tracking-widest ${pColor} text-[var(--bg-base)] inline-block mt-1`;
 
       // Targets
       if (goal.targets !== undefined) {
         document.getElementById('targets-container').classList.remove('hidden');
         document.getElementById('detail-targets').innerHTML = goal.targets.map(t => `
-          <div class="flex justify-between items-center text-sm py-2 border-b-2 border-dashed border-[#e8eceb]">
-            <span class="font-bold text-[#31353c] uppercase tracking-tight">${t.target_type.replace('_', ' ')}</span>
-            <span class="font-mono font-bold text-[#31353c]">${t.current_value} / ${t.target_value}</span>
+          <div class="flex justify-between items-center text-sm py-2 border-b-2 border-dashed border-[var(--border-muted)]">
+            <span class="font-bold text-[var(--text-main)] uppercase tracking-tight">${t.target_type.replace('_', ' ')}</span>
+            <span class="font-mono font-bold text-[var(--text-main)]">${t.current_value} / ${t.target_value}</span>
           </div>
         `).join('');
       }
@@ -707,14 +800,14 @@
     function renderTimeline(timeline) {
       const container = document.getElementById('detail-timeline');
       if (timeline.length === 0) {
-        container.innerHTML = '<p class="text-[#9ca3af] font-mono text-[10px] uppercase tracking-widest py-2">No activity recorded.</p>';
+        container.innerHTML = '<p class="text-[var(--text-muted)] font-mono text-[10px] uppercase tracking-widest py-2">No activity recorded.</p>';
       } else {
         container.innerHTML = timeline.map(event => `
           <div class="relative">
-            <div class="absolute w-3 h-3 bg-[#e8eceb] border-2 border-[#31353c] -left-[31px] top-0.5"></div>
-            <h4 class="font-bold text-sm text-[#31353c] uppercase tracking-tight">${event.action}</h4>
-            <p class="text-[#9ca3af] text-xs font-mono tracking-wide mt-1">${event.description}</p>
-            <span class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] mt-2 block">${formatDate(event.created_at)}</span>
+            <div class="absolute w-3 h-3 bg-[var(--border-muted)] border-2 border-[var(--border-main)] -left-[31px] top-0.5"></div>
+            <h4 class="font-bold text-sm text-[var(--text-main)] uppercase tracking-tight">${event.action}</h4>
+            <p class="text-[var(--text-muted)] text-xs font-mono tracking-wide mt-1">${event.description}</p>
+            <span class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] mt-2 block">${formatDate(event.created_at)}</span>
           </div>
         `).join('');
       }
@@ -741,24 +834,24 @@
     function renderLinkedLists(goal) {
       const skillsContainer = document.getElementById('linked-skills-list');
       if (!goal.skills || goal.skills.length === 0) {
-        skillsContainer.innerHTML = '<p class="text-[#9ca3af] font-mono text-[10px] uppercase tracking-widest py-2">No linked skills.</p>';
+        skillsContainer.innerHTML = '<p class="text-[var(--text-muted)] font-mono text-[10px] uppercase tracking-widest py-2">No linked skills.</p>';
       } else {
         skillsContainer.innerHTML = goal.skills.map(s => `
-          <div class="flex justify-between items-center py-2 border-b-2 border-dashed border-[#e8eceb] hover:bg-[#f9fafb] transition-colors px-2 -mx-2">
-            <span class="font-bold text-sm text-[#31353c]">${s.name}</span>
-            <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-[#9ca3af]">${s.status}</span>
+          <div class="flex justify-between items-center py-2 border-b-2 border-dashed border-[var(--border-muted)] hover:bg-[var(--bg-surface)] transition-colors px-2 -mx-2">
+            <span class="font-bold text-sm text-[var(--text-main)]">${s.name}</span>
+            <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)]">${s.status}</span>
           </div>
         `).join('');
       }
 
       const projContainer = document.getElementById('linked-projects-list');
       if (!goal.projects || goal.projects.length === 0) {
-        projContainer.innerHTML = '<p class="text-[#9ca3af] font-mono text-[10px] uppercase tracking-widest py-2">No linked projects.</p>';
+        projContainer.innerHTML = '<p class="text-[var(--text-muted)] font-mono text-[10px] uppercase tracking-widest py-2">No linked projects.</p>';
       } else {
         projContainer.innerHTML = goal.projects.map(p => `
-          <div class="flex justify-between items-center py-2 border-b-2 border-dashed border-[#e8eceb] hover:bg-[#f9fafb] transition-colors px-2 -mx-2">
-            <span class="font-bold text-sm text-[#31353c]">${p.name}</span>
-            <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-[#9ca3af]">${p.status}</span>
+          <div class="flex justify-between items-center py-2 border-b-2 border-dashed border-[var(--border-muted)] hover:bg-[var(--bg-surface)] transition-colors px-2 -mx-2">
+            <span class="font-bold text-sm text-[var(--text-main)]">${p.name}</span>
+            <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)]">${p.status}</span>
           </div>
         `).join('');
       }
@@ -780,25 +873,53 @@
       } catch (e) { console.error(e); }
     }
 
-    async function handleAddTask(e) {
+    function navigateToNode(nodeId) {
+      currentNodeId = nodeId;
+      renderDetailView(globalGoalData);
+    }
+
+    async function handleAddNode(e) {
       e.preventDefault();
       try {
-        await fetch(`http://localhost:3000/api/goals/${goalId}/checklists`, {
+        await fetch(`http://localhost:3000/api/goals/${goalId}/nodes`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ item_title: document.getElementById('new-task-title').value })
+          body: JSON.stringify({ 
+            title: document.getElementById('new-task-title').value,
+            parent_id: currentNodeId
+          })
         });
         document.getElementById('new-task-title').value = '';
         loadDetailView();
       } catch (e) { console.error(e); }
     }
 
-    async function toggleTask(itemId, currentStatus) {
+    // Uncheck Protection Modals Logic
+    function handleNodeToggleClick(nodeId, currentStatus) {
+      if (!currentStatus) {
+        // Checking is immediate
+        toggleNode(nodeId, true);
+        return;
+      }
+      
+      const node = globalGoalData.nodes.find(n => n.id === nodeId);
+      const timeStr = node.completed_at ? `${formatDate(node.completed_at)} ${new Date(node.completed_at).toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'})}` : 'Unknown';
+      
+      // First Confirmation
+      if (confirm(`This task was completed on:\n\n${timeStr}\n\nContinue?`)) {
+        // Second Confirmation
+        if (confirm(`This will remove completion status and affect progress.\n\nRemove Completion?`)) {
+          toggleNode(nodeId, false);
+        }
+      }
+    }
+
+    async function toggleNode(nodeId, newStatus) {
       try {
-        await fetch(`http://localhost:3000/api/goals/${goalId}/checklists/items/${itemId}`, {
+        await fetch(`http://localhost:3000/api/goals/${goalId}/nodes/${nodeId}/toggle`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ completed: !currentStatus })
+          body: JSON.stringify({ completed: newStatus })
         });
         loadDetailView();
       } catch (e) { console.error(e); }
@@ -841,6 +962,18 @@
         });
         document.getElementById('new-target-value').value = '';
         loadDetailView();
+      } catch (e) { console.error(e); }
+    }
+
+    async function deleteGoal() {
+      if (!confirm('Are you sure you want to delete this goal?')) return;
+      try {
+        const res = await fetch(`http://localhost:3000/api/goals/${goalId}`, {
+          method: 'DELETE'
+        });
+        if (res.ok) {
+          window.location.href = window.location.pathname;
+        }
       } catch (e) { console.error(e); }
     }
   </script>

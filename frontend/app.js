@@ -116,11 +116,11 @@ function injectGlobalSearch() {
       <input 
         type="text" 
         id="global-search-input"
-        class="w-full bg-[var(--surface-color)] border border-[var(--border-color)] px-4 py-3 text-sm font-bold uppercase tracking-widest outline-none focus:border-[var(--text-primary)] transition-colors placeholder-[var(--text-secondary)]" 
+        class="w-full bg-[var(--bg-surface)] border border-[var(--border-muted)] px-4 py-3 text-sm font-bold uppercase tracking-widest outline-none focus:border-[var(--text-main)] transition-colors placeholder-[var(--text-muted)]" 
         placeholder="[ SEARCH ANY ENTITY... ]"
         autocomplete="off"
       />
-      <div id="global-search-results" class="absolute top-full left-0 right-0 bg-[var(--bg-color)] border border-t-0 border-[var(--border-color)] shadow-xl max-h-[60vh] overflow-y-auto hidden"></div>
+      <div id="global-search-results" class="absolute top-full left-0 right-0 bg-[var(--bg-base)] border border-t-0 border-[var(--border-muted)] shadow-xl max-h-[60vh] overflow-y-auto hidden"></div>
     </div>
   `;
 
@@ -181,14 +181,14 @@ function renderSearchResults(data, container, query) {
       hasResults = true;
       html += `
         <div class="mb-2">
-          <div class="px-4 py-1 text-xs font-bold uppercase text-[var(--bg-color)] bg-[var(--text-primary)] tracking-widest">${category.replace('_', ' ')}</div>
+          <div class="px-4 py-1 text-xs font-bold uppercase text-[var(--bg-base)] bg-[var(--text-main)] tracking-widest">${category.replace('_', ' ')}</div>
       `;
       
       data[category].forEach(item => {
         const status = item.status || (item.completed ? 'Completed' : 'Pending');
         html += `
           <div 
-            class="px-4 py-3 hover:bg-[var(--surface-color)] cursor-pointer border-b border-[var(--border-color)] last:border-0 flex justify-between"
+            class="px-4 py-3 hover:bg-[var(--bg-surface)] cursor-pointer border-b border-[var(--border-muted)] last:border-0 flex justify-between"
             onclick="handleSearchSelect('${item.type}', ${item.id})"
           >
             <span class="font-medium text-sm">${item.name}</span>
@@ -218,3 +218,54 @@ function handleSearchSelect(type, id) {
 
 // Run init on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', initApp);
+
+// Theme Toggle Functionality
+function toggleTheme() {
+  const html = document.documentElement;
+  const icons = document.querySelectorAll('.theme-icon');
+  
+  if (html.classList.contains('dark')) {
+    html.classList.remove('dark');
+    html.classList.add('light');
+    localStorage.setItem('theme', 'light');
+    icons.forEach(icon => icon.setAttribute('data-lucide', 'moon'));
+  } else {
+    html.classList.remove('light');
+    html.classList.add('dark');
+    localStorage.setItem('theme', 'dark');
+    icons.forEach(icon => icon.setAttribute('data-lucide', 'sun'));
+  }
+  
+  if (window.lucide) {
+    lucide.createIcons();
+  }
+}
+
+// Initialize Theme
+function initTheme() {
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  const html = document.documentElement;
+  
+  if (savedTheme === 'dark') {
+    html.classList.remove('light');
+    html.classList.add('dark');
+  } else {
+    html.classList.remove('dark');
+    html.classList.add('light');
+  }
+
+  // Update icons after DOM loads
+  document.addEventListener('DOMContentLoaded', () => {
+    const icons = document.querySelectorAll('.theme-icon');
+    if (savedTheme === 'dark') {
+      icons.forEach(icon => icon.setAttribute('data-lucide', 'sun'));
+    } else {
+      icons.forEach(icon => icon.setAttribute('data-lucide', 'moon'));
+    }
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  });
+}
+
+initTheme();

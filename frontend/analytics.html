@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 
 <head>
   <meta charset="UTF-8">
@@ -16,74 +16,115 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
-    /* Custom Brutalist Styling */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@400;700;800&display=swap');
 
+    /* =========================================
+       1. LIGHT MODE VARIABLES (Raw Concrete)
+       ========================================= */
     :root {
-      --bg-base: #ffffff;
-      --text-main: #31353c;
-      /* Concrete Black */
-      --border-light: #e8eceb;
-      /* Concrete White */
-      --shadow-color: #31353c;
+      --bg-base: #dfdfdf;       /* User specified light base */
+      --bg-surface: #ebebeb;    /* Slightly lighter for inputs/cards */
+      --text-main: #1a1a1a;     /* Deep contrast text */
+      --text-muted: #5a5a5a;    /* Mid-grey for secondary text */
+      --border-main: #1a1a1a;   /* Harsh borders */
+      --border-muted: #8a8a8a;  /* Subtle borders */
+      --shadow-color: #1a1a1a;  /* Solid shadow */
+      
+      /* Pigments (Consistent across both modes) */
+      --pigment-yellow: #c8a97e;
+      --pigment-red: #c26e60;
+      --pigment-purple: #8d7a8b;
+      --pigment-blue: #6e8ca0;
+    }
+
+    /* =========================================
+       2. DARK MODE VARIABLES (Matte Graphite)
+       ========================================= */
+    .dark {
+      --bg-base: #222222;       /* User specified dark base */
+      --bg-surface: #2c2c2c;    /* Slightly lighter for inputs/cards */
+      --text-main: #ececec;     /* Crisp off-white text */
+      --text-muted: #a3a3a3;    /* Mid-light grey for secondary */
+      --border-main: #ececec;   /* Harsh light borders */
+      --border-muted: #686868;  /* Subtle borders */
+      --shadow-color: #111111;  /* Deep shadow to stand out against #383838 */
     }
 
     body {
       font-family: 'Inter', sans-serif;
       background-color: var(--bg-base);
       color: var(--text-main);
-      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    .font-mono {
-      font-family: 'JetBrains Mono', monospace;
-    }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
 
-    /* Brutalist Hover Effect */
+    /* =========================================
+       3. COMPONENT STYLES (Variable-Driven)
+       ========================================= */
     .brutal-block {
-      border: 2px solid var(--text-main);
+      border: 2px solid var(--border-main);
+      background-color: var(--bg-base);
+    }
+
+    .brutal-interactive {
+      border: 2px solid var(--border-main);
       background-color: var(--bg-base);
       transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
-
-    /* Module Section Tab Hover Effects */
-    .tab-item {
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      /* Added a smooth, bouncy pop effect */
+    .brutal-interactive:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 4px 4px 0px 0px var(--shadow-color);
+      background-color: var(--bg-surface); 
     }
 
-    .tab-item:not(.active-tab):hover {
-      border-color: var(--text-main) !important;
-      color: var(--text-main) !important;
+    .brutal-input {
+      width: 100%;
+      border: 2px solid var(--border-muted);
+      background-color: var(--bg-surface);
+      color: var(--text-main);
+      padding: 0.75rem 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .brutal-input:focus {
+      border-color: var(--border-main);
+      background-color: var(--bg-base);
+    }
+    .brutal-input::placeholder {
+      color: var(--text-muted);
     }
 
-    /* Custom Scrollbar for tabs */
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-
-    /* Select Reset */
-    select {
+    /* =========================================
+       4. DYNAMIC SVG ARROWS FOR SELECTS
+       ========================================= */
+    /* Light mode arrow (#1a1a1a) */
+    select.brutal-input {
       appearance: none;
-      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2331353c%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%231a1a1a%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
       background-repeat: no-repeat;
-      background-position: right 0.7rem top 50%;
+      background-position: right 1rem top 50%;
       background-size: 0.65rem auto;
+      cursor: pointer;
+    }
+    /* Dark mode arrow (#ececec) */
+    .dark select.brutal-input {
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ececec%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
     }
   </style>
 </head>
 
-<body class="selection:bg-[#e8eceb] p-4 sm:p-8 md:p-12 lg:p-16 flex justify-center">
+<body class="selection:bg-[var(--border-main)] selection:text-[var(--bg-base)] p-4 sm:p-8 md:p-12 lg:p-16 flex justify-center">
 
   <main class="w-full max-w-6xl relative">
 
     <!-- System Coordinates / Metadata -->
-    <div class="flex justify-between items-start mb-8 text-[10px] font-mono uppercase tracking-widest text-[#9ca3af] relative z-50">
+    <div class="flex justify-between items-start mb-8 text-[10px] font-mono uppercase tracking-widest text-[var(--text-muted)] relative z-50">
       <div class="flex flex-col gap-1">
         <span>SYS.ANALYTICS // OS</span>
         <span id="current-date-display">--.--.--</span>
@@ -91,34 +132,39 @@
 
       <!-- Navigation Dropdown -->
       <div class="relative group z-50">
-        <button class="p-2 flex items-center justify-center text-[#31353c] hover:bg-[#31353c] hover:text-white transition-colors border-2 border-[#31353c] bg-white cursor-pointer" aria-label="Menu">
-          <i data-lucide="menu" class="w-4 h-4"></i>
-        </button>
+        <div class="flex items-center gap-2">
+          <button onclick="toggleTheme()" class="p-2 text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors cursor-pointer" aria-label="Toggle Theme">
+            <i data-lucide="moon" class="w-4 h-4 theme-icon"></i>
+          </button>
+          <button class="p-2 text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors cursor-pointer" aria-label="Menu">
+            <i data-lucide="menu" class="w-4 h-4"></i>
+          </button>
+        </div>
         
         <!-- Dropdown Content -->
-        <div class="absolute right-0 mt-2 w-48 bg-white border-2 border-[#31353c] shadow-[4px_4px_0px_0px_#31353c] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col z-50 text-left">
-          <a href="/dashboard.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#6e8ca0] transition-colors flex items-center gap-2 normal-case">
+        <div class="absolute right-0 mt-2 w-48 bg-[var(--bg-base)] border-2 border-[var(--border-main)] shadow-[4px_4px_0px_0px_var(--shadow-color)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col z-50 text-left">
+          <a href="/dashboard.html" class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-blue)] transition-colors flex items-center gap-2 normal-case">
             <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
           </a>
-          <a href="/goals.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#8d7a8b] transition-colors flex items-center gap-2 normal-case">
+          <a href="/goals.html" class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-purple)] transition-colors flex items-center gap-2 normal-case">
             <i data-lucide="target" class="w-4 h-4"></i> Goals
           </a>
-          <a href="/projects.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c26e60] transition-colors flex items-center gap-2 normal-case">
+          <a href="/projects.html" class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-red)] transition-colors flex items-center gap-2 normal-case">
             <i data-lucide="folder" class="w-4 h-4"></i> Projects
           </a>
-          <a href="/skills.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c8a97e] transition-colors flex items-center gap-2 normal-case">
+          <a href="/skills.html" class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-yellow)] transition-colors flex items-center gap-2 normal-case">
             <i data-lucide="brain" class="w-4 h-4"></i> Skills
           </a>
-          <a href="/health.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c8a97e] transition-colors flex items-center gap-2 normal-case">
+          <a href="/health.html" class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-yellow)] transition-colors flex items-center gap-2 normal-case">
             <i data-lucide="activity" class="w-4 h-4"></i> Health
           </a>
-          <a href="/fitness.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#6e8ca0] transition-colors flex items-center gap-2 normal-case">
+          <a href="/fitness.html" class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-blue)] transition-colors flex items-center gap-2 normal-case">
             <i data-lucide="dumbbell" class="w-4 h-4"></i> Fitness
           </a>
-          <a href="/analytics.html" class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] transition-colors flex items-center gap-2 normal-case">
+          <a href="/analytics.html" class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] transition-colors flex items-center gap-2 normal-case">
             <i data-lucide="bar-chart-2" class="w-4 h-4"></i> Analytics
           </a>
-          <a href="/settings.html" class="px-4 py-3 text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] transition-colors flex items-center gap-2 normal-case">
+          <a href="/settings.html" class="px-4 py-3 text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] transition-colors flex items-center gap-2 normal-case">
             <i data-lucide="settings" class="w-4 h-4"></i> Settings
           </a>
         </div>
@@ -127,7 +173,7 @@
 
     <!-- Header Section -->
     <header
-      class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b-4 border-[#31353c] pb-8 mt-4 md:mt-0">
+      class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b-4 border-[var(--border-main)] pb-8 mt-4 md:mt-0">
       <div>
         <h1 class="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none">
           Analytics
@@ -137,7 +183,7 @@
       <!-- Time Range Selector -->
       <div class="relative w-full md:w-56">
         <select id="time-range"
-          class="w-full brutal-block bg-[#f9fafb] hover:bg-[#e8eceb] p-4 pr-10 font-bold uppercase tracking-widest text-xs outline-none cursor-pointer transition-colors"
+          class="w-full brutal-block bg-[var(--bg-surface)] hover:bg-[var(--border-muted)] p-4 pr-10 font-bold uppercase tracking-widest text-xs outline-none cursor-pointer transition-colors"
           onchange="handleTimeRangeChange()">
           <option value="7">Last 7 Days</option>
           <option value="30" selected>Last 30 Days</option>
@@ -150,12 +196,12 @@
 
     <!-- Insights Ticker -->
     <div id="insights-container"
-      class="hidden mb-12 p-4 md:p-6 border-l-[4px] bg-[#f9fafb] relative overflow-hidden transition-colors duration-300">
+      class="hidden mb-12 p-4 md:p-6 border-l-[4px] bg-[var(--bg-surface)] relative overflow-hidden transition-colors duration-300">
       <!-- Injected via JS -->
     </div>
 
     <!-- Tabs Area (Architectural Color Block style) -->
-    <div class="mb-12 border-b-2 border-[#e8eceb]">
+    <div class="mb-12 border-b-2 border-[var(--border-muted)]">
       <div class="flex gap-2 overflow-x-auto no-scrollbar pb-4 pt-2 px-2 -mx-2" id="tabs-container">
         <!-- Injected via JS -->
       </div>
@@ -229,16 +275,16 @@
           btn.classList.add('active-tab');
           btn.style.backgroundColor = tab.color;
           btn.style.color = tab.dark;
-          btn.style.boxShadow = '4px 4px 0px 0px #31353c';
+          btn.style.boxShadow = '4px 4px 0px 0px var(--shadow-color)';
           btn.style.transform = 'translate(-4px, -4px)';
-          btn.style.borderColor = '#31353c';
+          btn.style.borderColor = 'var(--border-main)';
         } else {
           btn.classList.remove('active-tab');
           btn.style.backgroundColor = 'transparent';
-          btn.style.color = '#9ca3af';
+          btn.style.color = 'var(--text-muted)';
           btn.style.boxShadow = 'none';
           btn.style.transform = 'translate(0px, 0px)';
-          btn.style.borderColor = '#e8eceb';
+          btn.style.borderColor = 'var(--border-muted)';
         }
       });
     }
@@ -266,12 +312,12 @@
 
           if (insights && insights.length > 0) {
             container.classList.remove('hidden');
-            container.style.borderLeftColor = config.color !== '#e8eceb' ? config.color : '#31353c';
+            container.style.borderLeftColor = config.color !== '#e8eceb' ? config.color : 'var(--border-main)';
 
             container.innerHTML = `
-              <div class="absolute top-4 right-4 text-[#9ca3af]"><i data-lucide="zap" class="w-4 h-4"></i></div>
-              <div class="text-[10px] font-mono uppercase tracking-widest text-[#9ca3af] mb-3">System Insights</div>
-              ${insights.map(i => `<p class="font-bold text-sm md:text-base mb-1 last:mb-0 text-[#31353c]">> ${i}</p>`).join('')}
+              <div class="absolute top-4 right-4 text-[var(--text-muted)]"><i data-lucide="zap" class="w-4 h-4"></i></div>
+              <div class="text-[10px] font-mono uppercase tracking-widest text-[var(--text-muted)] mb-3">System Insights</div>
+              ${insights.map(i => `<p class="font-bold text-sm md:text-base mb-1 last:mb-0 text-[var(--text-main)]">> ${i}</p>`).join('')}
             `;
             lucide.createIcons();
           } else {
@@ -286,7 +332,7 @@
     async function fetchData() {
       // Show loading telemetry screen
       document.getElementById('analytics-content').innerHTML = `
-        <div class="flex items-center gap-3 text-[#9ca3af] font-mono text-sm uppercase tracking-widest animate-pulse mt-8">
+        <div class="flex items-center gap-3 text-[var(--text-muted)] font-mono text-sm uppercase tracking-widest animate-pulse mt-8">
           <i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i>
           Processing Telemetry...
         </div>`;
@@ -299,29 +345,29 @@
           renderContent();
         } else {
           document.getElementById('analytics-content').innerHTML = `
-            <div class="p-6 border-2 border-[#c26e60] bg-[#fdf5f4] text-[#c26e60] font-mono text-sm uppercase tracking-widest mt-8">
+            <div class="p-6 border-2 border-[var(--pigment-red)] bg-[var(--bg-surface)] text-[var(--pigment-red)] font-mono text-sm uppercase tracking-widest mt-8">
               Error: Failed to process telemetry data.
             </div>`;
         }
       } catch (e) {
         console.error("Failed to fetch data:", e);
         document.getElementById('analytics-content').innerHTML = `
-            <div class="p-6 border-2 border-[#c26e60] bg-[#fdf5f4] text-[#c26e60] font-mono text-sm uppercase tracking-widest mt-8">
+            <div class="p-6 border-2 border-[var(--pigment-red)] bg-[var(--bg-surface)] text-[var(--pigment-red)] font-mono text-sm uppercase tracking-widest mt-8">
               System Error: Connection to backend failed. Check localhost:3000.
             </div>`;
       }
     }
 
-    function renderKPI(label, value, suffix = '', accentColor = '#31353c') {
+    function renderKPI(label, value, suffix = '', accentColor = 'var(--border-main)') {
       return `
         <div class="brutal-block p-6 flex flex-col justify-between min-h-[160px] relative overflow-hidden">
           <div class="absolute -right-4 -top-4 w-16 h-16 opacity-10 rounded-full" style="background-color: ${accentColor}"></div>
           <div class="flex justify-between items-start mb-4">
-            <h3 class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af]">${label}</h3>
+            <h3 class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)]">${label}</h3>
           </div>
           <div class="flex items-baseline gap-2 z-10">
-            <span class="text-5xl md:text-6xl font-black tracking-tighter text-[#31353c]">${value || 0}</span>
-            ${suffix ? `<span class="font-mono text-xs uppercase tracking-widest text-[#9ca3af] font-bold">${suffix}</span>` : ''}
+            <span class="text-5xl md:text-6xl font-black tracking-tighter text-[var(--text-main)]">${value || 0}</span>
+            ${suffix ? `<span class="font-mono text-xs uppercase tracking-widest text-[var(--text-muted)] font-bold">${suffix}</span>` : ''}
           </div>
         </div>
       `;
@@ -333,7 +379,7 @@
 
       const m = currentData.metrics || {};
       const c = currentData.charts || {};
-      const activeColor = getActiveConfig().color !== '#e8eceb' ? getActiveConfig().color : '#31353c';
+      const activeColor = getActiveConfig().color !== '#e8eceb' ? getActiveConfig().color : 'var(--border-main)';
       let html = '';
 
       if (chartInstance) {
@@ -381,7 +427,7 @@
           container.innerHTML = html;
           if (c.projectsTrend) {
             initBarChart('chart-canvas', c.projectsTrend.map(d => d.month), [
-              { label: 'Completed', data: c.projectsTrend.map(d => d.completed), backgroundColor: '#31353c' },
+              { label: 'Completed', data: c.projectsTrend.map(d => d.completed), backgroundColor: 'var(--text-main)' },
               { label: 'Active', data: c.projectsTrend.map(d => d.active), backgroundColor: activeColor }
             ]);
           }
@@ -444,9 +490,9 @@
     function renderChartContainer(title) {
       return `
         <div class="brutal-block p-6 h-[400px] flex flex-col relative">
-          <div class="flex items-center justify-between mb-6 border-b-2 border-[#e8eceb] pb-4">
-             <h3 class="font-mono text-xs uppercase tracking-widest text-[#31353c] font-bold">${title}</h3>
-             <i data-lucide="bar-chart-2" class="w-4 h-4 text-[#9ca3af]"></i>
+          <div class="flex items-center justify-between mb-6 border-b-2 border-[var(--border-muted)] pb-4">
+             <h3 class="font-mono text-xs uppercase tracking-widest text-[var(--text-main)] font-bold">${title}</h3>
+             <i data-lucide="bar-chart-2" class="w-4 h-4 text-[var(--text-muted)]"></i>
           </div>
           <div class="relative flex-grow w-full">
              <canvas id="chart-canvas"></canvas>
@@ -457,7 +503,12 @@
 
     // Brutalist Chart.js Defaults
     Chart.defaults.font.family = "'JetBrains Mono', monospace";
-    Chart.defaults.color = '#31353c';
+    const rootStyles = getComputedStyle(document.documentElement);
+    const textColor = rootStyles.getPropertyValue('--text-main').trim();
+    const borderMuted = rootStyles.getPropertyValue('--border-muted').trim();
+    const borderMain = rootStyles.getPropertyValue('--border-main').trim();
+
+    Chart.defaults.color = textColor;
 
     const getBrutalistOptions = () => ({
       responsive: true,
@@ -470,7 +521,7 @@
           labels: { boxWidth: 12, boxHeight: 12, usePointStyle: false, font: { weight: 'bold', size: 10 } }
         },
         tooltip: {
-          backgroundColor: '#31353c',
+          backgroundColor: textColor,
           titleFont: { family: "'JetBrains Mono', monospace", size: 11 },
           bodyFont: { family: "'JetBrains Mono', monospace", size: 12, weight: 'bold' },
           cornerRadius: 0,
@@ -480,11 +531,11 @@
       },
       scales: {
         x: {
-          grid: { color: '#e8eceb', drawBorder: true, borderColor: '#31353c', borderWidth: 2, tickLength: 8 },
+          grid: { color: borderMuted, drawBorder: true, borderColor: borderMain, borderWidth: 2, tickLength: 8 },
           ticks: { font: { size: 10 }, padding: 8 }
         },
         y: {
-          grid: { color: '#e8eceb', borderDash: [4, 4], drawBorder: true, borderColor: '#31353c', borderWidth: 2 },
+          grid: { color: borderMuted, borderDash: [4, 4], drawBorder: true, borderColor: borderMain, borderWidth: 2 },
           ticks: { font: { size: 10 }, padding: 8 },
           beginAtZero: true
         }
@@ -492,11 +543,11 @@
       layout: { padding: 10 },
       elements: {
         line: { tension: 0 }, // Strict sharp lines
-        bar: { borderWidth: 2, borderColor: '#31353c' }
+        bar: { borderWidth: 2, borderColor: borderMain }
       }
     });
 
-    function initLineChart(canvasId, labels, data, label, stepped = false, accentColor = '#31353c') {
+    function initLineChart(canvasId, labels, data, label, stepped = false, accentColor = 'var(--text-main)') {
       const ctx = document.getElementById(canvasId).getContext('2d');
       chartInstance = new Chart(ctx, {
         type: 'line',
@@ -505,11 +556,11 @@
           datasets: [{
             label,
             data,
-            borderColor: '#31353c', // Always black lines
-            borderWidth: 4,
-            backgroundColor: 'transparent',
-            pointBackgroundColor: accentColor, // Colored dots
-            pointBorderColor: '#31353c',
+            borderColor: borderMain,
+            backgroundColor: accentColor,
+            borderWidth: 3,
+            pointBackgroundColor: accentColor,
+            pointBorderColor: borderMain,
             pointBorderWidth: 3,
             pointRadius: 6,
             pointHoverRadius: 8,
@@ -526,7 +577,7 @@
       datasets = datasets.map(ds => ({
         ...ds,
         borderWidth: 3,
-        borderColor: '#31353c'
+        borderColor: borderMain
       }));
 
       chartInstance = new Chart(ctx, {
@@ -541,6 +592,7 @@
 
     document.getElementById('current-date-display').textContent = new Date().toLocaleDateString('en-GB').replace(/\//g, '.');
   </script>
+  <script src="/app.js"></script>
 </body>
 
 </html>

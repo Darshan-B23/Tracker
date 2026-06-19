@@ -1,5 +1,6 @@
 const express = require('express');
 const { db } = require('../db/schema');
+const { checkAndCompleteParents, checkGoalCompletion } = require('../services/goalHelpers');
 const router = express.Router();
 
 // Get life areas (needed for forms)
@@ -168,7 +169,24 @@ router.put('/:id', (req, res) => {
       WHERE id = ?
     `;
     
-    db.prepare(query).run(status, schedule_type, target_date, notes, id);
+    db.transaction(() => {
+      db.prepare(query).run(status, schedule_type, target_date, notes, id);
+
+      // Auto-complete goal_nodes linked to this skill if status changed to 'Completed'
+      if (status === 'Completed' && current.status !== 'Completed') {
+        const linkedNodes = db.prepare("SELECT id, goal_id, parent_id FROM goal_nodes WHERE skill_id = ? AND completed = 0").all(id);
+        
+        if (linkedNodes.length > 0) {
+          db.prepare("UPDATE goal_nodes SET completed = 1, completed_at = CURRENT_TIMESTAMP WHERE skill_id = ? AND completed = 0").run(id);
+          
+          for (const node of linkedNodes) {
+             checkAndCompleteParents(node.goal_id, node.parent_id);
+             checkGoalCompletion(node.goal_id);
+          }
+        }
+      }
+    })();
+    
     res.json({ success: true });
   } catch (error) {
     console.error(error);
@@ -246,6 +264,18 @@ router.put('/:id/checklists/items/:itemId', (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to update checklist item' });
+  }
+});
+
+// Delete a skill
+router.delete('/:id', (req, res) => {
+  try {
+    const id = req.params.id;
+    db.prepare('DELETE FROM skills WHERE id = ?').run(id);
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to delete skill' });
   }
 });
 

@@ -117,6 +117,7 @@ const initDb = () => {
       status TEXT DEFAULT 'Planned',
       priority TEXT,
       schedule_type TEXT DEFAULT 'Flexible',
+      start_date DATE,
       target_date DATE,
       life_area_id INTEGER,
       notes TEXT,
@@ -231,6 +232,26 @@ const initDb = () => {
       FOREIGN KEY (goal_id) REFERENCES goals(id) ON DELETE CASCADE,
       FOREIGN KEY (checklist_id) REFERENCES checklists(id) ON DELETE CASCADE,
       UNIQUE(goal_id, checklist_id)
+    );
+
+    CREATE TABLE IF NOT EXISTS goal_nodes (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      goal_id INTEGER NOT NULL,
+      parent_id INTEGER,
+      title TEXT NOT NULL,
+      description TEXT,
+      completed BOOLEAN DEFAULT 0,
+      completed_at DATETIME,
+      unchecked_at DATETIME,
+      skill_id INTEGER,
+      project_id INTEGER,
+      display_order INTEGER DEFAULT 0,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (goal_id) REFERENCES goals(id) ON DELETE CASCADE,
+      FOREIGN KEY (parent_id) REFERENCES goal_nodes(id) ON DELETE CASCADE,
+      FOREIGN KEY (skill_id) REFERENCES skills(id) ON DELETE SET NULL,
+      FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE SET NULL
     );
 
     CREATE TABLE IF NOT EXISTS goal_targets (

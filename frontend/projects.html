@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 
 <head>
   <meta charset="UTF-8">
@@ -13,58 +13,73 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    /* Custom Brutalist Styling - Concrete + Pigment System */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@400;700;800&display=swap');
 
+    /* =========================================
+       1. LIGHT MODE VARIABLES (Raw Concrete)
+       ========================================= */
     :root {
-      --bg-base: #ffffff;
-      --text-main: #31353c;
-      /* Concrete Black */
-      --border-light: #e8eceb;
-      /* Concrete White */
-      --shadow-color: #31353c;
-
-      /* Pigments */
+      --bg-base: #dfdfdf;       /* User specified light base */
+      --bg-surface: #ebebeb;    /* Slightly lighter for inputs/cards */
+      --text-main: #1a1a1a;     /* Deep contrast text */
+      --text-muted: #5a5a5a;    /* Mid-grey for secondary text */
+      --border-main: #1a1a1a;   /* Harsh borders */
+      --border-muted: #8a8a8a;  /* Subtle borders */
+      --shadow-color: #1a1a1a;  /* Solid shadow */
+      
+      /* Pigments (Consistent across both modes) */
       --pigment-yellow: #c8a97e;
       --pigment-red: #c26e60;
       --pigment-purple: #8d7a8b;
       --pigment-blue: #6e8ca0;
     }
 
+    /* =========================================
+       2. DARK MODE VARIABLES (Matte Graphite)
+       ========================================= */
+    .dark {
+      --bg-base: #222222;       /* User specified dark base */
+      --bg-surface: #2c2c2c;    /* Slightly lighter for inputs/cards */
+      --text-main: #ececec;     /* Crisp off-white text */
+      --text-muted: #a3a3a3;    /* Mid-light grey for secondary */
+      --border-main: #ececec;   /* Harsh light borders */
+      --border-muted: #686868;  /* Subtle borders */
+      --shadow-color: #111111;  /* Deep shadow to stand out against #383838 */
+    }
+
     body {
       font-family: 'Inter', sans-serif;
       background-color: var(--bg-base);
       color: var(--text-main);
-      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    .font-mono {
-      font-family: 'JetBrains Mono', monospace;
-    }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
 
-    /* Static Brutal Block */
+    /* =========================================
+       3. COMPONENT STYLES (Variable-Driven)
+       ========================================= */
     .brutal-block {
-      border: 2px solid var(--text-main);
+      border: 2px solid var(--border-main);
       background-color: var(--bg-base);
     }
 
-    /* Interactive Brutal Block (Lifts on hover) */
     .brutal-interactive {
-      border: 2px solid var(--text-main);
+      border: 2px solid var(--border-main);
       background-color: var(--bg-base);
       transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
-
     .brutal-interactive:hover {
       transform: translate(-4px, -4px);
       box-shadow: 4px 4px 0px 0px var(--shadow-color);
+      background-color: var(--bg-surface); 
     }
 
-    /* Brutalist Inputs */
     .brutal-input {
       width: 100%;
-      border: 2px solid var(--text-main);
-      background-color: #f9fafb;
+      border: 2px solid var(--border-muted);
+      background-color: var(--bg-surface);
+      color: var(--text-main);
       padding: 0.75rem 1rem;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.75rem;
@@ -72,43 +87,43 @@
       text-transform: uppercase;
       letter-spacing: 0.1em;
       outline: none;
-      transition: background-color 0.2s;
+      transition: all 0.2s;
     }
-
     .brutal-input:focus {
+      border-color: var(--border-main);
       background-color: var(--bg-base);
     }
+    .brutal-input::placeholder {
+      color: var(--text-muted);
+    }
 
-    /* Select Reset */
+    /* =========================================
+       4. DYNAMIC SVG ARROWS FOR SELECTS
+       ========================================= */
+    /* Light mode arrow (#1a1a1a) */
     select.brutal-input {
       appearance: none;
-      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2331353c%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%231a1a1a%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
       background-repeat: no-repeat;
       background-position: right 1rem top 50%;
       background-size: 0.65rem auto;
       cursor: pointer;
     }
-
-    /* Custom Scrollbar for tabs */
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
+    /* Dark mode arrow (#ececec) */
+    .dark select.brutal-input {
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ececec%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
     }
   </style>
 </head>
 
-<body class="selection:bg-[#e8eceb] p-4 sm:p-8 md:p-12 lg:p-16 flex justify-center">
+<body class="selection:bg-[var(--border-main)] selection:text-[var(--bg-base)] p-4 sm:p-8 md:p-12 lg:p-16 flex justify-center">
 
   <div class="w-full max-w-6xl relative">
     <main class="w-full">
 
       <!-- System Coordinates / Metadata -->
       <div
-        class="flex justify-between items-start mb-8 text-[10px] font-mono uppercase tracking-widest text-[#9ca3af] relative z-50">
+        class="flex justify-between items-start mb-8 text-[10px] font-mono uppercase tracking-widest text-[var(--text-muted)] relative z-50">
         <div class="flex flex-col gap-1">
           <span>SYS.PROJECTS // OS</span>
           <span id="current-date-display">--.--.--</span>
@@ -116,45 +131,48 @@
 
         <!-- Navigation Dropdown -->
         <div class="relative group z-50">
-          <button
-            class="p-2 flex items-center justify-center text-[#31353c] hover:bg-[#31353c] hover:text-white transition-colors border-2 border-[#31353c] bg-white cursor-pointer"
-            aria-label="Menu">
+        <div class="flex items-center gap-2">
+          <button onclick="toggleTheme()" class="p-2 text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors cursor-pointer" aria-label="Toggle Theme">
+            <i data-lucide="moon" class="w-4 h-4 theme-icon"></i>
+          </button>
+          <button class="p-2 text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors cursor-pointer" aria-label="Menu">
             <i data-lucide="menu" class="w-4 h-4"></i>
           </button>
+        </div>
 
           <!-- Dropdown Content -->
           <div
-            class="absolute right-0 mt-2 w-48 bg-white border-2 border-[#31353c] shadow-[4px_4px_0px_0px_#31353c] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col z-50 text-left">
+            class="absolute right-0 mt-2 w-48 bg-[var(--bg-base)] border-2 border-[var(--border-main)] shadow-[4px_4px_0px_0px_var(--shadow-color)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col z-50 text-left">
             <a href="/dashboard.html"
-              class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#6e8ca0] transition-colors flex items-center gap-2 normal-case">
+              class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-blue)] transition-colors flex items-center gap-2 normal-case">
               <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
             </a>
             <a href="/goals.html"
-              class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#8d7a8b] transition-colors flex items-center gap-2 normal-case">
+              class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-purple)] transition-colors flex items-center gap-2 normal-case">
               <i data-lucide="target" class="w-4 h-4"></i> Goals
             </a>
             <a href="/projects.html"
-              class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c26e60] transition-colors flex items-center gap-2 normal-case">
+              class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-red)] transition-colors flex items-center gap-2 normal-case">
               <i data-lucide="folder" class="w-4 h-4"></i> Projects
             </a>
             <a href="/skills.html"
-              class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c8a97e] transition-colors flex items-center gap-2 normal-case">
+              class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-yellow)] transition-colors flex items-center gap-2 normal-case">
               <i data-lucide="brain" class="w-4 h-4"></i> Skills
             </a>
             <a href="/health.html"
-              class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c8a97e] transition-colors flex items-center gap-2 normal-case">
+              class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-yellow)] transition-colors flex items-center gap-2 normal-case">
               <i data-lucide="activity" class="w-4 h-4"></i> Health
             </a>
             <a href="/fitness.html"
-              class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#6e8ca0] transition-colors flex items-center gap-2 normal-case">
+              class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-blue)] transition-colors flex items-center gap-2 normal-case">
               <i data-lucide="dumbbell" class="w-4 h-4"></i> Fitness
             </a>
             <a href="/analytics.html"
-              class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] transition-colors flex items-center gap-2 normal-case">
+              class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] transition-colors flex items-center gap-2 normal-case">
               <i data-lucide="bar-chart-2" class="w-4 h-4"></i> Analytics
             </a>
             <a href="/settings.html"
-              class="px-4 py-3 text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] transition-colors flex items-center gap-2 normal-case">
+              class="px-4 py-3 text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] transition-colors flex items-center gap-2 normal-case">
               <i data-lucide="settings" class="w-4 h-4"></i> Settings
             </a>
           </div>
@@ -165,18 +183,18 @@
       <!-- LIST VIEW -->
       <div id="list-view" class="hidden">
         <header
-          class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b-4 border-[#31353c] pb-8 mt-4 md:mt-0">
+          class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b-4 border-[var(--border-main)] pb-8 mt-4 md:mt-0">
           <h1 class="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none">
             Projects
           </h1>
           <button
-            class="brutal-interactive px-6 py-3 font-mono text-[10px] uppercase tracking-widest font-bold bg-[#31353c] text-white"
+            class="brutal-interactive px-6 py-3 font-mono text-[10px] uppercase tracking-widest font-bold bg-[var(--text-main)] text-[var(--bg-base)]"
             onclick="toggleNewProjectForm()" id="new-project-btn">
             New Project
           </button>
         </header>
 
-        <div id="new-project-form-container" class="mb-16 border-4 border-[#31353c] p-6 md:p-8 hidden bg-[#f9fafb]">
+        <div id="new-project-form-container" class="mb-16 border-4 border-[var(--border-main)] p-6 md:p-8 hidden bg-[var(--bg-surface)]">
           <div class="flex items-center gap-3 mb-6">
             <div class="w-3 h-3 bg-[var(--pigment-red)]"></div>
             <h2 class="text-xl font-bold tracking-tighter uppercase">Start New Project</h2>
@@ -184,20 +202,20 @@
           <form id="new-project-form" class="flex flex-col gap-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Project
+                <label class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] block mb-2">Project
                   Name</label>
                 <input type="text" id="project-name" placeholder="PROJECT NAME" class="brutal-input text-lg font-bold"
                   required />
               </div>
               <div>
                 <label
-                  class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Category</label>
+                  class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] block mb-2">Category</label>
                 <input type="text" id="project-category" placeholder="CATEGORY" class="brutal-input" />
               </div>
 
               <div>
                 <label
-                  class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Status</label>
+                  class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-main)] font-bold block mb-2">Status</label>
                 <select id="project-status" class="brutal-input">
                   <option value="Idea">Idea</option>
                   <option value="Planned">Planned</option>
@@ -211,7 +229,7 @@
 
               <div>
                 <label
-                  class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Schedule
+                  class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-main)] font-bold block mb-2">Schedule
                   Type</label>
                 <select id="project-schedule" class="brutal-input">
                   <option value="Flexible">Flexible Schedule</option>
@@ -220,7 +238,7 @@
               </div>
 
               <div>
-                <label class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Life
+                <label class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-main)] font-bold block mb-2">Life
                   Area</label>
                 <select id="project-life-area" class="brutal-input">
                   <option value="">Select Life Area...</option>
@@ -229,7 +247,7 @@
 
               <div>
                 <label
-                  class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Target
+                  class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-main)] font-bold block mb-2">Target
                   Date</label>
                 <input type="date" id="project-target-date" class="brutal-input" />
               </div>
@@ -237,12 +255,12 @@
 
             <div>
               <label
-                class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Description</label>
+                class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] block mb-2">Description</label>
               <textarea id="project-description" placeholder="BRIEF DESCRIPTION..." class="brutal-input"
                 rows="2"></textarea>
             </div>
             <div>
-              <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Why
+              <label class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] block mb-2">Why
                 building?</label>
               <textarea id="project-why" placeholder="WHY ARE YOU BUILDING THIS?" class="brutal-input"
                 rows="2"></textarea>
@@ -250,14 +268,14 @@
 
             <div class="mt-4 flex justify-end">
               <button type="submit"
-                class="brutal-interactive px-8 py-3 font-mono text-xs uppercase tracking-widest font-bold bg-[#31353c] text-white">Create
+                class="brutal-interactive px-8 py-3 font-mono text-xs uppercase tracking-widest font-bold bg-[var(--text-main)] text-[var(--bg-base)]">Create
                 Project</button>
             </div>
           </form>
         </div>
 
         <!-- Architectural Tabs -->
-        <div class="mb-8 border-b-2 border-[#e8eceb]">
+        <div class="mb-8 border-b-2 border-[var(--border-muted)]">
           <div class="flex gap-2 overflow-x-auto no-scrollbar pb-4 pt-2 px-2 -mx-2" id="tabs-container">
             <!-- Tabs injected by JS -->
           </div>
@@ -271,9 +289,9 @@
       <!-- DETAIL VIEW -->
       <div id="detail-view" class="hidden">
         <header
-          class="mb-12 border-b-4 border-[#31353c] pb-8 mt-4 md:mt-0 relative group flex flex-col lg:flex-row lg:justify-between lg:items-end gap-6">
+          class="mb-12 border-b-4 border-[var(--border-main)] pb-8 mt-4 md:mt-0 relative group flex flex-col lg:flex-row lg:justify-between lg:items-end gap-6">
           <button onclick="window.location.search=''"
-            class="absolute -top-10 left-0 font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] hover:text-[#31353c] flex items-center gap-1 transition-colors cursor-pointer">
+            class="absolute -top-10 left-0 font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] hover:text-[var(--text-main)] flex items-center gap-1 transition-colors cursor-pointer">
             <i data-lucide="arrow-left" class="w-3 h-3"></i> Back to Archive
           </button>
 
@@ -282,44 +300,49 @@
               ...
             </h1>
             <div
-              class="flex flex-wrap items-center gap-4 text-[#9ca3af] font-mono text-[10px] uppercase tracking-widest mt-4 font-bold">
-              <span id="detail-category" class="text-[#31353c]">...</span>
+              class="flex flex-wrap items-center gap-4 text-[var(--text-muted)] font-mono text-[10px] uppercase tracking-widest mt-4 font-bold">
+              <span id="detail-category" class="text-[var(--text-main)]">...</span>
               <span>///</span>
               <span id="detail-life-area">...</span>
             </div>
-            <div class="mt-4 font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] flex flex-wrap gap-4"
+            <div class="mt-4 font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] flex flex-wrap gap-4"
               id="detail-dates">
             </div>
             <p id="detail-description"
-              class="mt-6 max-w-3xl text-sm font-medium text-[#31353c] hidden border-l-4 border-[#e8eceb] pl-4 py-1">
+              class="mt-6 max-w-3xl text-sm font-medium text-[var(--text-main)] hidden border-l-4 border-[var(--border-muted)] pl-4 py-1">
             </p>
           </div>
 
-          <div class="w-full lg:w-48 relative flex-shrink-0">
-            <label
-              class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2 lg:absolute lg:-top-5 lg:left-0">Status</label>
-            <select id="detail-status-select" class="brutal-input font-bold uppercase tracking-widest text-xs"
-              onchange="updateProjectStatus(this.value)">
-              <option value="Idea">Idea</option>
-              <option value="Planned">Planned</option>
-              <option value="Building">Building</option>
-              <option value="Testing">Testing</option>
-              <option value="Completed">Completed</option>
-              <option value="Archived">Archived</option>
-              <option value="Cancelled">Cancelled</option>
-            </select>
+          <div class="w-full lg:w-48 relative flex-shrink-0 flex flex-col gap-4">
+            <div class="relative">
+              <label
+                class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] block mb-2 lg:absolute lg:-top-5 lg:left-0">Status</label>
+              <select id="detail-status-select" class="brutal-input font-bold uppercase tracking-widest text-xs"
+                onchange="updateProjectStatus(this.value)">
+                <option value="Idea">Idea</option>
+                <option value="Planned">Planned</option>
+                <option value="Building">Building</option>
+                <option value="Testing">Testing</option>
+                <option value="Completed">Completed</option>
+                <option value="Archived">Archived</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
+            <button onclick="deleteProject()" class="brutal-interactive p-2 border-2 border-[var(--border-main)] bg-[var(--pigment-red)] text-[var(--bg-base)] hover:bg-[var(--text-main)] font-mono text-[10px] uppercase tracking-widest font-bold flex justify-center items-center gap-2">
+              <i data-lucide="trash-2" class="w-3 h-3"></i> Delete Project
+            </button>
           </div>
         </header>
 
         <!-- Main Progress Bar -->
         <div class="mb-16">
           <div class="flex justify-between items-baseline mb-3">
-            <span class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] font-bold"
+            <span class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] font-bold"
               id="detail-progress-fraction">0 / 0 COMPLETED</span>
-            <span class="text-4xl md:text-5xl font-black tracking-tighter text-[#31353c]"
+            <span class="text-4xl md:text-5xl font-black tracking-tighter text-[var(--text-main)]"
               id="detail-progress-text">0%</span>
           </div>
-          <div class="w-full h-3 border-2 border-[#31353c] bg-[#f9fafb] overflow-hidden" id="detail-progress-bar">
+          <div class="w-full h-3 border-2 border-[var(--border-main)] bg-[var(--bg-surface)] overflow-hidden" id="detail-progress-bar">
             <!-- Injected by JS -->
           </div>
         </div>
@@ -330,18 +353,18 @@
 
             <section>
               <div class="flex items-center gap-3 mb-6">
-                <div class="w-3 h-3 bg-[#e8eceb] border border-[#31353c]"></div>
+                <div class="w-3 h-3 bg-[var(--border-muted)] border border-[var(--border-main)]"></div>
                 <h2 class="text-xl font-bold tracking-tighter uppercase">Milestones</h2>
               </div>
-              <div class="brutal-block p-6 bg-white flex flex-col gap-6">
+              <div class="brutal-block p-6 bg-[var(--bg-base)] flex flex-col gap-6">
                 <div id="detail-milestones" class="flex flex-col gap-1"></div>
-                <div class="mt-4 pt-6 border-t-2 border-dashed border-[#e8eceb]">
+                <div class="mt-4 pt-6 border-t-2 border-dashed border-[var(--border-muted)]">
                   <form id="add-milestone-form" class="flex flex-col md:flex-row gap-4">
                     <input type="text" id="new-milestone-title" placeholder="NEW MILESTONE TITLE"
                       class="brutal-input flex-1" required />
                     <input type="date" id="new-milestone-date" class="brutal-input md:w-auto" />
                     <button type="submit"
-                      class="brutal-interactive px-6 py-[0.8rem] font-mono text-[10px] uppercase tracking-widest font-bold bg-[#f9fafb]">Add</button>
+                      class="brutal-interactive px-6 py-[0.8rem] font-mono text-[10px] uppercase tracking-widest font-bold bg-[var(--bg-surface)]">Add</button>
                   </form>
                 </div>
               </div>
@@ -349,7 +372,7 @@
 
             <section>
               <div class="flex items-center gap-3 mb-6">
-                <div class="w-3 h-3 bg-[#31353c]"></div>
+                <div class="w-3 h-3 bg-[var(--text-main)]"></div>
                 <h2 class="text-xl font-bold tracking-tighter uppercase">Execution Checklists</h2>
               </div>
               <div class="flex flex-col gap-8" id="detail-checklists">
@@ -362,36 +385,36 @@
                 <div class="w-3 h-3 bg-[var(--pigment-red)]"></div>
                 <h2 class="text-xl font-bold tracking-tighter uppercase">Add Task</h2>
               </div>
-              <div class="brutal-block p-6 bg-white border-4 border-[#31353c]">
+              <div class="brutal-block p-6 bg-[var(--bg-base)] border-4 border-[var(--border-main)]">
                 <form id="add-item-form" class="flex flex-col gap-6">
                   <div class="flex flex-col md:flex-row gap-4">
                     <div class="w-full md:w-1/3">
                       <label
-                        class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Group</label>
+                        class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] block mb-2">Group</label>
                       <input type="text" id="new-cl-section" placeholder="E.G. FRONTEND" class="brutal-input"
                         value="General" />
                     </div>
                     <div class="w-full md:w-2/3">
-                      <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Task
+                      <label class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] block mb-2">Task
                         Title</label>
                       <input type="text" id="new-cl-title" placeholder="TASK TITLE..." class="brutal-input" required />
                     </div>
                   </div>
                   <div
-                    class="flex flex-col md:flex-row gap-4 md:items-end pt-6 border-t-2 border-dashed border-[#e8eceb]">
+                    class="flex flex-col md:flex-row gap-4 md:items-end pt-6 border-t-2 border-dashed border-[var(--border-muted)]">
                     <div class="w-full md:w-auto">
                       <label
-                        class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Schedule
+                        class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-main)] font-bold block mb-2">Schedule
                         Date</label>
                       <input type="date" id="new-cl-date" class="brutal-input" />
                     </div>
                     <div class="w-full md:w-auto">
                       <label
-                        class="font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold block mb-2">Time</label>
+                        class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-main)] font-bold block mb-2">Time</label>
                       <input type="time" id="new-cl-time" class="brutal-input" />
                     </div>
                     <button type="submit"
-                      class="brutal-interactive w-full md:w-auto md:ml-auto px-8 py-3 font-mono text-xs uppercase tracking-widest font-bold bg-[#31353c] text-white">Add
+                      class="brutal-interactive w-full md:w-auto md:ml-auto px-8 py-3 font-mono text-xs uppercase tracking-widest font-bold bg-[var(--text-main)] text-[var(--bg-base)]">Add
                       Task</button>
                   </div>
                 </form>
@@ -404,20 +427,20 @@
 
             <section>
               <div class="flex items-center gap-3 mb-6">
-                <div class="w-3 h-3 bg-[var(--pigment-yellow)] border border-[#31353c]"></div>
+                <div class="w-3 h-3 bg-[var(--pigment-yellow)] border border-[var(--border-main)]"></div>
                 <h2 class="text-xl font-bold tracking-tighter uppercase">Related Skills</h2>
               </div>
-              <div class="brutal-block p-6 flex flex-col gap-6 bg-white">
+              <div class="brutal-block p-6 flex flex-col gap-6 bg-[var(--bg-base)]">
                 <div id="detail-skills" class="flex flex-wrap gap-2"></div>
-                <div class="pt-6 border-t-2 border-dashed border-[#e8eceb]">
+                <div class="pt-6 border-t-2 border-dashed border-[var(--border-muted)]">
                   <form id="link-skill-form" class="flex flex-col gap-4">
-                    <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block">Link New
+                    <label class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] block">Link New
                       Skill</label>
                     <select id="link-skill-select" class="brutal-input" required>
                       <option value="">Select a skill...</option>
                     </select>
                     <button type="submit"
-                      class="brutal-interactive px-4 py-[0.8rem] font-mono text-[10px] uppercase tracking-widest font-bold bg-[#f9fafb]">Link
+                      class="brutal-interactive px-4 py-[0.8rem] font-mono text-[10px] uppercase tracking-widest font-bold bg-[var(--bg-surface)]">Link
                       Skill</button>
                   </form>
                 </div>
@@ -426,21 +449,21 @@
 
             <section>
               <div class="flex items-center gap-3 mb-6">
-                <div class="w-3 h-3 bg-[#9ca3af] border border-[#31353c]"></div>
+                <div class="w-3 h-3 bg-[var(--text-muted)] border border-[var(--border-main)]"></div>
                 <h2 class="text-xl font-bold tracking-tighter uppercase">Timeline</h2>
               </div>
-              <div class="brutal-block p-6 bg-[#f9fafb]">
-                <div id="detail-activity" class="border-l-2 border-[#31353c] ml-1.5 pl-6 flex flex-col gap-6">
+              <div class="brutal-block p-6 bg-[var(--bg-surface)]">
+                <div id="detail-activity" class="border-l-2 border-[var(--border-main)] ml-1.5 pl-6 flex flex-col gap-6">
                 </div>
               </div>
             </section>
 
             <section id="why-building-container" class="hidden">
               <div class="flex items-center gap-3 mb-6">
-                <div class="w-3 h-3 bg-[#e8eceb] border border-[#31353c]"></div>
+                <div class="w-3 h-3 bg-[var(--border-muted)] border border-[var(--border-main)]"></div>
                 <h2 class="text-xl font-bold tracking-tighter uppercase">Why Building?</h2>
               </div>
-              <div class="brutal-block p-6 bg-[#31353c] text-white">
+              <div class="brutal-block p-6 bg-[var(--text-main)] text-[var(--bg-base)]">
                 <p class="font-mono text-sm leading-relaxed" id="why-building-text"></p>
               </div>
             </section>
@@ -526,8 +549,8 @@
           <button
             onclick="setFilter('${f}')"
             class="font-mono text-[10px] uppercase tracking-widest font-bold px-4 py-3 border-2 transition-all whitespace-nowrap ${isActive
-            ? 'bg-[var(--pigment-red)] text-white border-[var(--pigment-red)] translate-y-[-2px] shadow-[2px_2px_0px_0px_#31353c]'
-            : 'bg-transparent text-[#9ca3af] border-transparent hover:border-[#e8eceb]'
+            ? 'bg-[var(--pigment-red)] text-[var(--bg-base)] border-[var(--pigment-red)] translate-y-[-2px] shadow-[2px_2px_0px_0px_var(--shadow-color)]'
+            : 'bg-transparent text-[var(--text-muted)] border-transparent hover:border-[var(--border-muted)]'
           }"
           >
             ${f}
@@ -545,19 +568,19 @@
     async function fetchProjects(status) {
       const container = document.getElementById('projects-grid');
       container.innerHTML = `
-        <div class="col-span-3 flex items-center gap-3 text-[#9ca3af] font-mono text-sm uppercase tracking-widest animate-pulse py-8">
+        <div class="col-span-3 flex items-center gap-3 text-[var(--text-muted)] font-mono text-sm uppercase tracking-widest animate-pulse py-8">
           <i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Fetching Projects...
         </div>
       `;
       lucide.createIcons();
 
       try {
-        const res = await fetch(`http://localhost:3000/api/projects?status=${status}`);
+        const res = await fetch(`http://localhost:3000/api/projects?status=${status}`, { cache: 'no-store' });
         if (res.ok) {
           const projects = await res.json();
           if (projects.length === 0) {
             container.innerHTML = `
-              <div class="col-span-3 py-12 border-2 border-dashed border-[#e8eceb] flex flex-col items-center justify-center text-[#9ca3af]">
+              <div class="col-span-3 py-12 border-2 border-dashed border-[var(--border-muted)] flex flex-col items-center justify-center text-[var(--text-muted)]">
                 <i data-lucide="folder-open" class="w-8 h-8 mb-4 opacity-50"></i>
                 <p class="font-mono text-xs uppercase tracking-widest">No ${status.toLowerCase()} projects found.</p>
               </div>
@@ -567,20 +590,20 @@
           }
 
           container.innerHTML = projects.map(project => `
-            <div class="brutal-interactive p-6 flex flex-col justify-between cursor-pointer bg-white group h-[220px]" onclick="window.location.href='?id=${project.id}'">
+            <div class="brutal-interactive p-6 flex flex-col justify-between cursor-pointer bg-[var(--bg-base)] group h-[220px]" onclick="window.location.href='?id=${project.id}'">
               <div>
                 <h3 class="font-bold text-2xl tracking-tighter uppercase mb-4 group-hover:underline">${project.name}</h3>
-                <p class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] font-bold">
-                  <span class="text-[#31353c]">${project.category || 'Uncategorized'}</span> /// ${project.life_area_name || 'No Life Area'}
+                <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] font-bold">
+                  <span class="text-[var(--text-main)]">${project.category || 'Uncategorized'}</span> /// ${project.life_area_name || 'No Life Area'}
                 </p>
               </div>
               
               <div class="mt-6">
-                <div class="flex justify-between font-mono text-[10px] uppercase tracking-widest text-[#31353c] font-bold mb-2">
+                <div class="flex justify-between font-mono text-[10px] uppercase tracking-widest text-[var(--text-main)] font-bold mb-2">
                   <span>${project.progress}%</span>
                   <span>${project.checklist_stats?.completed || 0} / ${project.checklist_stats?.total || 0}</span>
                 </div>
-                <div class="w-full h-2 border-2 border-[#31353c] bg-[#f9fafb] overflow-hidden">
+                <div class="w-full h-2 border-2 border-[var(--border-main)] bg-[var(--bg-surface)] overflow-hidden">
                   <div class="bg-[var(--pigment-red)] h-full transition-all" style="width: ${Math.min(100, Math.max(0, project.progress || 0))}%"></div>
                 </div>
               </div>
@@ -590,7 +613,7 @@
       } catch (e) {
         console.error(e);
         container.innerHTML = `
-          <div class="col-span-3 p-6 border-2 border-[var(--pigment-red)] bg-[#fdf5f4] text-[var(--pigment-red)] font-mono text-xs uppercase tracking-widest">
+          <div class="col-span-3 p-6 border-2 border-[var(--pigment-red)] bg-[var(--bg-surface)] text-[var(--pigment-red)] font-mono text-xs uppercase tracking-widest">
             ERR: Connection to localhost:3000 refused.
           </div>
         `;
@@ -686,19 +709,19 @@
       // Milestones
       const milestonesContainer = document.getElementById('detail-milestones');
       if (!project.milestones || project.milestones.length === 0) {
-        milestonesContainer.innerHTML = '<p class="text-[#9ca3af] font-mono text-[10px] uppercase tracking-widest py-2">No milestones defined.</p>';
+        milestonesContainer.innerHTML = '<p class="text-[var(--text-muted)] font-mono text-[10px] uppercase tracking-widest py-2">No milestones defined.</p>';
       } else {
         milestonesContainer.innerHTML = project.milestones.map(m => `
-          <label class="group flex items-start gap-4 p-4 border-2 border-transparent hover:border-[#e8eceb] cursor-pointer transition-colors bg-white">
+          <label class="group flex items-start gap-4 p-4 border-2 border-transparent hover:border-[var(--border-muted)] cursor-pointer transition-colors bg-[var(--bg-base)]">
             <div class="relative flex items-center justify-center mt-0.5">
               <input type="checkbox" class="peer sr-only" ${m.completed ? 'checked' : ''} onchange="toggleMilestone(${m.id}, ${m.completed})" />
-              <div class="w-6 h-6 border-2 flex items-center justify-center transition-colors duration-200 ${m.completed ? 'bg-[var(--pigment-yellow)] border-[var(--pigment-yellow)]' : 'border-[#31353c] bg-transparent group-hover:bg-[#f9fafb]'}">
-                <i data-lucide="check" class="w-4 h-4 text-[#31353c] transition-opacity ${m.completed ? 'opacity-100' : 'opacity-0'}"></i>
+              <div class="w-6 h-6 border-2 flex items-center justify-center transition-colors duration-200 ${m.completed ? 'bg-[var(--pigment-yellow)] border-[var(--pigment-yellow)]' : 'border-[var(--border-main)] bg-transparent group-hover:bg-[var(--bg-surface)]'}">
+                <i data-lucide="check" class="w-4 h-4 text-[var(--text-main)] transition-opacity ${m.completed ? 'opacity-100' : 'opacity-0'}"></i>
               </div>
             </div>
             <div class="flex flex-col flex-1">
-              ${m.due_date ? `<span class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] mb-1">DUE: ${formatDate(m.due_date)}</span>` : ''}
-              <span class="text-xl md:text-2xl font-bold tracking-tight transition-all duration-200 ${m.completed ? 'text-[#9ca3af] line-through' : 'text-[#31353c]'}">
+              ${m.due_date ? `<span class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-1">DUE: ${formatDate(m.due_date)}</span>` : ''}
+              <span class="text-xl md:text-2xl font-bold tracking-tight transition-all duration-200 ${m.completed ? 'text-[var(--text-muted)] line-through' : 'text-[var(--text-main)]'}">
                 ${m.title}
               </span>
             </div>
@@ -710,29 +733,29 @@
       const clContainer = document.getElementById('detail-checklists');
       if (!project.checklists || project.checklists.length === 0) {
         clContainer.innerHTML = `
-          <div class="py-12 border-2 border-dashed border-[#e8eceb] flex flex-col items-center justify-center text-[#9ca3af] bg-[#f9fafb]">
+          <div class="py-12 border-2 border-dashed border-[var(--border-muted)] flex flex-col items-center justify-center text-[var(--text-muted)] bg-[var(--bg-surface)]">
             <i data-lucide="list-todo" class="w-8 h-8 mb-4 opacity-50"></i>
             <p class="font-mono text-xs uppercase tracking-widest">No execution lists available.</p>
           </div>
         `;
       } else {
         clContainer.innerHTML = project.checklists.map((cl, index) => `
-          <div class="brutal-block p-6 bg-white">
-            <h3 class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] font-bold border-b-2 border-[#31353c] pb-2 mb-4">${cl.title}</h3>
-            <div class="flex flex-col border-l-2 border-[#31353c] pl-4 gap-1">
+          <div class="brutal-block p-6 bg-[var(--bg-base)]">
+            <h3 class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] font-bold border-b-2 border-[var(--border-main)] pb-2 mb-4">${cl.title}</h3>
+            <div class="flex flex-col border-l-2 border-[var(--border-main)] pl-4 gap-1">
               ${cl.items.map(item => {
           const timeStr = item.scheduled_time ? `${formatDate(item.scheduled_date) || ''} ${item.scheduled_time}` : (formatDate(item.scheduled_date) || '');
           return `
-                  <label class="group flex items-start gap-4 p-4 border-2 border-transparent hover:border-[#e8eceb] cursor-pointer transition-colors bg-white">
+                  <label class="group flex items-start gap-4 p-4 border-2 border-transparent hover:border-[var(--border-muted)] cursor-pointer transition-colors bg-[var(--bg-base)]">
                     <div class="relative flex items-center justify-center mt-0.5">
                       <input type="checkbox" class="peer sr-only" ${item.completed ? 'checked' : ''} onchange="toggleChecklistItem(${item.id}, ${item.completed})" />
-                      <div class="w-6 h-6 border-2 flex items-center justify-center transition-colors duration-200 ${item.completed ? 'bg-[var(--pigment-red)] border-[var(--pigment-red)]' : 'border-[#31353c] bg-transparent group-hover:bg-[#f9fafb]'}">
-                        <i data-lucide="check" class="w-4 h-4 text-white transition-opacity ${item.completed ? 'opacity-100' : 'opacity-0'}"></i>
+                      <div class="w-6 h-6 border-2 flex items-center justify-center transition-colors duration-200 ${item.completed ? 'bg-[var(--pigment-red)] border-[var(--pigment-red)]' : 'border-[var(--border-main)] bg-transparent group-hover:bg-[var(--bg-surface)]'}">
+                        <i data-lucide="check" class="w-4 h-4 text-[var(--bg-base)] transition-opacity ${item.completed ? 'opacity-100' : 'opacity-0'}"></i>
                       </div>
                     </div>
                     <div class="flex flex-col flex-1">
-                      ${timeStr ? `<span class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] mb-1">${timeStr}</span>` : ''}
-                      <span class="text-xl md:text-2xl font-bold tracking-tight transition-all duration-200 ${item.completed ? 'text-[#9ca3af] line-through' : 'text-[#31353c]'}">
+                      ${timeStr ? `<span class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-1">${timeStr}</span>` : ''}
+                      <span class="text-xl md:text-2xl font-bold tracking-tight transition-all duration-200 ${item.completed ? 'text-[var(--text-muted)] line-through' : 'text-[var(--text-main)]'}">
                         ${item.title}
                       </span>
                     </div>
@@ -747,10 +770,10 @@
       // Skills
       const skillsContainer = document.getElementById('detail-skills');
       if (!project.skills || project.skills.length === 0) {
-        skillsContainer.innerHTML = '<p class="text-[#9ca3af] font-mono text-[10px] uppercase tracking-widest py-2">No skills linked.</p>';
+        skillsContainer.innerHTML = '<p class="text-[var(--text-muted)] font-mono text-[10px] uppercase tracking-widest py-2">No skills linked.</p>';
       } else {
         skillsContainer.innerHTML = project.skills.map(s => `
-          <a href="/skills.html?id=${s.id}" class="px-4 py-2 border-2 border-[#31353c] bg-[#e8eceb] font-mono text-[10px] uppercase tracking-widest font-bold text-[#31353c] hover:bg-[#31353c] hover:text-white transition-colors">
+          <a href="/skills.html?id=${s.id}" class="px-4 py-2 border-2 border-[var(--border-main)] bg-[var(--border-muted)] font-mono text-[10px] uppercase tracking-widest font-bold text-[var(--text-main)] hover:bg-[var(--text-main)] hover:text-[var(--bg-base)] transition-colors">
             ${s.name}
           </a>
         `).join('');
@@ -766,16 +789,16 @@
       // Activity
       const activityContainer = document.getElementById('detail-activity');
       if (!project.activities || project.activities.length === 0) {
-        activityContainer.innerHTML = '<p class="text-[#9ca3af] font-mono text-[10px] uppercase tracking-widest py-2">No recent activity.</p>';
-        activityContainer.classList.remove('border-l-2', 'border-[#31353c]', 'ml-1.5', 'pl-6');
+        activityContainer.innerHTML = '<p class="text-[var(--text-muted)] font-mono text-[10px] uppercase tracking-widest py-2">No recent activity.</p>';
+        activityContainer.classList.remove('border-l-2', 'border-[var(--border-main)]', 'ml-1.5', 'pl-6');
       } else {
-        activityContainer.classList.add('border-l-2', 'border-[#31353c]', 'ml-1.5', 'pl-6');
+        activityContainer.classList.add('border-l-2', 'border-[var(--border-main)]', 'ml-1.5', 'pl-6');
         activityContainer.innerHTML = project.activities.map(event => `
           <div class="relative">
-            <div class="absolute w-3 h-3 bg-[#e8eceb] border-2 border-[#31353c] -left-[31px] top-0.5"></div>
-            <h4 class="font-bold text-sm text-[#31353c] uppercase tracking-tight">${event.action}</h4>
-            ${event.description ? `<p class="text-[#9ca3af] text-xs font-mono tracking-wide mt-1">${event.description}</p>` : ''}
-            <span class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] mt-2 block">${formatDate(event.created_at)}</span>
+            <div class="absolute w-3 h-3 bg-[var(--border-muted)] border-2 border-[var(--border-main)] -left-[31px] top-0.5"></div>
+            <h4 class="font-bold text-sm text-[var(--text-main)] uppercase tracking-tight">${event.action}</h4>
+            ${event.description ? `<p class="text-[var(--text-muted)] text-xs font-mono tracking-wide mt-1">${event.description}</p>` : ''}
+            <span class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] mt-2 block">${formatDate(event.created_at)}</span>
           </div>
         `).join('');
       }
@@ -869,6 +892,18 @@
         });
         document.getElementById('link-skill-select').value = "";
         loadDetailView();
+      } catch (e) { console.error(e); }
+    }
+
+    async function deleteProject() {
+      if (!confirm('Are you sure you want to delete this project?')) return;
+      try {
+        const res = await fetch(`http://localhost:3000/api/projects/${projectId}`, {
+          method: 'DELETE'
+        });
+        if (res.ok) {
+          window.location.href = window.location.pathname;
+        }
       } catch (e) { console.error(e); }
     }
   </script>

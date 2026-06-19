@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 
 <head>
   <meta charset="UTF-8">
@@ -10,48 +10,71 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@400;700;800&display=swap');
 
+    /* =========================================
+       1. LIGHT MODE VARIABLES (Raw Concrete)
+       ========================================= */
     :root {
-      --bg-base: #ffffff;
-      --text-main: #31353c;
-      --border-light: #e8eceb;
-      --shadow-color: #31353c;
+      --bg-base: #dfdfdf;       /* User specified light base */
+      --bg-surface: #ebebeb;    /* Slightly lighter for inputs/cards */
+      --text-main: #1a1a1a;     /* Deep contrast text */
+      --text-muted: #5a5a5a;    /* Mid-grey for secondary text */
+      --border-main: #1a1a1a;   /* Harsh borders */
+      --border-muted: #8a8a8a;  /* Subtle borders */
+      --shadow-color: #1a1a1a;  /* Solid shadow */
+      
+      /* Pigments (Consistent across both modes) */
       --pigment-yellow: #c8a97e;
       --pigment-red: #c26e60;
       --pigment-purple: #8d7a8b;
       --pigment-blue: #6e8ca0;
     }
 
+    /* =========================================
+       2. DARK MODE VARIABLES (Matte Graphite)
+       ========================================= */
+    .dark {
+      --bg-base: #222222;       /* User specified dark base */
+      --bg-surface: #2c2c2c;    /* Slightly lighter for inputs/cards */
+      --text-main: #ececec;     /* Crisp off-white text */
+      --text-muted: #a3a3a3;    /* Mid-light grey for secondary */
+      --border-main: #ececec;   /* Harsh light borders */
+      --border-muted: #686868;  /* Subtle borders */
+      --shadow-color: #111111;  /* Deep shadow to stand out against #383838 */
+    }
+
     body {
       font-family: 'Inter', sans-serif;
       background-color: var(--bg-base);
       color: var(--text-main);
-      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    .font-mono {
-      font-family: 'JetBrains Mono', monospace;
-    }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
 
+    /* =========================================
+       3. COMPONENT STYLES (Variable-Driven)
+       ========================================= */
     .brutal-block {
-      border: 2px solid var(--text-main);
+      border: 2px solid var(--border-main);
       background-color: var(--bg-base);
     }
 
     .brutal-interactive {
-      border: 2px solid var(--text-main);
+      border: 2px solid var(--border-main);
       background-color: var(--bg-base);
       transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
-
     .brutal-interactive:hover {
       transform: translate(-4px, -4px);
       box-shadow: 4px 4px 0px 0px var(--shadow-color);
+      background-color: var(--bg-surface); 
     }
 
     .brutal-input {
       width: 100%;
-      border: 2px solid var(--text-main);
-      background-color: #f9fafb;
+      border: 2px solid var(--border-muted);
+      background-color: var(--bg-surface);
+      color: var(--text-main);
       padding: 0.75rem 1rem;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.75rem;
@@ -59,40 +82,41 @@
       text-transform: uppercase;
       letter-spacing: 0.1em;
       outline: none;
-      transition: background-color 0.2s;
+      transition: all 0.2s;
     }
-
     .brutal-input:focus {
+      border-color: var(--border-main);
       background-color: var(--bg-base);
     }
+    .brutal-input::placeholder {
+      color: var(--text-muted);
+    }
 
+    /* =========================================
+       4. DYNAMIC SVG ARROWS FOR SELECTS
+       ========================================= */
+    /* Light mode arrow (#1a1a1a) */
     select.brutal-input {
       appearance: none;
-      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2331353c%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%231a1a1a%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
       background-repeat: no-repeat;
       background-position: right 1rem top 50%;
       background-size: 0.65rem auto;
       cursor: pointer;
     }
-
-    .tab-btn {
-      opacity: 0.5;
-      border-bottom: 4px solid transparent;
-    }
-
-    .tab-btn.active {
-      opacity: 1;
-      border-bottom: 4px solid var(--text-main);
+    /* Dark mode arrow (#ececec) */
+    .dark select.brutal-input {
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ececec%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
     }
   </style>
 </head>
 
-<body class="selection:bg-[#e8eceb] p-4 sm:p-8 md:p-12 lg:p-16 flex justify-center">
+<body class="selection:bg-[var(--border-main)] selection:text-[var(--bg-base)] p-4 sm:p-8 md:p-12 lg:p-16 flex justify-center">
 
   <div class="w-full max-w-6xl relative">
 
     <!-- System Coordinates / Metadata -->
-    <div class="flex justify-between items-start mb-8 text-[10px] font-mono uppercase tracking-widest text-[#9ca3af] relative z-50">
+    <div class="flex justify-between items-start mb-8 text-[10px] font-mono uppercase tracking-widest text-[var(--text-muted)] relative z-50">
       <div class="flex flex-col gap-1">
         <span>SYS.FITNESS // OS</span>
         <span id="current-date-display">--.--.--</span>
@@ -100,53 +124,56 @@
 
       <!-- Navigation Dropdown -->
       <div class="relative group z-50">
-        <button
-          class="p-2 flex items-center justify-center text-[#31353c] hover:bg-[#31353c] hover:text-white transition-colors border-2 border-[#31353c] bg-white cursor-pointer"
-          aria-label="Menu">
-          <i data-lucide="menu" class="w-4 h-4"></i>
-        </button>
+        <div class="flex items-center gap-2">
+          <button onclick="toggleTheme()" class="p-2 text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors cursor-pointer" aria-label="Toggle Theme">
+            <i data-lucide="moon" class="w-4 h-4 theme-icon"></i>
+          </button>
+          <button class="p-2 text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors cursor-pointer" aria-label="Menu">
+            <i data-lucide="menu" class="w-4 h-4"></i>
+          </button>
+        </div>
         <div
-          class="absolute right-0 mt-2 w-48 bg-white border-2 border-[#31353c] shadow-[4px_4px_0px_0px_#31353c] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col z-50 text-left">
+          class="absolute right-0 mt-2 w-48 bg-[var(--bg-base)] border-2 border-[var(--border-main)] shadow-[4px_4px_0px_0px_var(--shadow-color)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col z-50 text-left">
           <a href="/dashboard.html"
-            class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#6e8ca0] transition-colors flex items-center gap-2 normal-case"><i
+            class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-blue)] transition-colors flex items-center gap-2 normal-case"><i
               data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard</a>
           <a href="/goals.html"
-            class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#8d7a8b] transition-colors flex items-center gap-2 normal-case"><i
+            class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-purple)] transition-colors flex items-center gap-2 normal-case"><i
               data-lucide="target" class="w-4 h-4"></i> Goals</a>
           <a href="/projects.html"
-            class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c26e60] transition-colors flex items-center gap-2 normal-case"><i
+            class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-red)] transition-colors flex items-center gap-2 normal-case"><i
               data-lucide="folder" class="w-4 h-4"></i> Projects</a>
           <a href="/skills.html"
-            class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c8a97e] transition-colors flex items-center gap-2 normal-case"><i
+            class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-yellow)] transition-colors flex items-center gap-2 normal-case"><i
               data-lucide="brain" class="w-4 h-4"></i> Skills</a>
           <a href="/health.html"
-            class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#c8a97e] transition-colors flex items-center gap-2 normal-case"><i
+            class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-yellow)] transition-colors flex items-center gap-2 normal-case"><i
               data-lucide="activity" class="w-4 h-4"></i> Health</a>
           <a href="/fitness.html"
-            class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] hover:text-[#6e8ca0] transition-colors flex items-center gap-2 normal-case"><i
+            class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] hover:text-[var(--pigment-blue)] transition-colors flex items-center gap-2 normal-case"><i
               data-lucide="dumbbell" class="w-4 h-4"></i> Fitness</a>
           <a href="/analytics.html"
-            class="px-4 py-3 border-b-2 border-dashed border-[#e8eceb] text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] transition-colors flex items-center gap-2 normal-case"><i
+            class="px-4 py-3 border-b-2 border-dashed border-[var(--border-muted)] text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] transition-colors flex items-center gap-2 normal-case"><i
               data-lucide="bar-chart-2" class="w-4 h-4"></i> Analytics</a>
           <a href="/settings.html"
-            class="px-4 py-3 text-sm font-bold uppercase tracking-tighter text-[#31353c] hover:bg-[#f9fafb] transition-colors flex items-center gap-2 normal-case"><i
+            class="px-4 py-3 text-sm font-bold uppercase tracking-tighter text-[var(--text-main)] hover:bg-[var(--bg-surface)] transition-colors flex items-center gap-2 normal-case"><i
               data-lucide="settings" class="w-4 h-4"></i> Settings</a>
         </div>
       </div>
     </div>
 
-    <header class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b-4 border-[#31353c] pb-8 mt-4 md:mt-0">
+    <header class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 border-b-4 border-[var(--border-main)] pb-8 mt-4 md:mt-0">
       <h1 class="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none">Fitness</h1>
     </header>
 
     <!-- Tabs -->
-    <div class="flex gap-6 mb-12 border-b-2 border-[#e8eceb]">
-      <button class="tab-btn active pb-2 font-mono text-sm uppercase tracking-widest font-bold"
-        onclick="switchTab('dashboard')">Dashboard</button>
-      <button class="tab-btn pb-2 font-mono text-sm uppercase tracking-widest font-bold"
-        onclick="switchTab('builder')">Builder</button>
-      <button class="tab-btn pb-2 font-mono text-sm uppercase tracking-widest font-bold"
-        onclick="switchTab('progress')">Progress</button>
+    <div class="flex gap-4 mb-12 border-b-2 border-[var(--border-muted)] overflow-x-auto no-scrollbar pb-2">
+      <button class="tab-btn active px-6 py-3 font-mono text-[10px] uppercase tracking-widest font-bold whitespace-nowrap border-2 border-[var(--border-main)] bg-[var(--pigment-blue)] text-[var(--bg-base)] translate-y-[-4px] shadow-[4px_4px_0px_0px_var(--shadow-color)] transition-all"
+        onclick="switchTab('dashboard', this)">Dashboard</button>
+      <button class="tab-btn px-6 py-3 font-mono text-[10px] uppercase tracking-widest font-bold whitespace-nowrap border-2 border-transparent text-[var(--text-muted)] hover:text-[var(--text-main)] transition-all"
+        onclick="switchTab('builder', this)">Builder</button>
+      <button class="tab-btn px-6 py-3 font-mono text-[10px] uppercase tracking-widest font-bold whitespace-nowrap border-2 border-transparent text-[var(--text-muted)] hover:text-[var(--text-main)] transition-all"
+        onclick="switchTab('progress', this)">Progress</button>
     </div>
 
     <!-- TAB: Dashboard -->
@@ -155,23 +182,23 @@
         <!-- Today's Workout -->
         <div class="lg:col-span-2">
           <div class="flex items-center gap-3 mb-6">
-            <div class="w-3 h-3 bg-[var(--pigment-blue)] border border-[#31353c]"></div>
+            <div class="w-3 h-3 bg-[var(--pigment-blue)] border border-[var(--border-main)]"></div>
             <h2 class="text-xl font-bold tracking-tighter uppercase">Today's Workout</h2>
           </div>
-          <div id="today-workout-container" class="brutal-block p-8 bg-[#f9fafb]">
+          <div id="today-workout-container" class="brutal-block p-8 bg-[var(--bg-surface)]">
             <p class="font-mono text-xs uppercase tracking-widest animate-pulse">Loading...</p>
           </div>
 
           <!-- Active Session View (Hidden by default) -->
           <div id="active-session-container" class="hidden mt-8">
             <div class="flex items-center gap-3 mb-6">
-              <div class="w-3 h-3 bg-[var(--pigment-red)] border border-[#31353c]"></div>
+              <div class="w-3 h-3 bg-[var(--pigment-red)] border border-[var(--border-main)]"></div>
               <h2 class="text-xl font-bold tracking-tighter uppercase">Active Session</h2>
             </div>
             <div id="active-session-content" class="flex flex-col gap-6"></div>
             <div class="mt-8 flex justify-end">
               <button onclick="completeSession()"
-                class="brutal-interactive px-8 py-4 font-mono text-sm uppercase tracking-widest font-bold bg-[#31353c] text-white hover:bg-black">Complete
+                class="brutal-interactive px-8 py-4 font-mono text-sm uppercase tracking-widest font-bold bg-[var(--text-main)] text-[var(--bg-base)] hover:bg-black">Complete
                 Workout</button>
             </div>
           </div>
@@ -180,11 +207,11 @@
         <!-- History -->
         <div>
           <div class="flex items-center gap-3 mb-6">
-            <div class="w-3 h-3 bg-[#e8eceb] border border-[#31353c]"></div>
+            <div class="w-3 h-3 bg-[var(--border-muted)] border border-[var(--border-main)]"></div>
             <h2 class="text-xl font-bold tracking-tighter uppercase">History</h2>
           </div>
           <div id="history-container" class="flex flex-col gap-4">
-            <p class="font-mono text-xs uppercase tracking-widest text-[#9ca3af]">Loading...</p>
+            <p class="font-mono text-xs uppercase tracking-widest text-[var(--text-muted)]">Loading...</p>
           </div>
         </div>
       </div>
@@ -197,27 +224,27 @@
         <div>
           <div class="relative flex items-center mb-6">
             <div class="flex items-center gap-3">
-              <div class="w-3 h-3 bg-[var(--pigment-blue)] border border-[#31353c]"></div>
+              <div class="w-3 h-3 bg-[var(--pigment-blue)] border border-[var(--border-main)]"></div>
               <h2 class="text-xl font-bold tracking-tighter uppercase">Templates</h2>
             </div>
             <button onclick="toggleTemplateForm()"
-              class="brutal-interactive absolute right-0 px-4 py-2 font-mono text-[10px] uppercase tracking-widest font-bold bg-[#31353c] text-white transition-colors">Create
+              class="brutal-interactive absolute right-0 px-4 py-2 font-mono text-[10px] uppercase tracking-widest font-bold bg-[var(--text-main)] text-[var(--bg-base)] transition-colors">Create
               New</button>
           </div>
           <div id="templates-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
         </div>
 
         <!-- Create Template Form -->
-        <div id="create-template-form" class="hidden brutal-block p-8 bg-[#f9fafb]">
+        <div id="create-template-form" class="hidden brutal-block p-8 bg-[var(--bg-surface)]">
           <h3 class="text-2xl font-bold tracking-tighter uppercase mb-6">New Template</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div>
-              <label class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Name</label>
+              <label class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] block mb-2">Name</label>
               <input type="text" id="tpl-new-name" class="brutal-input" placeholder="PUSH PULL LEGS">
             </div>
             <div>
               <label
-                class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] block mb-2">Description</label>
+                class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] block mb-2">Description</label>
               <input type="text" id="tpl-new-desc" class="brutal-input" placeholder="OPTIONAL">
             </div>
           </div>
@@ -227,12 +254,12 @@
             <!-- Dynamically added days -->
           </div>
           <button onclick="addDayToTemplate()"
-            class="brutal-interactive px-4 py-2 font-mono text-[10px] uppercase tracking-widest font-bold bg-white text-[#31353c] border-dashed mb-8">+
+            class="brutal-interactive px-4 py-2 font-mono text-[10px] uppercase tracking-widest font-bold bg-[var(--bg-base)] text-[var(--text-main)] border-dashed mb-8">+
             Add Day</button>
 
           <div class="flex justify-end">
             <button onclick="saveTemplate()"
-              class="brutal-interactive px-6 py-3 font-mono text-xs uppercase tracking-widest font-bold bg-[#31353c] text-white">Save
+              class="brutal-interactive px-6 py-3 font-mono text-xs uppercase tracking-widest font-bold bg-[var(--text-main)] text-[var(--bg-base)]">Save
               Template</button>
           </div>
         </div>
@@ -244,18 +271,18 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
         <div>
           <div class="flex items-center gap-3 mb-6">
-            <div class="w-3 h-3 bg-[var(--pigment-blue)] border border-[#31353c]"></div>
+            <div class="w-3 h-3 bg-[var(--pigment-blue)] border border-[var(--border-main)]"></div>
             <h2 class="text-xl font-bold tracking-tighter uppercase">Personal Records</h2>
           </div>
-          <div id="prs-list" class="flex flex-col border-t-2 border-[#31353c]"></div>
+          <div id="prs-list" class="flex flex-col border-t-2 border-[var(--border-main)]"></div>
         </div>
         <div>
           <!-- Placeholder for additional charts or analytics -->
           <div class="flex items-center gap-3 mb-6">
-            <div class="w-3 h-3 bg-[#e8eceb] border border-[#31353c]"></div>
+            <div class="w-3 h-3 bg-[var(--border-muted)] border border-[var(--border-main)]"></div>
             <h2 class="text-xl font-bold tracking-tighter uppercase">Statistics</h2>
           </div>
-          <p class="font-mono text-xs text-[#9ca3af] uppercase tracking-widest">Analytics visualizations can be found in
+          <p class="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest">Analytics visualizations can be found in
             the Analytics tab.</p>
         </div>
       </div>
@@ -279,11 +306,17 @@
       fetchDictionary();
     });
 
-    function switchTab(tabId) {
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    function switchTab(tabId, btnElement) {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active', 'border-[var(--border-main)]', 'bg-[var(--pigment-blue)]', 'text-[var(--bg-base)]', 'translate-y-[-4px]', 'shadow-[4px_4px_0px_0px_var(--shadow-color)]');
+        btn.classList.add('border-transparent', 'text-[var(--text-muted)]');
+      });
       document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
 
-      event.target.classList.add('active');
+      btnElement = btnElement || event.currentTarget;
+      btnElement.classList.add('active', 'border-[var(--border-main)]', 'bg-[var(--pigment-blue)]', 'text-[var(--bg-base)]', 'translate-y-[-4px]', 'shadow-[4px_4px_0px_0px_var(--shadow-color)]');
+      btnElement.classList.remove('border-transparent', 'text-[var(--text-muted)]');
+      
       document.getElementById('tab-' + tabId).classList.remove('hidden');
     }
 
@@ -315,16 +348,16 @@
     function renderToday(data) {
       const container = document.getElementById('today-workout-container');
       if (!data) {
-        container.innerHTML = `<p class="font-mono text-xs uppercase tracking-widest text-[#9ca3af]">No active template.</p>`;
+        container.innerHTML = `<p class="font-mono text-xs uppercase tracking-widest text-[var(--text-muted)]">No active template.</p>`;
         return;
       }
 
       if (data.is_rest_day) {
         container.innerHTML = `
           <div class="flex flex-col items-center justify-center py-8">
-             <i data-lucide="coffee" class="w-12 h-12 mb-4 text-[#9ca3af]"></i>
+             <i data-lucide="coffee" class="w-12 h-12 mb-4 text-[var(--text-muted)]"></i>
              <h3 class="text-2xl font-black uppercase tracking-tighter">Rest Day</h3>
-             <p class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] mt-2">Active Template: ${data.template_name}</p>
+             <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] mt-2">Active Template: ${data.template_name}</p>
           </div>
         `;
         lucide.createIcons();
@@ -335,7 +368,7 @@
         // Active session exists
         container.innerHTML = `<div class="flex justify-between items-center">
           <div>
-            <p class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] mb-1">${data.template_name} &bull; ${data.streak_count || 0} Day Streak</p>
+            <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-1">${data.template_name} &bull; ${data.streak_count || 0} Day Streak</p>
             <h3 class="text-2xl font-black uppercase tracking-tighter">Session in Progress</h3>
           </div>
           <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--pigment-red)] font-bold animate-pulse">RECORDING</p>
@@ -346,9 +379,9 @@
       } else if (data.session && data.session.completed_at) {
         container.innerHTML = `
           <div class="flex flex-col items-center justify-center py-8">
-             <i data-lucide="check-circle" class="w-12 h-12 mb-4 text-[#31353c]"></i>
+             <i data-lucide="check-circle" class="w-12 h-12 mb-4 text-[var(--text-main)]"></i>
              <h3 class="text-2xl font-black uppercase tracking-tighter">Workout Complete</h3>
-             <p class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] mt-2"> ${data.streak_count || 0} Day Streak &bull; Great job today.</p>
+             <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] mt-2"> ${data.streak_count || 0} Day Streak &bull; Great job today.</p>
           </div>
         `;
         lucide.createIcons();
@@ -358,11 +391,11 @@
         container.innerHTML = `
           <div class="flex justify-between items-end">
             <div>
-              <p class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] mb-1">${data.template_name} &bull; ${data.streak_count || 0} Day Streak</p>
+              <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-1">${data.template_name} &bull; ${data.streak_count || 0} Day Streak</p>
               <h3 class="text-4xl font-black uppercase tracking-tighter">${data.workout_day.name}</h3>
-              <p class="font-mono text-xs uppercase tracking-widest text-[#31353c] mt-2">${data.workout_day.exercises.length} Exercises Planned</p>
+              <p class="font-mono text-xs uppercase tracking-widest text-[var(--text-main)] mt-2">${data.workout_day.exercises.length} Exercises Planned</p>
             </div>
-            <button onclick="startSession(${data.template_id}, ${data.workout_day.id})" class="brutal-interactive px-6 py-3 font-mono text-xs uppercase tracking-widest font-bold bg-[var(--pigment-blue)] text-white hover:bg-[#31353c]">Start</button>
+            <button onclick="startSession(${data.template_id}, ${data.workout_day.id})" class="brutal-interactive px-6 py-3 font-mono text-xs uppercase tracking-widest font-bold bg-[var(--pigment-blue)] text-[var(--bg-base)] hover:bg-[var(--text-main)]">Start</button>
           </div>
         `;
       }
@@ -408,23 +441,23 @@
           if (l.exercise_type === 'Weight') val = `${l.weight} x ${l.reps} (${l.sets} sets)`;
           if (l.exercise_type === 'Distance') val = `${l.distance} dist`;
           if (l.exercise_type === 'Duration') val = `${l.duration} min`;
-          logHtml += `<div class="text-xs font-mono bg-[#e8eceb] px-2 py-1 inline-block mr-2 mb-2">Logged: ${val}</div>`;
+          logHtml += `<div class="text-xs font-mono bg-[var(--border-muted)] px-2 py-1 inline-block mr-2 mb-2">Logged: ${val}</div>`;
         });
 
         const inputHtml = ex.exercise_type === 'Weight'
-          ? `<div class="flex gap-2 mt-2"><input type="number" id="w_${ex.id}" placeholder="Weight" class="brutal-input py-1 text-xs" style="width: 80px;"><input type="number" id="r_${ex.id}" placeholder="Reps" class="brutal-input py-1 text-xs" style="width: 80px;"><input type="number" id="s_${ex.id}" placeholder="Sets" class="brutal-input py-1 text-xs" style="width: 80px;"><button onclick="logExercise(${ex.id}, '${ex.exercise_name}', 'Weight')" class="brutal-interactive px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-widest bg-white">Log</button></div>`
+          ? `<div class="flex gap-2 mt-2"><input type="number" id="w_${ex.id}" placeholder="Weight" class="brutal-input py-1 text-xs" style="width: 80px;"><input type="number" id="r_${ex.id}" placeholder="Reps" class="brutal-input py-1 text-xs" style="width: 80px;"><input type="number" id="s_${ex.id}" placeholder="Sets" class="brutal-input py-1 text-xs" style="width: 80px;"><button onclick="logExercise(${ex.id}, '${ex.exercise_name}', 'Weight')" class="brutal-interactive px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-widest bg-[var(--bg-base)]">Log</button></div>`
           : ex.exercise_type === 'Distance'
-            ? `<div class="flex gap-2 mt-2"><input type="number" id="d_${ex.id}" placeholder="Dist" class="brutal-input py-1 text-xs" style="width: 100px;"><button onclick="logExercise(${ex.id}, '${ex.exercise_name}', 'Distance')" class="brutal-interactive px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-widest bg-white">Log</button></div>`
-            : `<div class="flex gap-2 mt-2"><input type="number" id="t_${ex.id}" placeholder="Mins" class="brutal-input py-1 text-xs" style="width: 100px;"><button onclick="logExercise(${ex.id}, '${ex.exercise_name}', 'Duration')" class="brutal-interactive px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-widest bg-white">Log</button></div>`;
+            ? `<div class="flex gap-2 mt-2"><input type="number" id="d_${ex.id}" placeholder="Dist" class="brutal-input py-1 text-xs" style="width: 100px;"><button onclick="logExercise(${ex.id}, '${ex.exercise_name}', 'Distance')" class="brutal-interactive px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-widest bg-[var(--bg-base)]">Log</button></div>`
+            : `<div class="flex gap-2 mt-2"><input type="number" id="t_${ex.id}" placeholder="Mins" class="brutal-input py-1 text-xs" style="width: 100px;"><button onclick="logExercise(${ex.id}, '${ex.exercise_name}', 'Duration')" class="brutal-interactive px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-widest bg-[var(--bg-base)]">Log</button></div>`;
 
         container.innerHTML += `
           <div class="brutal-block p-4">
              <div class="flex justify-between items-start">
                <div>
                  <h4 class="font-bold text-lg uppercase tracking-tight">${ex.exercise_name}</h4>
-                 <p class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af]">${targetText}</p>
+                 <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)]">${targetText}</p>
                </div>
-               <span class="text-xs font-bold font-mono px-2 py-1 bg-[#31353c] text-white">${ex.exercise_type}</span>
+               <span class="text-xs font-bold font-mono px-2 py-1 bg-[var(--text-main)] text-[var(--bg-base)]">${ex.exercise_type}</span>
              </div>
              ${logHtml ? `<div class="mt-3">${logHtml}</div>` : ''}
              ${inputHtml}
@@ -434,7 +467,7 @@
 
       // Free log form
       container.innerHTML += `
-        <div class="border-t-2 border-dashed border-[#31353c] pt-6 mt-4">
+        <div class="border-t-2 border-dashed border-[var(--border-main)] pt-6 mt-4">
           <h4 class="font-mono text-sm uppercase tracking-widest font-bold mb-4">Add Unplanned Exercise</h4>
           <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
              <input type="text" id="free_name" placeholder="Name" class="brutal-input py-2 text-xs" list="ex-dict">
@@ -445,7 +478,7 @@
              </select>
              <input type="number" id="free_val1" placeholder="Val 1 (Weight/Dist/Mins)" class="brutal-input py-2 text-xs">
              <input type="number" id="free_val2" placeholder="Val 2 (Reps)" class="brutal-input py-2 text-xs">
-             <button onclick="logFreeExercise()" class="brutal-interactive px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-widest bg-white col-span-2 md:col-span-4">Log Extra Exercise</button>
+             <button onclick="logFreeExercise()" class="brutal-interactive px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-widest bg-[var(--bg-base)] col-span-2 md:col-span-4">Log Extra Exercise</button>
           </div>
         </div>
         <datalist id="ex-dict">
@@ -504,14 +537,14 @@
     function renderHistory(sessions) {
       const container = document.getElementById('history-container');
       if (!sessions.length) {
-        container.innerHTML = `<p class="font-mono text-xs uppercase tracking-widest text-[#9ca3af]">No history found.</p>`;
+        container.innerHTML = `<p class="font-mono text-xs uppercase tracking-widest text-[var(--text-muted)]">No history found.</p>`;
         return;
       }
       container.innerHTML = sessions.map(s => `
-        <div class="brutal-interactive p-4 bg-white cursor-pointer" onclick="viewSession(${s.id})">
+        <div class="brutal-interactive p-4 bg-[var(--bg-base)] cursor-pointer" onclick="viewSession(${s.id})">
           <div class="flex justify-between items-center mb-2">
             <h4 class="font-bold uppercase tracking-tight">${s.day_name || s.template_name || 'Legacy Session'}</h4>
-            <span class="font-mono text-[10px] text-[#9ca3af]">${s.session_date}</span>
+            <span class="font-mono text-[10px] text-[var(--text-muted)]">${s.session_date}</span>
           </div>
           <div class="flex gap-4 font-mono text-[10px] uppercase tracking-widest">
             <span><i data-lucide="activity" class="w-3 h-3 inline"></i> ${s.log_count} Exercises</span>
@@ -525,7 +558,7 @@
     function renderPRs(prs) {
       const container = document.getElementById('prs-list');
       if (!prs.length) {
-        container.innerHTML = `<p class="font-mono text-xs uppercase tracking-widest text-[#9ca3af] py-4">No PRs recorded.</p>`;
+        container.innerHTML = `<p class="font-mono text-xs uppercase tracking-widest text-[var(--text-muted)] py-4">No PRs recorded.</p>`;
         return;
       }
       container.innerHTML = prs.map(pr => {
@@ -535,12 +568,12 @@
         if (pr.exercise_type === 'Duration') val = `${pr.best_duration} Min`;
 
         return `
-        <div class="py-4 border-b-2 border-dashed border-[#e8eceb] flex justify-between items-center">
+        <div class="py-4 border-b-2 border-dashed border-[var(--border-muted)] flex justify-between items-center">
           <div>
             <h4 class="font-bold text-sm uppercase tracking-tight">${pr.exercise_name}</h4>
-            <p class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af] mt-1">${pr.date_achieved}</p>
+            <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)] mt-1">${pr.date_achieved}</p>
           </div>
-          <div class="text-2xl font-black tracking-tighter text-[#31353c]">${val}</div>
+          <div class="text-2xl font-black tracking-tighter text-[var(--text-main)]">${val}</div>
         </div>
       `}).join('');
     }
@@ -548,16 +581,16 @@
     function renderTemplates(templates) {
       const container = document.getElementById('templates-list');
       container.innerHTML = templates.map(t => `
-        <div class="brutal-block p-6 ${t.active ? 'border-[var(--pigment-blue)] bg-[#f9fafb]' : 'bg-white'}">
+        <div class="brutal-block p-6 ${t.active ? 'border-[var(--pigment-blue)] bg-[var(--bg-surface)]' : 'bg-[var(--bg-base)]'}">
           <div class="flex justify-between items-start mb-4">
              <h3 class="font-bold text-lg uppercase tracking-tight">${t.name}</h3>
-             ${t.active ? '<span class="font-mono text-[10px] font-bold px-2 py-1 bg-[var(--pigment-blue)] text-white uppercase">Active</span>' : ''}
+             ${t.active ? '<span class="font-mono text-[10px] font-bold px-2 py-1 bg-[var(--pigment-blue)] text-[var(--bg-base)] uppercase">Active</span>' : ''}
           </div>
-          <p class="text-sm text-[#9ca3af] mb-6 line-clamp-2">${t.description || 'No description'}</p>
+          <p class="text-sm text-[var(--text-muted)] mb-6 line-clamp-2">${t.description || 'No description'}</p>
           <div class="flex gap-2">
-            ${!t.active ? `<button onclick="activateTemplate(${t.id})" class="brutal-interactive flex-grow py-2 font-mono text-[10px] uppercase tracking-widest font-bold">Set Active</button>` : `<button onclick="deactivateTemplate(${t.id})" class="brutal-interactive flex-grow py-2 font-mono text-[10px] uppercase tracking-widest font-bold border-2 border-[var(--pigment-red)] text-[var(--pigment-red)] hover:bg-[var(--pigment-red)] hover:text-white">Deactivate</button>`}
-            <button onclick="editTemplate(${t.id})" class="brutal-interactive px-3 py-2 bg-white text-[#31353c]" title="Edit"><i data-lucide="edit-2" class="w-4 h-4"></i></button>
-            <button onclick="deleteTemplate(${t.id})" class="brutal-interactive px-3 py-2 bg-white text-[var(--pigment-red)] border-[#c26e60]" title="Delete"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+            ${!t.active ? `<button onclick="activateTemplate(${t.id})" class="brutal-interactive flex-grow py-2 font-mono text-[10px] uppercase tracking-widest font-bold">Set Active</button>` : `<button onclick="deactivateTemplate(${t.id})" class="brutal-interactive flex-grow py-2 font-mono text-[10px] uppercase tracking-widest font-bold border-2 border-[var(--pigment-red)] text-[var(--pigment-red)] hover:bg-[var(--pigment-red)] hover:text-[var(--bg-base)]">Deactivate</button>`}
+            <button onclick="editTemplate(${t.id})" class="brutal-interactive px-3 py-2 bg-[var(--bg-base)] text-[var(--text-main)]" title="Edit"><i data-lucide="edit-2" class="w-4 h-4"></i></button>
+            <button onclick="deleteTemplate(${t.id})" class="brutal-interactive px-3 py-2 bg-[var(--bg-base)] text-[var(--pigment-red)] border-[var(--pigment-red)]" title="Delete"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
           </div>
         </div>
       `).join('');
@@ -641,7 +674,7 @@
       const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
       container.innerHTML = newTemplateDays.map((d, dIdx) => `
-        <div class="brutal-block p-4 bg-white">
+        <div class="brutal-block p-4 bg-[var(--bg-base)]">
           <div class="grid grid-cols-2 gap-4 mb-4">
             <input type="text" value="${d.name}" onchange="updateDay(${dIdx}, 'name', this.value)" class="brutal-input py-2 text-xs" placeholder="Day Name (e.g. Push)">
             <select onchange="updateDay(${dIdx}, 'repeat_day', this.value)" class="brutal-input py-2 text-xs">
@@ -649,9 +682,9 @@
             </select>
           </div>
           
-          <div class="pl-4 border-l-2 border-[#31353c] flex flex-col gap-3 mb-4">
+          <div class="pl-4 border-l-2 border-[var(--border-main)] flex flex-col gap-3 mb-4">
              ${d.exercises.map((ex, eIdx) => `
-               <div class="flex flex-wrap gap-2 items-center bg-[#f9fafb] p-2 border-2 border-[#e8eceb]">
+               <div class="flex flex-wrap gap-2 items-center bg-[var(--bg-surface)] p-2 border-2 border-[var(--border-muted)]">
                  <input type="text" value="${ex.exercise_name}" onchange="updateExercise(${dIdx}, ${eIdx}, 'exercise_name', this.value)" placeholder="Exercise" class="brutal-input py-1 text-xs" style="width: 150px;" list="ex-dict">
                  <select onchange="updateExercise(${dIdx}, ${eIdx}, 'exercise_type', this.value)" class="brutal-input py-1 text-xs" style="width: 100px;">
                     <option value="Weight" ${ex.exercise_type === 'Weight' ? 'selected' : ''}>Weight</option>
@@ -669,7 +702,7 @@
                </div>
              `).join('')}
           </div>
-          <button onclick="addExerciseToDay(${dIdx})" class="font-mono text-[10px] uppercase tracking-widest font-bold text-[#9ca3af] hover:text-[#31353c]">+ Add Exercise</button>
+          <button onclick="addExerciseToDay(${dIdx})" class="font-mono text-[10px] uppercase tracking-widest font-bold text-[var(--text-muted)] hover:text-[var(--text-main)]">+ Add Exercise</button>
         </div>
       `).join('');
     }
@@ -708,9 +741,9 @@
         if (s.logs && s.logs.length > 0) {
           logsHtml = s.logs.map(l => {
             return `
-              <div class="p-3 bg-[#f9fafb] border-2 border-[#e8eceb] mb-2 flex flex-col md:flex-row md:items-center justify-between gap-2">
+              <div class="p-3 bg-[var(--bg-surface)] border-2 border-[var(--border-muted)] mb-2 flex flex-col md:flex-row md:items-center justify-between gap-2">
                  <div>
-                   <h5 class="font-bold uppercase tracking-tight text-sm">${l.exercise_name} <span class="font-mono text-[10px] bg-[#31353c] text-white px-1 ml-1">${l.exercise_type}</span></h5>
+                   <h5 class="font-bold uppercase tracking-tight text-sm">${l.exercise_name} <span class="font-mono text-[10px] bg-[var(--text-main)] text-[var(--bg-base)] px-1 ml-1">${l.exercise_type}</span></h5>
                  </div>
                  <div class="flex flex-wrap gap-2 items-center">
                    ${l.exercise_type === 'Weight' ? `
@@ -723,25 +756,25 @@
                    ` : `
                      <input type="number" id="elog_t_${l.id}" value="${l.duration || ''}" class="brutal-input py-1 text-[10px]" style="width:70px;" placeholder="Min">
                    `}
-                   <button onclick="updateLog(${l.id}, ${s.id}, '${l.exercise_type}')" class="px-2 py-1 font-mono text-[10px] font-bold bg-[#31353c] text-white uppercase tracking-widest hover:bg-black">Save</button>
-                   <button onclick="deleteLog(${l.id}, ${s.id})" class="px-2 py-1 font-mono text-[10px] font-bold bg-[var(--pigment-red)] text-white uppercase tracking-widest">Del</button>
+                   <button onclick="updateLog(${l.id}, ${s.id}, '${l.exercise_type}')" class="px-2 py-1 font-mono text-[10px] font-bold bg-[var(--text-main)] text-[var(--bg-base)] uppercase tracking-widest hover:bg-black">Save</button>
+                   <button onclick="deleteLog(${l.id}, ${s.id})" class="px-2 py-1 font-mono text-[10px] font-bold bg-[var(--pigment-red)] text-[var(--bg-base)] uppercase tracking-widest">Del</button>
                  </div>
               </div>
             `;
           }).join('');
         } else {
-          logsHtml = `<p class="font-mono text-xs uppercase text-[#9ca3af]">No exercises logged for this session.</p>`;
+          logsHtml = `<p class="font-mono text-xs uppercase text-[var(--text-muted)]">No exercises logged for this session.</p>`;
         }
 
         const modalHtml = `
-          <div id="session-modal" class="fixed inset-0 bg-[#31353c]/80 flex items-center justify-center z-[100] p-4">
+          <div id="session-modal" class="fixed inset-0 bg-[var(--text-main)]/80 flex items-center justify-center z-[100] p-4">
             <div class="brutal-block p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <div class="flex justify-between items-start mb-6 border-b-2 border-[#31353c] pb-4">
+              <div class="flex justify-between items-start mb-6 border-b-2 border-[var(--border-main)] pb-4">
                  <div>
                    <h2 class="text-2xl font-black uppercase tracking-tighter">${s.day_name || s.template_name || 'Session'}</h2>
-                   <p class="font-mono text-[10px] uppercase tracking-widest text-[#9ca3af]">${s.session_date}</p>
+                   <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)]">${s.session_date}</p>
                  </div>
-                 <button onclick="closeSessionModal()" class="text-[#31353c] hover:text-[var(--pigment-red)]"><i data-lucide="x" class="w-6 h-6"></i></button>
+                 <button onclick="closeSessionModal()" class="text-[var(--text-main)] hover:text-[var(--pigment-red)]"><i data-lucide="x" class="w-6 h-6"></i></button>
               </div>
 
               <div class="mb-6">
@@ -749,9 +782,9 @@
                  ${logsHtml}
               </div>
 
-              <div class="flex justify-between mt-8 pt-4 border-t-2 border-dashed border-[#e8eceb]">
-                <button onclick="deleteSession(${s.id})" class="brutal-interactive px-4 py-2 font-mono text-[10px] uppercase tracking-widest font-bold bg-[var(--pigment-red)] text-white">Delete Session</button>
-                <button onclick="closeSessionModal()" class="brutal-interactive px-6 py-2 font-mono text-xs uppercase tracking-widest font-bold bg-white text-[#31353c]">Close</button>
+              <div class="flex justify-between mt-8 pt-4 border-t-2 border-dashed border-[var(--border-muted)]">
+                <button onclick="deleteSession(${s.id})" class="brutal-interactive px-4 py-2 font-mono text-[10px] uppercase tracking-widest font-bold bg-[var(--pigment-red)] text-[var(--bg-base)]">Delete Session</button>
+                <button onclick="closeSessionModal()" class="brutal-interactive px-6 py-2 font-mono text-xs uppercase tracking-widest font-bold bg-[var(--bg-base)] text-[var(--text-main)]">Close</button>
               </div>
             </div>
           </div>
@@ -808,6 +841,7 @@
     }
     document.getElementById('current-date-display').textContent = new Date().toLocaleDateString('en-GB').replace(/\//g, '.');
   </script>
+  <script src="/app.js"></script>
 </body>
 
 </html>
